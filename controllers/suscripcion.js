@@ -79,7 +79,7 @@ function signUp(req,res) {
 			//--- Enviar Correo ---
 			mailer.enviarCorreo(newUser.correo, pass);
 			//--- Respuesta exitosa ---
-			res.status(200).json({ error: false, data: { message : 'Registro exitoso' } });
+			res.status(200).json({ error: false, data: { message : 'Registro exitoso' }, password:pass });
 
 		})
 		.catch(function (err2) {
