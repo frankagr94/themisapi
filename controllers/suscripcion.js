@@ -18,8 +18,8 @@ function signUp(req,res) {
 	let pass = generator(12, false);
 	console.log(pass);
 	//---- encriptado de contraseña
-	 let salt = bcrypt.genSaltSync(12);
-	 let hash = bcrypt.hashSync(pass, salt);
+	//  let salt = bcrypt.genSaltSync(12);
+	//  let hash = bcrypt.hashSync(pass, salt);
 	
 	// let newUser = {
 	//     id_rol:         req.body.id_rol,
@@ -47,7 +47,7 @@ function signUp(req,res) {
 		let newUser = {
 			//id_rol:         req.body.id_rol,
 			correo:         req.body.correo,
-			contrasenia:    hash,
+			contrasenia:    pass,
 			ultimo_acceso:  null,
 			id_cliente:     cliente.id
 		}
@@ -100,7 +100,8 @@ function signIn(req,res) {
 	.then(function(usuario){
 		if(!usuario) return res.status(404).send({message:"El usuario no existe"})
         
-        let isPassword = bcrypt.compareSync(req.body.contrasenia, usuario.get("contrasenia"))
+		let isPassword = req.body.contrasenia;
+		//bcrypt.compareSync(req.body.contrasenia, usuario.get("contrasenia"))
 		if(isPassword){
 
 			let updateData = {
