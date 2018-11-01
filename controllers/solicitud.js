@@ -19,11 +19,13 @@ exports.createDocument = (req,res) => {
 
   let newData = {
     id_cliente:         req.body.id_cliente,
-    //id_promocion:       req.body.id_promocion,
     fecha_creacion:     req.body.fecha_creacion,
+    id_tiposrv:         req.body.id_tiposrv,
+    descripcion:        req.body.descripcion
+    //id_promocion:       req.body.id_promocion,
     //estatus:            req.body.estatus,
-    estado:             req.body.estado,
-    empleado:           req.body.empleado,
+    //estatus:             req.body.estado,
+    //empleado:           req.body.empleado,
     //sexo:               req.body.sexo,
   }
 
@@ -63,13 +65,14 @@ exports.updateDocument = (req,res) => {
       if(!solicitud) return res.status(404).json({ error : true, data : { message : 'solicitud no existe' } });
 
       let updateData = {
-        id_cliente:         req.body.id_cliente,
-        id_promocion:       req.body.id_promocion,
-        fecha_creacion:     req.body.fecha_creacion,
-        estatus:            req.body.estatus,
-        estado:             req.body.estado,
-        empleado:           req.body.empleado,
-        sexo:               req.body.sexo,
+        //id_cliente:         req.body.id_cliente,
+        //fecha_creacion:     req.body.fecha_creacion,
+        //id_tiposrv:         req.body.id_tiposrv,
+        //id_promocion:       req.body.id_promocion,
+        status:               req.body.estatus,
+        //estado:             req.body.estado,
+        //empleado:           req.body.empleado,
+        //sexo:               req.body.sexo,
       }
       
       solicitud.save(updateData)
