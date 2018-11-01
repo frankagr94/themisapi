@@ -5,11 +5,11 @@ module.exports = {
   db: {
     client: 'pg',
     connection: {
-      host     : '127.0.0.1',
-      port     : '5432', //5432
-      user     : 'postgres',
-      password : 'postgres',
-      database : 'themis',
+      host     : process.env.DATABASE_URL.host,
+      port     : process.env.DATABASE_URL.host.PORT, //5432
+      user     : process.env.DATABASE_URL.user,
+      password : process.env.DATABASE_URL.password,
+      database : process.env.DATABASE_URL.database,
       charset  : 'utf8'
     }
   }
