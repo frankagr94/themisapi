@@ -9,61 +9,75 @@ const Perfil = require('../models/perfil');
 const jwt = require('../services/jwt');
 const mailer = require('../services/mailer');
 const moment = require('moment')
+const generator = require('password-generator');
 
 //----signup------  
 function signUp(req,res) {
 
+	//----generar contraseña
+	let pass = generator(12, false);
+	console.log(pass);
 	//---- encriptado de contraseña
-	let salt = bcrypt.genSaltSync(12);
-	let hash = bcrypt.hashSync(req.body.contrasenia, salt);
+	 let salt = bcrypt.genSaltSync(12);
+	 let hash = bcrypt.hashSync(pass, salt);
 	
-	let newUser = {
-	    id_rol:         req.body.id_rol,
-	    correo:         req.body.correo,
-	    contrasenia:    hash,
-	    ultimo_acceso:  null,
-	  }
+	// let newUser = {
+	//     id_rol:         req.body.id_rol,
+	//     correo:         req.body.correo,
+	//     contrasenia:    hash,
+	//     ultimo_acceso:  null,
+	//   }
 
-  	Usuario.forge(newUser).save()
-	.then(function(usuario){
+	  //Usuario.forge(newUser).save()
+	  
+	  let newClient = {
+		nombre:             req.body.nombre,
+		apellido:           req.body.apellido,
+		cedula:             req.body.cedula,
+		telefono:           req.body.telefono,
+		direccion:          req.body.direccion,
+		//id_ciudad:          req.body.id_ciudad,
+		fecha_nacimiento:   req.body.fecha_nacimiento,
+		//id_usuario:         usuario.id,
+	}
 
-		let newClient = {
-		    nombre:             req.body.nombre,
-		    apellido:           req.body.apellido,
-		    cedula:             req.body.cedula,
-		    telefono:           req.body.telefono,
-		    direccion:          req.body.direccion,
-		    id_ciudad:          req.body.id_ciudad,
-		    fecha_nacimiento:   req.body.fecha_nacimiento,
-		    id_usuario:         usuario.id,
+	Cliente.forge(newClient).save()
+	.then(function(cliente){
+
+		let newUser = {
+			//id_rol:         req.body.id_rol,
+			correo:         req.body.correo,
+			contrasenia:    hash,
+			ultimo_acceso:  null,
+			id_cliente:     cliente.id
 		}
 
-		Cliente.forge(newClient).save()
-		.then(function(cliente){
+		Usuario.forge(newUser).save()
+		.then(function(usuario){
 
-			if(req.body.perfil){
+			// if(req.body.perfil){
 
-				for (var i = 0; i < req.body.perfil.length; i++) {
+			// 	for (var i = 0; i < req.body.perfil.length; i++) {
 				
-					let newProfile = {
-						id_valor_parametro: 	req.body.perfil[i],
-						id_cliente:    		  	cliente.id,
-						estatus: 	          	'A',
-					}
+			// 		let newProfile = {
+			// 			id_valor_parametro: 	req.body.perfil[i],
+			// 			id_cliente:    		  	cliente.id,
+			// 			estatus: 	          	'A',
+			// 		}
 
-					Perfil.forge(newProfile).save()
-					.then(function(perfil){
-						console.log('valor parametro guardado')
-					})
-					.catch(function (err) {
-					    console.log(err);
-					});
+			// 		Perfil.forge(newProfile).save()
+			// 		.then(function(perfil){
+			// 			console.log('valor parametro guardado')
+			// 		})
+			// 		.catch(function (err) {
+			// 		    console.log(err);
+			// 		});
 
-				}
+			// 	}
 
-			}
+			// }
 			//--- Enviar Correo ---
-			//mailer.enviarCorreo(newUser.correo);
+			mailer.enviarCorreo(newUser.correo, pass);
 			//--- Respuesta exitosa ---
 			res.status(200).json({ error: false, data: { message : 'Registro exitoso' } });
 
@@ -95,7 +109,7 @@ function signIn(req,res) {
 
 			usuario.save(updateData)
 			.then(function(usuario) {
-				res.status(200).send({ error: false, data: { message:"Te has logueado de forma exitosa", token: jwt.createToken(usuario), id: usuario.get("id") } })
+				res.status(200).send({ error: false, data: { message:"Sesion iniciada", token: jwt.createToken(usuario), id: usuario.get("id") } })
 			})
 			.catch(function(err) {
 			   res.status(500).json({ error : false, data : {message : err.message} });

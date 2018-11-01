@@ -33,6 +33,7 @@ exports.createDocument = (req,res) => {
     fecha_creacion:  req.body.fecha_creacion,
     estatus:         req.body.estatus,
     id_sistema:      req.body.id_sistema,
+    visible:         req.body.visible
   }
 
   Consejo.forge(newData).save()
@@ -76,8 +77,6 @@ exports.updateDocument = (req,res) => {
       // ----- Extension Imagen -----
       if(req.files.archivo) {
         var extension = req.files.archivo.name.split(".").pop();
-      }else{
-        var extension = null;
       }
 
       let updateData = {
@@ -88,6 +87,7 @@ exports.updateDocument = (req,res) => {
         fecha_creacion:  req.body.fecha_creacion,
         estatus:         req.body.estatus,
         id_sistema:      req.body.id_sistema,
+        visible:         req.body.visible
       }
       
       consejo.save(updateData)

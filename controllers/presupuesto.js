@@ -22,6 +22,7 @@ exports.createDocument = (req,res) => {
     monto_total:        req.body.monto_total,
     estatus:            req.body.estatus,
     fecha_creacion:     req.body.fecha_creacion,
+    estado:             req.body.estado,
   }
 
   Presupuesto.forge(newData).save()
@@ -64,6 +65,7 @@ exports.updateDocument = (req,res) => {
         monto_total:        req.body.monto_total,
         estatus:            req.body.estatus,
         fecha_creacion:     req.body.fecha_creacion,
+        estado:             req.body.estado,
       }
       
       presupuesto.save(updateData)

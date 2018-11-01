@@ -7,28 +7,30 @@ const fs = require("fs");
 exports.agregar = (req,res) => {
 
   // ----- Extension Imagen -----
-  /*if(req.files.archivo) {
+  if(req.files.archivo) {
     var extension = req.files.archivo.name.split(".").pop();
   }else{
     var extension = null;
   }
-*/
+
   let newPromocion = {
     id_servicio:          req.body.id_servicio,
     nombre:               req.body.nombre,
     descripcion:          req.body.descripcion,
     porcentaje_descuento: req.body.porcentaje_descuento,
     precio_promocion:     req.body.precio_promocion,
-    imagen:               req.body.imagen,
+    imagen:               extension,
     fecha_inicio:         req.body.fecha_inicio,
     fecha_fin:            req.body.fecha_fin,
+    visible:              req.body.visible,
+    estado:               req.body.estado,
   }
 
   Promocion.forge(newPromocion).save()
   .then(function(promocion){
 
         // ----- Guardar Imagen -----
-        if(req.files.archivo) fs.rename(req.files.archivo.path, "files/promocion/"+data.id+"."+extension);
+        if(req.files.archivo) fs.rename(req.files.archivo.path, "files/promocion/"+promocion.id+"."+extension);
 
         if(req.body.valor_parametro){
 

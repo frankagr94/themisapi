@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Solicitud = require('../models/solicitud');
+const Cita = require('../models/cita');
 
 exports.findDocuments = (req,res) => {
   
-  Solicitud.forge().fetchAll()
+  Cita.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -18,18 +18,17 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_cliente:         req.body.id_cliente,
-    //id_promocion:       req.body.id_promocion,
+    id_orden_servicio:  req.body.id_orden_servicio,
+    id_bloque:          req.body.id_bloque,
+    fecha_cita:         req.body.fecha_cita,
     fecha_creacion:     req.body.fecha_creacion,
-    //estatus:            req.body.estatus,
+    estatus:            req.body.estatus,
     estado:             req.body.estado,
-    empleado:           req.body.empleado,
-    //sexo:               req.body.sexo,
   }
 
-  Solicitud.forge(newData).save()
+  Cita.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'solicitud creado' } });
+    res.status(200).json({ error: false, data: { message: 'cita creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -41,9 +40,9 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Solicitud.forge(conditions).fetch()
+  Cita.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'solicitud no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'cita no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -58,23 +57,22 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Solicitud.forge(conditions).fetch()
-    .then(function(solicitud){
-      if(!solicitud) return res.status(404).json({ error : true, data : { message : 'solicitud no existe' } });
+  Cita.forge(conditions).fetch()
+    .then(function(cita){
+      if(!cita) return res.status(404).json({ error : true, data : { message : 'cita no existe' } });
 
       let updateData = {
-        id_cliente:         req.body.id_cliente,
-        id_promocion:       req.body.id_promocion,
+        id_orden_servicio:  req.body.id_orden_servicio,
+        id_bloque:          req.body.id_bloque,
+        fecha_cita:         req.body.fecha_cita,
         fecha_creacion:     req.body.fecha_creacion,
         estatus:            req.body.estatus,
         estado:             req.body.estado,
-        empleado:           req.body.empleado,
-        sexo:               req.body.sexo,
       }
       
-      solicitud.save(updateData)
+      cita.save(updateData)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'solicitud actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'cita actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -91,13 +89,13 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Solicitud.forge(conditions).fetch()
-    .then(function(solicitud){
-      if(!solicitud) return res.status(404).json({ error : true, data : { message : 'solicitud no existe' } });
+  Cita.forge(conditions).fetch()
+    .then(function(cita){
+      if(!cita) return res.status(404).json({ error : true, data : { message : 'cita no existe' } });
 
-      solicitud.destroy()
+      cita.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'solicitud eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'cita eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});

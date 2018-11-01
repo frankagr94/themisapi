@@ -1,6 +1,6 @@
 module.exports = {
   basePath: '/',
-  port: process.env.PORT || 8080,
+  port: process.env.PORT || 3000,
   SECRET_TOKEN: 'miclavedetokens',
   db: {
     client: 'pg',
@@ -9,7 +9,7 @@ module.exports = {
       port     : '5432', //5432
       user     : 'postgres',
       password : 'postgres',
-      database : 'devmystique',
+      database : 'themis',
       charset  : 'utf8'
     }
   }

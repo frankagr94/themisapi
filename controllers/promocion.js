@@ -36,6 +36,8 @@ exports.createDocument = (req,res) => {
     fecha_fin:            req.body.fecha_fin,
     estatus:              req.body.estatus,
     fecha_creacion:       req.body.fecha_creacion,
+    visible:              req.body.visible,
+    estado:               req.body.estado,
   }
 
   Promocion.forge(newData).save()
@@ -79,8 +81,6 @@ exports.updateDocument = (req,res) => {
       // ----- Extension Imagen -----
       if(req.files.archivo) {
         var extension = req.files.archivo.name.split(".").pop();
-      }else{
-        var extension = null;
       }
 
       let updateData = {
@@ -94,6 +94,8 @@ exports.updateDocument = (req,res) => {
         fecha_fin:            req.body.fecha_fin,
         estatus:              req.body.estatus,
         fecha_creacion:       req.body.fecha_creacion,
+        visible:              req.body.visible,
+        estado:               req.body.estado,
       }
       
       promocion.save(updateData)

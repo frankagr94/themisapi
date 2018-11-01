@@ -77,8 +77,6 @@ exports.updateDocument = (req,res) => {
       // ----- Extension Imagen -----
       if(req.files.archivo) {
         var extension = req.files.archivo.name.split(".").pop();
-      }else{
-        var extension = null;
       }
 
       let updateData = {
