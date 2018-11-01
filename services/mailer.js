@@ -8,6 +8,7 @@ const contraseñaCorreo = 'themisapi';
 
 const transporter = nodemailer.createTransport({
 	service: 'gmail',
+	host: 'smtp.gmai.com',
 	auth: {
 		xoauth2: xoauth2.createXOAuth2Generator({
 			user: correoSalida,
