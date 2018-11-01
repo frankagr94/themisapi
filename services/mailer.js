@@ -1,7 +1,7 @@
 //----dependencias------  
 'use strict'
 const nodemailer = require('nodemailer');
-//const xoauth2 = require('xoauth2');
+const xoauth2 = require('xoauth2');
 //---- Configurar Cuenta ------  
 const correoSalida = 'info.themis.eos@gmail.com';
 const contraseñaCorreo = 'themisapi';
@@ -9,8 +9,13 @@ const contraseñaCorreo = 'themisapi';
 const transporter = nodemailer.createTransport({
 	service: 'gmail',
 	auth: {
-		user: correoSalida, // correo emisor
-		pass: contraseñaCorreo                  // contraseña del correo
+		xoauth2: xoauth2.createXOAuth2Generator({
+			user: correoSalida,
+			clientId:'433387933000-2p0av99j18t98rshtpuad8e3eqs5r91b.apps.googleusercontent.com',
+			clientSecret:'rfmY8To16Xd4eegYq8OnTW2K',
+			refreshToken:'1/iGOePYcjxkC8Hd63ljSairmLhKT_VBmMG-HxXU5qmqY'
+
+		})
 	}
 });
 
