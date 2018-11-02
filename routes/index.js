@@ -128,8 +128,10 @@ const titulo_seccion = require('./titulo_seccion');
 const unidad = require('./unidad');
 const usuario = require('./usuario');
 const valor_parametro = require('./valor_parametro');
+const actuacion = require('./actuacion');
 //----- Busqueda Foranea -------
 const usuario_cliente = require('./usuario_cliente');
+const actuacion_servicio = require('./actuacion_servicio');
 
 //----app------
 const app = express();
@@ -137,6 +139,8 @@ const app = express();
 //---- Rutas Publicas ------
 app.use('/',
 	suscripcion,
+	actuacion,
+	actuacion_servicio,
 	//---- Tablas Basicas ----
 	usuario,
 	cliente,
