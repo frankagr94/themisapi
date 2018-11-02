@@ -35,10 +35,10 @@ function signUp(req,res) {
 		apellido:           req.body.apellido,
 		cedula:             req.body.cedula,
 		telefono:           req.body.telefono,
-		direccion:          req.body.direccion,
+		sexo:          		req.body.sexo,
 		//id_ciudad:          req.body.id_ciudad,
 		fecha_nacimiento:   req.body.fecha_nacimiento,
-		//id_usuario:         usuario.id,
+		id_rol:         	'1',
 	}
 
 	Cliente.forge(newClient).save()

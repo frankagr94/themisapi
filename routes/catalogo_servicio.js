@@ -4,10 +4,10 @@ const express = require('express')
 
 //----dependencias------ 
 const router = express.Router()
-const controller = require('../controllers/tipo_servicio')
+const controller = require('../controllers/catalogo_servicio')
 
 //----Parametros------
-const path = '/tipo_servicio'
+const path = '/catalogo_servicio'
 const id = ':id'
 
 //----Rutas------ 

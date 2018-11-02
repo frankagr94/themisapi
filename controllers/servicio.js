@@ -26,15 +26,16 @@ exports.createDocument = (req,res) => {
   }
 
   let newData = {
-    imagen:             extension,
-    id_tipo_servicio:   req.body.id_tipo_servicio,
-    nombre:             req.body.nombre,
-    precio:             req.body.precio,
+    //imagen:             extension,
+    id_cliente:         req.body.id_cliente, 
+    id_catalogo_serv:   req.body.id_catalogo_serv,
+    //nombre:             req.body.nombre,
+    //precio:             req.body.precio,
     descripcion:        req.body.descripcion,
-    duracion:           req.body.duracion,
+    //duracion:           req.body.duracion,
     estatus:            req.body.estatus,
     fecha_creacion:     req.body.fecha_creacion,
-    visible:            req.body.visible,
+    //visible:            req.body.visible,
   }
 
   Servicio.forge(newData).save()
@@ -67,6 +68,8 @@ exports.findOneDocument = (req,res) => {
 
 }
 
+
+
 exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
@@ -81,15 +84,15 @@ exports.updateDocument = (req,res) => {
       }
 
       let updateData = {
-        imagen:             extension,
-        id_tipo_servicio:   req.body.id_tipo_servicio,
+        //imagen:             extension,
+        //id_tipo_servicio:   req.body.id_tipo_servicio,
         nombre:             req.body.nombre,
-        precio:             req.body.precio,
+        //precio:             req.body.precio,
         descripcion:        req.body.descripcion,
-        duracion:           req.body.duracion,
+        //duracion:           req.body.duracion,
         estatus:            req.body.estatus,
         fecha_creacion:     req.body.fecha_creacion,
-        visible:            req.body.visible,
+        //visible:            req.body.visible,
       } 
       
       servicio.save(updateData)

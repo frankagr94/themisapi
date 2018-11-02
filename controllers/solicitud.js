@@ -20,7 +20,7 @@ exports.createDocument = (req,res) => {
   let newData = {
     id_cliente:         req.body.id_cliente,
     fecha_creacion:     req.body.fecha_creacion,
-    id_tiposrv:         req.body.id_tiposrv,
+    id_catalogo_serv:         req.body.id_catalogo_serv,
     descripcion:        req.body.descripcion
     //id_promocion:       req.body.id_promocion,
     //estatus:            req.body.estatus,
