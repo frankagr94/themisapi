@@ -42,7 +42,7 @@ exports.createDocument = (req,res) => {
 
 exports.findOneDocument = (req,res) => {
 
-  let conditions = { id: req.params.id };
+  let conditions = { correo: req.params.correo };
 
   Usuario.forge(conditions).fetch()
     .then(function(data){
