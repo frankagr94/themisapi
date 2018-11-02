@@ -1,6 +1,6 @@
 ﻿CREATE OR REPLACE VIEW public.vista_servicios_categoria AS 
  SELECT a.id,
-    b.nombre AS tipo_servicio,
+    b.nombre AS ,
     a.nombre,
     a.imagen,
     a.precio,

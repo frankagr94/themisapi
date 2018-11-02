@@ -123,7 +123,7 @@ const tipo_respuesta_comentario = require('./tipo_respuesta_comentario');
 const tipo_respuesta_presupuesto = require('./tipo_respuesta_presupuesto');
 const tipo_respuesta_reclamo = require('./tipo_respuesta_reclamo');
 const tipo_respuesta_solicitud = require('./tipo_respuesta_solicitud');
-const tipo_servicio = require('./tipo_servicio');
+const catalogo_servicio = require('./catalogo_servicio');
 const titulo_seccion = require('./titulo_seccion');
 const unidad = require('./unidad');
 const usuario = require('./usuario');
@@ -154,7 +154,7 @@ app.use('/',
 	promocion,
 	calificacion_orden,
 	calificacion_servicio,
-	tipo_servicio,
+	catalogo_servicio,
 	rol,
 	funcion,
 	rol_funcion,
