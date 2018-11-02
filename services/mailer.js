@@ -8,16 +8,9 @@ const contraseñaCorreo = 'themisapi';
 
 const transporter = nodemailer.createTransport({
 	service: 'gmail',
-	host: 'smtp.gmail.com',
-	secure:true,
 	auth: {
-		xoauth2: xoauth2.createXOAuth2Generator({
-			user: correoSalida,
-			clientId:'433387933000-2p0av99j18t98rshtpuad8e3eqs5r91b.apps.googleusercontent.com',
-			clientSecret:'rfmY8To16Xd4eegYq8OnTW2K',
-			refreshToken:'1/iGOePYcjxkC8Hd63ljSairmLhKT_VBmMG-HxXU5qmqY'
-
-		})
+		user: correoSalida, // correo emisor
+		pass: contraseñaCorreo                  // contraseña del correo
 	}
 });
 
