@@ -114,7 +114,7 @@ function signIn(req,res) {
 
 			usuario.save(updateData)
 			.then(function(usuario) {
-				res.status(200).send({ error: false, data: { message:"Sesion iniciada", token: jwt.createToken(usuario), id: usuario.get("id") } })
+				res.status(200).json({ error: false, data: { message:"Sesion iniciada", token: jwt.createToken(usuario), id: usuario.get("id") } })
 			})
 			.catch(function(err) {
 			   res.status(500).json({ error : false, data : {message : err.message} });
