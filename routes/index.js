@@ -55,10 +55,14 @@ const vista_todos_servicio_garantia = require('./vista_todos_servicio_garantia')
 const vista_todos_servicios = require('./vista_todos_servicios');
 
 //----TABLAS BASICAS------
+const acceso_rol = require('./acceso_rol');
+const actuacion = require('./actuacion');
+const actuacion_servicio = require('./actuacion_servicio');
 const agenda = require('./agenda');
 const auditoria = require('./auditoria');
 const bloque = require('./bloque');
 const calificacion_orden = require('./calificacion_orden');
+const catalogo_servicio = require('./catalogo_servicio');
 const calificacion_servicio = require('./calificacion_servicio');
 const categoria_parametro = require('./categoria_parametro');
 const categoria_servicio = require('./categoria_servicio');
@@ -101,6 +105,7 @@ const proveedor = require('./proveedor');
 const razon_incidencia = require('./razon_incidencia');
 const reclamo = require('./reclamo');
 const red_social = require('./red_social');
+const rango_valoracion = require('./rango_valoracion');
 const respuesta_comentario = require('./respuesta_comentario');
 const respuesta_presupuesto = require('./respuesta_presupuesto');
 const respuesta_reclamo = require('./respuesta_reclamo');
@@ -123,15 +128,16 @@ const tipo_respuesta_comentario = require('./tipo_respuesta_comentario');
 const tipo_respuesta_presupuesto = require('./tipo_respuesta_presupuesto');
 const tipo_respuesta_reclamo = require('./tipo_respuesta_reclamo');
 const tipo_respuesta_solicitud = require('./tipo_respuesta_solicitud');
-const catalogo_servicio = require('./catalogo_servicio');
+const tipo_servicio = require('./tipo_servicio');
+const tipo_valoracion = require('./tipo_valoracion');
+const tipo_valoracion_rango_valoracion = require('./tipo_valoracion_rango_valoracion');
 const titulo_seccion = require('./titulo_seccion');
 const unidad = require('./unidad');
 const usuario = require('./usuario');
 const valor_parametro = require('./valor_parametro');
-const actuacion = require('./actuacion');
+const valoracion = require('./valoracion');
 //----- Busqueda Foranea -------
 const usuario_cliente = require('./usuario_cliente');
-const actuacion_servicio = require('./actuacion_servicio');
 
 //----app------
 const app = express();
@@ -139,8 +145,6 @@ const app = express();
 //---- Rutas Publicas ------
 app.use('/',
 	suscripcion,
-	actuacion,
-	actuacion_servicio,
 	//---- Tablas Basicas ----
 	usuario,
 	cliente,
@@ -158,7 +162,7 @@ app.use('/',
 	promocion,
 	calificacion_orden,
 	calificacion_servicio,
-	catalogo_servicio,
+	tipo_servicio,
 	rol,
 	funcion,
 	rol_funcion,
@@ -214,6 +218,17 @@ app.use('/',
 	tipo_respuesta_solicitud,
 	unidad,
 	cita,
+	acceso_rol,
+	actuacion,
+	actuacion_servicio,
+	catalogo_servicio,
+	categoria_servicio,
+	promocion,
+	rango_valoracion,
+	tipo_valoracion,
+	tipo_valoracion_rango_valoracion,
+	valoracion,
+
 	//---- Gestiones ----
 	gestion_solicitud,
 	gestion_tipo_parametro,

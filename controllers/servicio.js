@@ -26,16 +26,12 @@ exports.createDocument = (req,res) => {
   }
 
   let newData = {
-    //imagen:             extension,
     id_cliente:         req.body.id_cliente, 
     id_catalogo_serv:   req.body.id_catalogo_serv,
-    //nombre:             req.body.nombre,
-    //precio:             req.body.precio,
     descripcion:        req.body.descripcion,
-    //duracion:           req.body.duracion,
     estatus:            req.body.estatus,
     fecha_creacion:     req.body.fecha_creacion,
-    //visible:            req.body.visible,
+    fecha_cierre:       req.body.fecha_cierre
   }
 
   Servicio.forge(newData).save()
@@ -84,15 +80,12 @@ exports.updateDocument = (req,res) => {
       }
 
       let updateData = {
-        //imagen:             extension,
-        //id_tipo_servicio:   req.body.id_tipo_servicio,
-        nombre:             req.body.nombre,
-        //precio:             req.body.precio,
+        id_cliente:         req.body.id_cliente, 
+        id_catalogo_serv:   req.body.id_catalogo_serv,
         descripcion:        req.body.descripcion,
-        //duracion:           req.body.duracion,
         estatus:            req.body.estatus,
         fecha_creacion:     req.body.fecha_creacion,
-        //visible:            req.body.visible,
+        fecha_cierre:       req.body.fecha_cierre
       } 
       
       servicio.save(updateData)

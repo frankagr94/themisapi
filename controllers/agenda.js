@@ -18,8 +18,10 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    fecha_creacion:     req.body.fecha_creacion,
-    estatus:            req.body.estatus,
+    id_usuario:     req.body.id_usuario,
+    id_actuacion:   req.body.actuacion,
+    fecha:          req.body.fecha,
+    estatus:        req.body.estatus,
   }
 
   Agenda.forge(newData).save()
@@ -58,8 +60,10 @@ exports.updateDocument = (req,res) => {
       if(!agenda) return res.status(404).json({ error : true, data : { message : 'agenda no existe' } });
 
       let updateData = {
-        fecha_creacion:     req.body.fecha_creacion,
-        estatus:            req.body.estatus,
+	    id_usuario:     req.body.id_usuario,
+	    id_actuacion:   req.body.actuacion,
+	    fecha:          req.body.fecha,
+	    estatus:        req.body.estatus,
       }
       
       agenda.save(updateData)

@@ -20,7 +20,6 @@ exports.createDocument = (req,res) => {
   let newData = {
     nombre:             req.body.nombre,
     estatus:            req.body.estatus,
-    fecha_creacion:     req.body.fecha_creacion,
   }
 
   Rol.forge(newData).save()
@@ -61,7 +60,6 @@ exports.updateDocument = (req,res) => {
       let updateData = {
         nombre:             req.body.nombre,
         estatus:            req.body.estatus,
-        fecha_creacion:     req.body.fecha_creacion,
       }
       
       rol.save(updateData)
