@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Actuacion = require('../models/actuacion');
+const Tipo_servicio = require('../models/tipo_servicio');
 
 exports.findDocuments = (req,res) => {
   
-  Actuacion.forge().fetchAll()
+  Tipo_servicio.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -18,17 +18,16 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_tipo_actuacion:  req.body.id_tipo_actuacion,
-    fecha_inicio:       req.body.fecha_inicio,
-    estatus:            req.body.estatus,
-    id_empleado:        req.body.id_empleado,
-    id_servicio:        req.body.id_servicio
-
+    id_categoria_servicio: req.body.id_categoria_servicio,
+    nombre:                req.body.nombre,
+    descripcion:           req.body.descripcion,
+    estatus:               req.body.estatus,
+    fecha_creacion:        req.body.fecha_creacion,
   }
 
-  Actuacion.forge(newData).save()
+  Tipo_servicio.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'actuacion creado' } });
+    res.status(200).json({ error: false, data: { message: 'tipo_servicio creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -40,9 +39,9 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion.forge(conditions).fetch()
+  Tipo_servicio.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'actuacion no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'tipo_servicio no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -57,21 +56,21 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion.forge(conditions).fetch()
-    .then(function(actuacion){
-      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'actuacion no existe' } });
+  Tipo_servicio.forge(conditions).fetch()
+    .then(function(tipo_servicio){
+      if(!tipo_servicio) return res.status(404).json({ error : true, data : { message : 'tipo_servicio no existe' } });
 
       let updateData = {
-        id_tipo_actuacion:  req.body.id_tipo_actuacion,
-        fecha_inicio:       req.body.fecha_inicio,
-        estatus:            req.body.estatus,
-        id_empleado:        req.body.id_empleado,
-        id_servicio:        req.body.id_servicio
+        id_categoria_servicio: req.body.id_categoria_servicio,
+        nombre:                req.body.nombre,
+        descripcion:           req.body.descripcion,
+        estatus:               req.body.estatus,
+        fecha_creacion:        req.body.fecha_creacion,
       }
       
-      actuacion.save(updateData)
+      tipo_servicio.save(updateData)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'actuacion actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'tipo_servicio actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -88,13 +87,13 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion.forge(conditions).fetch()
-    .then(function(actuacion){
-      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'actuacion no existe' } });
+  Tipo_servicio.forge(conditions).fetch()
+    .then(function(tipo_servicio){
+      if(!tipo_servicio) return res.status(404).json({ error : true, data : { message : 'tipo_servicio no existe' } });
 
-      actuacion.destroy()
+      tipo_servicio.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'actuacion eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'tipo_servicio eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});

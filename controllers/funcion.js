@@ -18,10 +18,8 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    nombre:         req.body.nombre,
-    estatus:        req.body.estatus,
-    id_funcion:     req.body.id_funcion,
-    fecha_creacion: req.body.fecha_creacion,
+    nombre:             req.body.nombre,
+    estatus:            req.body.estatus,
   }
 
   Funcion.forge(newData).save()
@@ -60,10 +58,8 @@ exports.updateDocument = (req,res) => {
       if(!funcion) return res.status(404).json({ error : true, data : { message : 'funcion no existe' } });
 
       let updateData = {
-        nombre:         req.body.nombre,
-        estatus:        req.body.estatus,
-        id_funcion:     req.body.id_funcion,
-        fecha_creacion: req.body.fecha_creacion,
+        nombre:             req.body.nombre,
+        estatus:            req.body.estatus,
       }
       
       funcion.save(updateData)
