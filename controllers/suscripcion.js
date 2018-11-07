@@ -9,10 +9,14 @@ const Perfil = require('../models/perfil');
 const jwt = require('../services/jwt');
 const mailer = require('../services/mailer');
 const moment = require('moment')
+const generator = require('password-generator');
 
 //----signup------  
 function signUp(req,res) {
 
+	//----generar contraseña
+	let pass = generator(12, false);
+	console.log(pass);
 	//---- encriptado de contraseña
 	let salt = bcrypt.genSaltSync(12);
 	let hash = bcrypt.hashSync(pass, salt);
@@ -25,7 +29,7 @@ function signUp(req,res) {
 	}
 
 	Usuario.forge(newUser).save()
-	.then(function(usuario){
+	.then(function(usuario){  
 		let newClient = {
 			nombre:             req.body.nombre,
 			apellido:           req.body.apellido,
@@ -34,52 +38,20 @@ function signUp(req,res) {
 			sexo:          		req.body.sexo,
 			//id_ciudad:          req.body.id_ciudad,
 			fecha_nacimiento:   req.body.fecha_nacimiento,
-			id_user:         	usuario.id,
-		} 
-		
-		Usuario.forge(newClient).save()
+			//id_rol:         	'1',
+			id_usuario:         usuario.id
+		}
+
+		Cliente.forge(newClient).save()
 		.then(function(cliente){
-	  
-	// }
-
-	// Cliente.forge(newClient).save()
-	// .then(function(cliente){
-
-	// 	let newUser = {
-	// 		//id_rol:         req.body.id_rol,
-	// 		correo:         req.body.correo,
-	// 		contrasenia:    pass,
-	// 		ultimo_acceso:  null,
-	// 		id_cliente:     cliente.id
-	// 	}
-
-		
-
-			if(req.body.perfil){
-
-				for (var i = 0; i < req.body.perfil.length; i++) {
-				
-					let newProfile = {
-						id_valor_parametro: 	req.body.perfil[i],
-						id_cliente:    		  	cliente.id,
-						estatus: 	          	'A',
-					}
-
-					Perfil.forge(newProfile).save()
-					.then(function(perfil){
-						console.log('valor parametro guardado')
-					})
-					.catch(function (err) {
-					    console.log(err);
-					});
-
-				}
-
-			}
+			
 			//--- Enviar Correo ---
-			//mailer.enviarCorreo(newUser.correo);
+			let asunto = 'Bienvenido a AC Abogados Corporativos - Datos de Acceso'
+			let mensaje = 'Gracias por unirte '+newClient.nombre+', tenemos un gran numero de abogados y servicios para ti,para acceder a ellos solo debes usar tu correo y la siguiente contraseña:'+pass;
+
+			mailer.enviarCorreo(newUser.correo,mensaje, asunto);
 			//--- Respuesta exitosa ---
-			res.status(200).json({ error: false, data: { message : 'Registro exitoso' } });
+			res.status(200).json({ error: false, data: { message : 'Registro exitoso' }, password:pass });
 
 		})
 		.catch(function (err2) {
@@ -100,7 +72,8 @@ function signIn(req,res) {
 	.then(function(usuario){
 		if(!usuario) return res.status(404).send({message:"El usuario no existe"})
         
-        let isPassword = bcrypt.compareSync(req.body.contrasenia, usuario.get("contrasenia"))
+		let isPassword = req.body.contrasenia;
+		bcrypt.compareSync(req.body.contrasenia, usuario.get("contrasenia"))
 		if(isPassword){
 
 			let updateData = {
@@ -109,7 +82,7 @@ function signIn(req,res) {
 
 			usuario.save(updateData)
 			.then(function(usuario) {
-				res.status(200).send({ error: false, data: { message:"Te has logueado de forma exitosa", token: jwt.createToken(usuario), id: usuario.get("id") } })
+				res.status(200).json({ error: false, data: { message:"Sesion iniciada", token: jwt.createToken(usuario), id: usuario.get("id"), id_cliente: usuario.get("id_cliente") } })
 			})
 			.catch(function(err) {
 			   res.status(500).json({ error : false, data : {message : err.message} });
