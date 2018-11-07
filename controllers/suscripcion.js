@@ -18,42 +18,46 @@ function signUp(req,res) {
 	let pass = generator(12, false);
 	console.log(pass);
 	//---- encriptado de contraseña
-	//  let salt = bcrypt.genSaltSync(12);
-	//  let hash = bcrypt.hashSync(pass, salt);
+	let salt = bcrypt.genSaltSync(12);
+	let hash = bcrypt.hashSync(pass, salt);
 	
-	// let newUser = {
-	//     id_rol:         req.body.id_rol,
-	//     correo:         req.body.correo,
-	//     contrasenia:    hash,
-	//     ultimo_acceso:  null,
-	//   }
-
-	  //Usuario.forge(newUser).save()
-	  
-	  let newClient = {
-		nombre:             req.body.nombre,
-		apellido:           req.body.apellido,
-		cedula:             req.body.cedula,
-		telefono:           req.body.telefono,
-		sexo:          		req.body.sexo,
-		//id_ciudad:          req.body.id_ciudad,
-		fecha_nacimiento:   req.body.fecha_nacimiento,
-		id_rol:         	'1',
+	let newUser = {
+	    id_rol:         '1',
+	    correo:         req.body.correo,
+	    contrasenia:    hash,
+	    ultimo_acceso:  null,
 	}
 
-	Cliente.forge(newClient).save()
-	.then(function(cliente){
+	Usuario.forge(newUser).save()
+	.then(function(usuario){
+		let newClient = {
+			nombre:             req.body.nombre,
+			apellido:           req.body.apellido,
+			cedula:             req.body.cedula,
+			telefono:           req.body.telefono,
+			sexo:          		req.body.sexo,
+			//id_ciudad:          req.body.id_ciudad,
+			fecha_nacimiento:   req.body.fecha_nacimiento,
+			id_user:         	usuario.id,
+		} 
+		
+		Usuario.forge(newClient).save()
+		.then(function(cliente){
+	  
+	// }
 
-		let newUser = {
-			//id_rol:         req.body.id_rol,
-			correo:         req.body.correo,
-			contrasenia:    pass,
-			ultimo_acceso:  null,
-			id_cliente:     cliente.id
-		}
+	// Cliente.forge(newClient).save()
+	// .then(function(cliente){
 
-		Usuario.forge(newUser).save()
-		.then(function(usuario){
+	// 	let newUser = {
+	// 		//id_rol:         req.body.id_rol,
+	// 		correo:         req.body.correo,
+	// 		contrasenia:    pass,
+	// 		ultimo_acceso:  null,
+	// 		id_cliente:     cliente.id
+	// 	}
+
+		
 
 			// if(req.body.perfil){
 
