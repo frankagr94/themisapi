@@ -20,6 +20,7 @@ exports.createDocument = (req,res) => {
   let newData = {
     nombre:             req.body.nombre,
     estatus:            req.body.estatus,
+    id_funcion:     req.body.id_funcion
   }
 
   Funcion.forge(newData).save()
@@ -60,6 +61,7 @@ exports.updateDocument = (req,res) => {
       let updateData = {
         nombre:             req.body.nombre,
         estatus:            req.body.estatus,
+        id_funcion:         req.body.id_funcion
       }
       
       funcion.save(updateData)

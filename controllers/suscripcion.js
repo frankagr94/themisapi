@@ -72,8 +72,7 @@ function signIn(req,res) {
 	.then(function(usuario){
 		if(!usuario) return res.status(404).send({message:"El usuario no existe"})
         
-		let isPassword = req.body.contrasenia;
-		bcrypt.compareSync(req.body.contrasenia, usuario.get("contrasenia"))
+		let isPassword = bcrypt.compareSync(req.body.contrasenia, usuario.get("contrasenia"));
 		if(isPassword){
 
 			let updateData = {
