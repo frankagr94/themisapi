@@ -70,7 +70,7 @@ function signIn(req,res) {
 
   Usuario.forge(conditions).fetch()
 	.then(function(usuario){
-		if(!usuario) return res.status(404).send({message:"El usuario no existe"})
+		if(!usuario) return res.status(404).send({ error: true, data: {message: "El correo es incorrecto"} })
         
 		let isPassword = bcrypt.compareSync(req.body.contrasenia, usuario.get("contrasenia"));
 		if(isPassword){
