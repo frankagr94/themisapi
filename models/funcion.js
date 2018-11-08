@@ -10,7 +10,7 @@ const Funcion = Bookshelf.Model.extend({
     return this.belongsToMany(Rol).through(Acceso_rol);
   }, 
   ruta : function(){
-    return this.hasOne(Ruta, {foreignKey :'id_funcion'});
+    return this.hasOne(Ruta, {foreignKeyTarget :'id_funcion'});
   }
 });
 
