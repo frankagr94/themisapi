@@ -52,7 +52,8 @@ exports.findOneDocument = (req,res) => {
   Usuario.forge(conditions).fetch({
     withRelated : [
       'rol',
-      'rol.funciones'
+      'rol.funciones',
+      'rol.funciones.ruta'
     ]
   })
     .then(function(data){

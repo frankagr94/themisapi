@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Acceso_rol = require('../models/rol');
+const ruta = require('../models/ruta');
 
 exports.findDocuments = (req,res) => {
   
-  Acceso_rol.forge().fetchAll()
+  ruta.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -18,15 +18,13 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    rol_id:             req.body.rol_id,
-    funcion_id:         req.body.acceso_id,
-    ver :               true,
-    nombre_icono:       req.body.nombre_icono
+    id_funcion:         req.body.rol_id,
+    nombre:             req.body.acceso_id
   }
 
-  Acceso_rol.forge(newData).save()
+  ruta.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'acceso_rol creado' } });
+    res.status(200).json({ error: false, data: { message: 'ruta creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -38,9 +36,9 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Acceso_rol.forge(conditions).fetch()
+  ruta.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'acceso_rol no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'ruta no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -55,20 +53,18 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Acceso_rol.forge(conditions).fetch()
-    .then(function(acceso_rol){
-      if(!acceso_rol) return res.status(404).json({ error : true, data : { message : 'acceso_rol no existe' } });
+  ruta.forge(conditions).fetch()
+    .then(function(ruta){
+      if(!ruta) return res.status(404).json({ error : true, data : { message : 'ruta no existe' } });
 
       let updateData = {
-        rol_id:             req.body.rol_id,
-        funcion_id:         req.body.acceso_id,
-        ver:                req.body.ver,
-        nombre_icono:       req.body.nombre_icono
+        id_funcion:         req.body.rol_id,
+        nombre:             req.body.acceso_id
       }
       
-      acceso_rol.save(updateData)
+      ruta.save(updateData)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'acceso_rol actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'ruta actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -85,13 +81,13 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Acceso_rol.forge(conditions).fetch()
-    .then(function(acceso_rol){
-      if(!acceso_rol) return res.status(404).json({ error : true, data : { message : 'acceso_rol no existe' } });
+  ruta.forge(conditions).fetch()
+    .then(function(ruta){
+      if(!ruta) return res.status(404).json({ error : true, data : { message : 'ruta no existe' } });
 
-      acceso_rol.destroy()
+      ruta.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'acceso_rol eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'ruta eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});
