@@ -2,7 +2,7 @@
 const Bookshelf = require('../db');
 
 const Ruta = Bookshelf.Model.extend({
-  tableName: 'Ruta'
+  tableName: 'ruta'
 });
 
 module.exports = Ruta;
