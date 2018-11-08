@@ -1,8 +1,13 @@
 //---- dependencias ------
 const Bookshelf = require('../db');
+const Acceso_rol = require('./acceso_rol');
+const Rol = require('./rol');
 
 const Funcion = Bookshelf.Model.extend({
   tableName: 'funcion',
+  roles : function(){
+    return this.belongsToMany(Rol).through(Acceso_rol);
+  }
 });
 
 module.exports = Funcion;

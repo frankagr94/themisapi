@@ -5,7 +5,11 @@ const Rol = require('../models/rol');
 
 exports.findDocuments = (req,res) => {
   
-  Rol.forge().fetchAll()
+  Rol.forge().fetch({
+    withRelated:[
+      'funciones'
+    ]
+  })
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
