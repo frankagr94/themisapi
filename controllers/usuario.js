@@ -49,7 +49,13 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { correo: req.params.correo };
 
-  Usuario.forge(conditions).fetch()
+  Usuario.forge(conditions).fetch({
+    withRelated : [
+      'rol',
+      'rol.funciones',
+      'rol.funciones.ruta'
+    ]
+  })
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'usuario no existe' } });
 

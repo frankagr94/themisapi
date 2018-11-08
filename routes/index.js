@@ -112,6 +112,7 @@ const respuesta_reclamo = require('./respuesta_reclamo');
 const respuesta_solicitud = require('./respuesta_solicitud');
 const rol = require('./rol');
 const rol_funcion = require('./rol_funcion');
+const ruta = require('./ruta');
 const servicio = require('./servicio');
 const servicio_parametro = require('./servicio_parametro');
 const servicio_solicitado = require('./servicio_solicitado');
@@ -164,6 +165,7 @@ app.use('/',
 	calificacion_servicio,
 	tipo_servicio,
 	rol,
+	ruta,
 	funcion,
 	rol_funcion,
 	objetivo,
