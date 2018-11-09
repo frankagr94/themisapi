@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Actuacion = require('../models/actuacion');
+const Actuacion_catalogo = require('../models/actuacion_catalogo');
 
 exports.findDocuments = (req,res) => {
   
-  Actuacion.forge().fetchAll()
+  Actuacion_catalogo.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -18,17 +18,15 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_tipo_actuacion:  req.body.id_tipo_actuacion,
-    fecha_inicio:       req.body.fecha_inicio,
-    estatus:            req.body.estatus,
-    id_empleado:        req.body.id_empleado,
-    id_servicio:        req.body.id_servicio
-
+    id_tipo_actuacion:      req.body.actuacion_id,
+    id_catalogo_servicio:   req.body.servicio_id,
+    orden:                  req.body.orden,
+    estatus:                req.body.estatus,
   }
 
-  Actuacion.forge(newData).save()
+  Actuacion_catalogo.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'actuacion creado' } });
+    res.status(200).json({ error: false, data: { message: 'actuacion_catalogo creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -40,9 +38,9 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion.forge(conditions).fetch()
+  Actuacion_catalogo.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'actuacion no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'actuacion_catalogo no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -57,21 +55,20 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion.forge(conditions).fetch()
-    .then(function(actuacion){
-      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'actuacion no existe' } });
+  Actuacion_catalogo.forge(conditions).fetch()
+    .then(function(actuacion_catalogo){
+      if(!actuacion_catalogo) return res.status(404).json({ error : true, data : { message : 'actuacion_catalogo no existe' } });
 
       let updateData = {
-        id_tipo_actuacion:  req.body.id_tipo_actuacion,
-        fecha_inicio:       req.body.fecha_inicio,
-        estatus:            req.body.estatus,
-        id_empleado:        req.body.id_empleado,
-        id_servicio:        req.body.id_servicio
+        id_tipo_actuacion:      req.body.actuacion_id,
+        id_catalogo_servicio:   req.body.servicio_id,
+        orden:                  req.body.orden,
+        estatus:                req.body.estatus,
       }
       
-      actuacion.save(updateData)
+      actuacion_catalogo.save(updateData)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'actuacion actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'actuacion_catalogo actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -88,13 +85,13 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion.forge(conditions).fetch()
-    .then(function(actuacion){
-      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'actuacion no existe' } });
+  Actuacion_catalogo.forge(conditions).fetch()
+    .then(function(actuacion_catalogo){
+      if(!actuacion_catalogo) return res.status(404).json({ error : true, data : { message : 'actuacion_catalogo no existe' } });
 
-      actuacion.destroy()
+      actuacion_catalogo.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'actuacion eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'actuacion_catalogo eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});

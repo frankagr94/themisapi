@@ -56,13 +56,14 @@ const vista_todos_servicios = require('./vista_todos_servicios');
 
 //----TABLAS BASICAS------
 const acceso_rol = require('./acceso_rol');
-const actuacion = require('./actuacion');
+const actuacion_catalogo = require('./actuacion_catalogo');
 const actuacion_servicio = require('./actuacion_servicio');
 const agenda = require('./agenda');
 const auditoria = require('./auditoria');
 const bloque = require('./bloque');
 const calificacion_orden = require('./calificacion_orden');
 const catalogo_servicio = require('./catalogo_servicio');
+const categoria = require('./categoria');
 const calificacion_servicio = require('./calificacion_servicio');
 const categoria_parametro = require('./categoria_parametro');
 const categoria_servicio = require('./categoria_servicio');
@@ -79,6 +80,7 @@ const detalle_promocion = require('./detalle_promocion');
 const detalle_proveedor = require('./detalle_proveedor');
 const detalle_servicio = require('./detalle_servicio');
 const dia_laborable = require('./dia_laborable');
+const documento_actuacion_servicio = require('./documento_actuacion_servicio');
 const empleado = require('./empleado');
 const empleado_asignado = require('./empleado_asignado');
 const especialidad = require('./especialidad');
@@ -119,7 +121,9 @@ const servicio_solicitado = require('./servicio_solicitado');
 const sistema = require('./sistema');
 const solicitud = require('./solicitud');
 const suscripcion = require('./suscripcion');
+const tipo_actuacion = require('./tipo_actuacion');
 const tipo_comentario = require('./tipo_comentario');
+const tipo_documento = require('./tipo_documento');
 const tipo_incidencia = require('./tipo_incidencia');
 const tipo_insumo = require('./tipo_insumo');
 const tipo_notificacion = require('./tipo_notificacion');
@@ -221,12 +225,16 @@ app.use('/',
 	unidad,
 	cita,
 	acceso_rol,
-	actuacion,
+	actuacion_catalogo,
 	actuacion_servicio,
 	catalogo_servicio,
 	categoria_servicio,
+	categoria,
+	documento_actuacion_servicio,
 	promocion,
 	rango_valoracion,
+    tipo_actuacion,
+	tipo_documento,
 	tipo_valoracion,
 	tipo_valoracion_rango_valoracion,
 	valoracion,
