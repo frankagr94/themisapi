@@ -2,7 +2,7 @@
 const Bookshelf = require('../db');
 
 const Objetivo = Bookshelf.Model.extend({
-  tableName: 'objetivo',
+  tableName: 'objetivo_empresa',
 });
 
 module.exports = Objetivo;

@@ -93,9 +93,9 @@ const incidencia_servicio = require('./incidencia_servicio');
 const insumo = require('./insumo');
 const insumo_asociado = require('./insumo_asociado');
 const insumo_usado = require('./insumo_usado');
-const negocio = require('./negocio');
+const empresa = require('./empresa');
 const notificacion = require('./notificacion');
-const objetivo = require('./objetivo');
+const objetivo = require('./objetivo_empresa');
 const orden_servicio = require('./orden_servicio');
 const parametro = require('./parametro');
 const perfil = require('./perfil');
@@ -121,7 +121,7 @@ const solicitud = require('./solicitud');
 const suscripcion = require('./suscripcion');
 const tipo_comentario = require('./tipo_comentario');
 const tipo_incidencia = require('./tipo_incidencia');
-const tipo_insumo = require('./tipo_insumo');
+const tipo_empleado = require('./tipo_empleado');
 const tipo_notificacion = require('./tipo_notificacion');
 const tipo_parametro = require('./tipo_parametro');
 const tipo_reclamo = require('./tipo_reclamo');
@@ -149,7 +149,7 @@ app.use('/',
 	//---- Tablas Basicas ----
 	usuario,
 	cliente,
-	negocio,
+	empresa,
 	parametro,
 	perfil,
 	tipo_parametro,
