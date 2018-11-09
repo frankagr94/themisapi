@@ -5,7 +5,9 @@ const Acceso_rol = require('../models/rol');
 
 exports.findDocuments = (req,res) => {
   
-  Acceso_rol.forge().fetchAll()
+  Acceso_rol.forge().fetch({
+    columns : ['id', 'id_rol', 'id_funcion']
+  })
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
