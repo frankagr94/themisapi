@@ -1,12 +1,12 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Negocio = require('../models/negocio');
+const Empresa = require('../models/empresa');
 const fs = require("fs");
 
 exports.findDocuments = (req,res) => {
   
-  Negocio.forge().fetchAll()
+  empresa.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -36,12 +36,12 @@ exports.createDocument = (req,res) => {
     fecha_creacion:       req.body.fecha_creacion,
   }
 
-  Negocio.forge(newData).save()
+  Empresa.forge(newData).save()
   .then(function(data){
     // ----- Guardar Imagen -----
-    if(req.files.archivo) fs.rename(req.files.archivo.path, "files/negocio/"+data.id+"."+extension);
+    if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empresa/"+data.id+"."+extension);
 
-    res.status(200).json({ error: false, data: { message: 'negocio creado' } });
+    res.status(200).json({ error: false, data: { message: 'empresa creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -53,9 +53,14 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Negocio.forge(conditions).fetch()
+  Empresa.forge(conditions).fetch({
+    withRelated: [
+      'empleados',
+      'objetivos'
+    ]
+  })
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'negocio no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'empresa no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -70,9 +75,9 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Negocio.forge(conditions).fetch()
-    .then(function(negocio){
-      if(!negocio) return res.status(404).json({ error : true, data : { message : 'negocio no existe' } });
+  empresa.forge(conditions).fetch()
+    .then(function(empresa){
+      if(!empresa) return res.status(404).json({ error : true, data : { message : 'empresa no existe' } });
 
       // ----- Extension Imagen -----
       if(req.files.archivo) {
@@ -82,21 +87,21 @@ exports.updateDocument = (req,res) => {
       let updateData = {
         rif:                  req.body.rif,
         nombre:               req.body.nombre,
-        hora_inicio_trabajo:  req.body.hora_inicio_trabajo,
-        hora_fin_trabajo:     req.body.hora_fin_trabajo,
-        imagen:               extension,
+        direccion:            req.body.direccion,
+        mision:               req.body.mision,
+        vision:               req.body.vision,
         estatus:              req.body.estatus,
-        id_sistema:           req.body.id_sistema,
+        //id_sistema:           req.body.id_sistema,
         fecha_creacion:       req.body.fecha_creacion,
       }
 
       
-      negocio.save(updateData)
+      Empresa.save(updateData)
         .then(function(data){
           // ----- Guardar Imagen -----
-          if(req.files.archivo) fs.rename(req.files.archivo.path, "files/negocio/"+data.id+"."+extension);
+          if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empresa/"+data.id+"."+extension);
           
-          res.status(200).json({ error : false, data : { message : 'negocio actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'empresa actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -113,13 +118,13 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Negocio.forge(conditions).fetch()
-    .then(function(negocio){
-      if(!negocio) return res.status(404).json({ error : true, data : { message : 'negocio no existe' } });
+  Empresa.forge(conditions).fetch()
+    .then(function(empresa){
+      if(!empresa) return res.status(404).json({ error : true, data : { message : 'empresa no existe' } });
 
-      negocio.destroy()
+      Empresa.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'negocio eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'empresa eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});

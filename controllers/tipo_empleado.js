@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Objetivo = require('../models/objetivo');
+const Tipo_empleado = require('../models/tipo_empleado');
 
 exports.findDocuments = (req,res) => {
   
-  Objetivo.forge().fetchAll()
+  Tipo_empleado.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -18,17 +18,13 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    titulo:             req.body.titulo,
-    descripcion:        req.body.descripcion,
-    estatus:            req.body.estatus,
-    id_negocio:         req.body.id_negocio,
-    visible:            req.body.visible,
     fecha_creacion:     req.body.fecha_creacion,
+    estatus:            req.body.estatus,
   }
 
-  Objetivo.forge(newData).save()
+  Tipo_empleado.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'objetivo creado' } });
+    res.status(200).json({ error: false, data: { message: 'tipo_empleado creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -40,9 +36,9 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Objetivo.forge(conditions).fetch()
+  Tipo_empleado.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'objetivo no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'tipo_empleado no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -57,22 +53,18 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Objetivo.forge(conditions).fetch()
-    .then(function(objetivo){
-      if(!objetivo) return res.status(404).json({ error : true, data : { message : 'objetivo no existe' } });
+  Tipo_empleado.forge(conditions).fetch()
+    .then(function(tipo_empleado){
+      if(!tipo_empleado) return res.status(404).json({ error : true, data : { message : 'tipo_empleado no existe' } });
 
       let updateData = {
-        titulo:             req.body.titulo,
-        descripcion:        req.body.descripcion,
-        estatus:            req.body.estatus,
-        id_negocio:         req.body.id_negocio,
-        visible:            req.body.visible,
         fecha_creacion:     req.body.fecha_creacion,
+        estatus:            req.body.estatus,
       }
       
-      objetivo.save(updateData)
+      tipo_empleado.save(updateData)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'objetivo actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'tipo_empleado actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -89,13 +81,13 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Objetivo.forge(conditions).fetch()
-    .then(function(objetivo){
-      if(!objetivo) return res.status(404).json({ error : true, data : { message : 'objetivo no existe' } });
+  Tipo_empleado.forge(conditions).fetch()
+    .then(function(tipo_empleado){
+      if(!tipo_empleado) return res.status(404).json({ error : true, data : { message : 'tipo_empleado no existe' } });
 
-      objetivo.destroy()
+      tipo_empleado.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'objetivo eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'tipo_empleado eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});
