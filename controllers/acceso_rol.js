@@ -1,13 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Acceso_rol = require('../models/rol');
+const Acceso_rol = require('../models/acceso_rol');
 
 exports.findDocuments = (req,res) => {
   
-  Acceso_rol.forge().fetch({
-    columns : ['id', 'id_rol', 'id_funcion']
-  })
+  Acceso_rol.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
