@@ -8,7 +8,8 @@ exports.findDocuments = (req,res) => {
   Usuario.forge().fetch({
     withRelated:[
       'rol',
-      'rol.funciones'
+      'rol.funciones',
+      'rol.funciones.ruta'
     ]
   })
   .then(function(data){
