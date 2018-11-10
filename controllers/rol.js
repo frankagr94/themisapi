@@ -43,9 +43,9 @@ exports.createDocument = (req,res) => {
 exports.asociar = (req, res)=>{
   let conditions = { id: req.body.id_rol};
 
-  Rol.forge(conditions),fetch()
+  Rol.forge(conditions).fetch()
     .then(function(rol){
-      rol.funciones(attach(req.body.id_fundion))
+      rol.funciones(attach(req.body.id_funcion))
         .then(function(data){
           res.status(200).json({ error: false, data: { message: 'Funciones associadas al rol' } });
         })
