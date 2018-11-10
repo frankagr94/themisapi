@@ -31,16 +31,31 @@ exports.createDocument = (req,res) => {
   }
 
   Rol.forge(newData).save()
-  .then(function(rol){
-    rol.funciones().attach(req.body.funcion_id)
-      .then(function(data){
-        res.status(200).json({ error: false, data: { message: 'rol creado' } });
-      })
+  .then(function(data){
+      res.status(200).json({ error: false, data: { message: 'rol creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
   });
 
+}
+
+exports.asociar = (req, res)=>{
+  let conditions = { id: req.body.id_rol};
+
+  Rol.forge(conditions),fetch()
+    .then(function(rol){
+      rol.funciones(attach(req.body.id_fundion))
+        .then(function(data){
+          res.status(200).json({ error: false, data: { message: 'Funciones associadas al rol' } });
+        })
+        .catch(function(err){
+          res.status(500).json({ error: true, data: {message: err.message} });
+        });
+    })
+    .catch(function(err){
+      res.status(500).json({ error: true, data: {message: err.message} });
+    })
 }
 
 exports.findOneDocument = (req,res) => {
