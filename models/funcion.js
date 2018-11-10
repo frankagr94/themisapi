@@ -7,7 +7,7 @@ const Ruta = require('./ruta')
 const Funcion = Bookshelf.Model.extend({
   tableName: 'funcion',
   roles : function(){
-    return this.belongsToMany(Rol, 'acceso_rol', 'funcion_id', 'ro_id');
+    return this.belongsToMany(Rol).through(Acceso_rol);
   }, 
   ruta : function(){
     return this.belongsTo(Ruta);
