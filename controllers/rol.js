@@ -27,7 +27,7 @@ exports.createDocument = (req,res) => {
   }
   let funcion = {
     nombre:             req.body.nombre_funcion,
-    estatus:             'A'
+    //status:             'A'
   }
 
   Rol.forge(newData).save()
