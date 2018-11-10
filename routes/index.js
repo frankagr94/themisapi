@@ -72,6 +72,7 @@ const ciudad = require('./ciudad');
 const cliente = require('./cliente');
 const comentario = require('./comentario');
 const consejo = require('./consejo');
+const conocenos_web = require('./conocenos_web');
 const contacto_negocio = require('./contacto_negocio');
 const criterio = require('./criterio');
 const descripcion_negocio = require('./descripcion_negocio');
@@ -85,14 +86,17 @@ const empleado = require('./empleado');
 const empleado_asignado = require('./empleado_asignado');
 const especialidad = require('./especialidad');
 const estado = require('./estado');
+const filosofia = require('./filosofia');
 const funcion = require('./funcion');
 const garantia = require('./garantia');
 const horario = require('./horario');
 const horario_empleado = require('./horario_empleado');
 const imagen = require('./imagen');
+const imagen_carrusel=require('./imagen_carrusel');
 const incidencia_orden = require('./incidencia_orden');
 const incidencia_servicio = require('./incidencia_servicio');
 const insumo = require('./insumo');
+const inicio_web = require('./inicio_web');
 const insumo_asociado = require('./insumo_asociado');
 const insumo_usado = require('./insumo_usado');
 const empresa = require('./empresa');
@@ -158,11 +162,15 @@ app.use('/',
 	perfil,
 	tipo_parametro,
 	categoria_servicio,
+	conocenos_web,
 	servicio,
 	consejo,
 	empleado,
 	red_social,
 	imagen,
+	filosofia,
+	imagen_carrusel,
+	conocenos_web,
 	titulo_seccion,
 	promocion,
 	calificacion_orden,
