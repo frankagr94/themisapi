@@ -45,7 +45,7 @@ exports.asociar = (req, res)=>{
 
   Rol.forge(conditions).fetch()
     .then(function(rol){
-      rol.funciones(attach(req.body.id_funcion))
+      rol.funciones().attach(req.body.id_funcion)
         .then(function(data){
           res.status(200).json({ error: false, data: { message: 'Funciones associadas al rol' } });
         })
