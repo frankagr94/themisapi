@@ -32,7 +32,7 @@ exports.createDocument = (req,res) => {
 
   Rol.forge(newData).save()
   .then(function(rol){
-    rol.funciones().attach(funcion)
+    rol.funciones().attach(req.body.funcion_id)
       .then(function(data){
         res.status(200).json({ error: false, data: { message: 'rol creado' } });
       })
