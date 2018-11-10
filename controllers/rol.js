@@ -23,7 +23,7 @@ exports.createDocument = (req,res) => {
 
   let newData = {
     nombre:             req.body.nombre,
-    estatus:            req.body.estatus,
+    estatus:            'A',
   }
   let funcion = {
     nombre:             req.body.nombre_funcion,
