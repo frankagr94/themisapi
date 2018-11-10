@@ -25,10 +25,17 @@ exports.createDocument = (req,res) => {
     nombre:             req.body.nombre,
     estatus:            req.body.estatus,
   }
+  let funcion = {
+    nombre:             req.body.nombre_funcion,
+    estatus:             'A'
+  }
 
   Rol.forge(newData).save()
-  .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'rol creado' } });
+  .then(function(rol){
+    rol.funciones().attach(funcion)
+      .then(function(data){
+        res.status(200).json({ error: false, data: { message: 'rol creado' } });
+      })
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
