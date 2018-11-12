@@ -26,7 +26,7 @@ exports.createDocument = (req,res) => {
     titulo_app:           req.body.titulo_app,
     imagen_app:           req.body.imagen_app,
     texto_app:            req.body.texto_app,
-    id_empresa:           req.body.id_empresa 
+    empresa_id:           req.body.empresa_id 
   }
 
   Inicio_web.forge(newData).save()

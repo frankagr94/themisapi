@@ -6,7 +6,7 @@ const fs = require("fs");
 
 exports.findDocuments = (req,res) => {
   
-  empresa.forge().fetchAll()
+  Empresa.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -75,7 +75,7 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  empresa.forge(conditions).fetch()
+  Empresa.forge(conditions).fetch()
     .then(function(empresa){
       if(!empresa) return res.status(404).json({ error : true, data : { message : 'empresa no existe' } });
 
@@ -88,15 +88,13 @@ exports.updateDocument = (req,res) => {
         rif:                  req.body.rif,
         nombre:               req.body.nombre,
         direccion:            req.body.direccion,
-        mision:               req.body.mision,
-        vision:               req.body.vision,
-        estatus:              req.body.estatus,
-        //id_sistema:           req.body.id_sistema,
-        fecha_creacion:       req.body.fecha_creacion,
+        correo:               req.body.correo,
+        telefono1:            req.body.telefono1,
+        telefono2:            req.body.telefono2,
       }
 
       
-      Empresa.save(updateData)
+      empresa.save(updateData)
         .then(function(data){
           // ----- Guardar Imagen -----
           if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empresa/"+data.id+"."+extension);

@@ -18,8 +18,8 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_categoria_servicio:  req.body.id_categoria_servicio,
-    id_empleado:            req.body.id_empleado,
+    categoria_servicio_id:  req.body.categoria_servicio_id,
+    empleado_id:            req.body.empleado_id,
     fecha_creacion:         req.body.fecha_creacion,
     estatus:                req.body.estatus,
   }
@@ -60,8 +60,8 @@ exports.updateDocument = (req,res) => {
       if(!especialidad) return res.status(404).json({ error : true, data : { message : 'especialidad no existe' } });
 
       let updateData = {
-        id_categoria_servicio:  req.body.id_categoria_servicio,
-        id_empleado:            req.body.id_empleado,
+        categoria_servicio_id:  req.body.categoria_servicio_id,
+        empleado_id:            req.body.empleado_id,
         fecha_creacion:         req.body.fecha_creacion,
         estatus:                req.body.estatus,
       }

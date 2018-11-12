@@ -26,8 +26,8 @@ exports.createDocument = (req,res) => {
   }
 
   let newData = {
-    id_cliente:         req.body.id_cliente, 
-    id_catalogo_serv:   req.body.id_catalogo_serv,
+    cliente_id:         req.body.cliente_id, 
+    catalogo_serv_id:   req.body.catalogo_serv_id,
     descripcion:        req.body.descripcion,
     estatus:            req.body.estatus,
     fecha_creacion:     req.body.fecha_creacion,
@@ -80,8 +80,8 @@ exports.updateDocument = (req,res) => {
       }
 
       let updateData = {
-        id_cliente:         req.body.id_cliente, 
-        id_catalogo_serv:   req.body.id_catalogo_serv,
+        cliente_id:         req.body.cliente_id, 
+        catalogo_serv_id:   req.body.catalogo_serv_id,
         descripcion:        req.body.descripcion,
         estatus:            req.body.estatus,
         fecha_creacion:     req.body.fecha_creacion,

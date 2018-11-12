@@ -130,6 +130,7 @@ const tipo_comentario = require('./tipo_comentario');
 const tipo_documento = require('./tipo_documento');
 const tipo_incidencia = require('./tipo_incidencia');
 const tipo_empleado = require('./tipo_empleado');
+const tipo_garantia = require('./tipo_garantia');
 const tipo_notificacion = require('./tipo_notificacion');
 const tipo_parametro = require('./tipo_parametro');
 const tipo_reclamo = require('./tipo_reclamo');
@@ -219,6 +220,7 @@ app.use('/',
 	notificacion,
 	presupuesto,
 	proveedor,
+	tipo_garantia,
 	razon_incidencia,
 	respuesta_presupuesto,
 	servicio_parametro,
