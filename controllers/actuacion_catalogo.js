@@ -18,7 +18,7 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    tipo_actuacion_id:      req.body.tipo_actuacion_id,
+    actuacion_id:      req.body.actuacion_id,
     catalogo_servicio_id:   req.body.catalogo_servicio_id,
     orden:                  req.body.orden,
     estatus:                req.body.estatus,
@@ -60,7 +60,7 @@ exports.updateDocument = (req,res) => {
       if(!actuacion_catalogo) return res.status(404).json({ error : true, data : { message : 'actuacion_catalogo no existe' } });
 
       let updateData = {
-        tipo_actuacion_id:      req.body.tipo_actuacion_id,
+        actuacion_id:      req.body.actuacion_id,
         catalogo_servicio_id:   req.body.catalogo_servicio_id,
         orden:                  req.body.orden,
         estatus:                req.body.estatus,

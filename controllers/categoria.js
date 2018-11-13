@@ -22,6 +22,7 @@ exports.createDocument = (req,res) => {
     descripcion:           req.body.descripcion,
     imagen:                req.body.imagen,
     estatus:               req.body.estatus,
+    especialidad_id:       req.body.especialidad_id
   }
 
   Categoria.forge(newData).save()
@@ -64,6 +65,7 @@ exports.updateDocument = (req,res) => {
         descripcion:           req.body.descripcion,
         imagen:                req.body.imagen,
         estatus:               req.body.estatus,
+        especialidad_id:       req.body.especialidad_id
       }
       
       categoria.save(updateData)
