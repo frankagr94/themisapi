@@ -5,7 +5,7 @@ const Usuario = require('../models/usuario');
 
 exports.findDocuments = (req,res) => {
   
-  Usuario.forge().fetch({
+  Usuario.forge().fetchAll({
     withRelated:[
       'rol',
       'rol.funciones',
