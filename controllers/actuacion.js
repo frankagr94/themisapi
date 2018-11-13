@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Actuacion_servicio = require('../models/actuacion_servicio');
+const Actuacion = require('../models/actuacion');
 
 exports.findDocuments = (req,res) => {
   
-  Actuacion_servicio.forge().fetchAll()
+  Actuacion.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -18,14 +18,14 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    actuacion_id:    req.body.actuacion_id,
-    servicio_id:          req.body.servicio_id,
-    estatus:              req.body.estatus,
+    tipo_actuacion_id:    req.body.tipo_actuacion_id,
+    nombre:               req.body.nombre,
+    estatus:              req.body.estatus
   }
 
-  Actuacion_servicio.forge(newData).save()
+  Actuacion.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'actuacion_servicio creado' } });
+    res.status(200).json({ error: false, data: { message: 'actuacion creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -37,9 +37,9 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion_servicio.forge(conditions).fetch()
+  Actuacion.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'actuacion_servicio no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'actuacion no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -54,19 +54,19 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion_servicio.forge(conditions).fetch()
-    .then(function(actuacion_servicio){
-      if(!actuacion_servicio) return res.status(404).json({ error : true, data : { message : 'actuacion_servicio no existe' } });
+  Actuacion.forge(conditions).fetch()
+    .then(function(actuacion){
+      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'actuacion no existe' } });
 
       let newData = {
-        actuacion_id:    req.body.actuacion_id,
-        servicio_id:          req.body.servicio_id,
-        estatus:              req.body.estatus,
+        tipo_actuacion_id:    req.body.tipo_actuacion_id,
+        nombre:               req.body.nombre,
+        estatus:              req.body.estatus
       }
       
-      actuacion_servicio.save(updateData)
+      actuacion.save(updateData)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'actuacion_servicio actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'actuacion actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -83,13 +83,13 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion_servicio.forge(conditions).fetch()
-    .then(function(actuacion_servicio){
-      if(!actuacion_servicio) return res.status(404).json({ error : true, data : { message : 'actuacion_servicio no existe' } });
+  Actuacion.forge(conditions).fetch()
+    .then(function(actuacion){
+      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'actuacion no existe' } });
 
-      actuacion_servicio.destroy()
+      actuacion.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'actuacion_servicio eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'actuacion eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});
