@@ -26,22 +26,18 @@ exports.createDocument = (req,res) => {
   }
 
   let newData = {
-    nombre:           req.body.nombre,
+    nombre1:          req.body.nombre,
+    nombre2:          req.body.nombre2,
     apellido:         req.body.apellido,
+    apellido2:        req.body.apellido2,
     cedula:           req.body.cedula,
-    //telefono:         req.body.telefono,
     sexo:             req.body.sexo,
-    fecha_nacimiento: req.body.fecha_nacimiento,
-    estatus:          req.body.estatus,
-    //id_ciudad:        req.body.id_ciudad,
-    id_usuario:       req.body.id_usuario,
-    //imagen:           extension,
-    fecha_creacion:   req.body.fecha_creacion,
-    //visible:          req.body.visible,
+    fecha_nac:        req.body.fecha_nac,
+    estatus:          'A',
+    usuario_id:       req.body.usuario_id,
     sexo:             req.body.sexo,
-    id_rol:           req.body.id_usuario,
-    id_empresa:       req.body.id_empresa,
-    id_tipo_empleado: req.body.id_tipo_empleado
+    empresa_id:       req.body.empresa_id,
+    tipo_empleado_id: req.body.tipo_empleado_id
   }
 
   Empleado.forge(newData).save()
@@ -88,19 +84,18 @@ exports.updateDocument = (req,res) => {
       }
 
       let updateData = {
-        nombre:           req.body.nombre,
+        nombre1:          req.body.nombre,
+        nombre2:          req.body.nombre2,
         apellido:         req.body.apellido,
+        apellido2:        req.body.apellido2,
         cedula:           req.body.cedula,
-        //telefono:         req.body.telefono,
         sexo:             req.body.sexo,
-        fecha_nacimiento: req.body.fecha_nacimiento,
+        fecha_nac:        req.body.fecha_nac,
         estatus:          req.body.estatus,
-        //id_ciudad:        req.body.id_ciudad,
-        //id_usuario:       req.body.id_usuario,
-        imagen:           extension,
-        fecha_creacion:   req.body.fecha_creacion,
-        visible:          req.body.visible,
-        
+        usuario_id:       req.body.usuario_id,
+        sexo:             req.body.sexo,
+        empresa_id:       req.body.empresa_id,
+        tipo_empleado_id: req.body.tipo_empleado_id
       }
       
       empleado.save(updateData)
@@ -119,6 +114,24 @@ exports.updateDocument = (req,res) => {
           res.status(500).json({ error : false, data : {message : err.message} })
     })
 
+}
+
+exports.visible = (req, res)=>{
+  let conditions = { id:req.params.id};
+
+  Empleado.forge(conditions).fetch()
+    .then(function(empleado){
+      if(!empleado) return res.status(404).json({ error : true, data : { message : 'empleado no existe' } });
+
+      let visible = req.body.visible;
+      empleado.save({visible:visible})
+        .then(function(data){
+          res.status(200).json({ error : false, data : { message : 'empleado visible'} });
+        })
+        .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+        });
+    });
 }
 
 exports.deleteDocument = (req,res) => {

@@ -18,7 +18,7 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_categoria_servicio: req.body.id_categoria_servicio,
+    categoria_servicio_id: req.body.categoria_servicio_id,
     nombre:                req.body.nombre,
     descripcion:           req.body.descripcion,
     estatus:               req.body.estatus,
@@ -61,7 +61,7 @@ exports.updateDocument = (req,res) => {
       if(!catalogo_servicio) return res.status(404).json({ error : true, data : { message : 'catalogo_servicio no existe' } });
 
       let updateData = {
-        id_categoria_servicio: req.body.id_categoria_servicio,
+        categoria_servicio_id: req.body.categoria_servicio_id,
         nombre:                req.body.nombre,
         descripcion:           req.body.descripcion,
         estatus:               req.body.estatus,
