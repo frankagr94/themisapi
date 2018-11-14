@@ -47,6 +47,7 @@ exports.createDocument = (req,res) => {
             apellido:         req.body.apellido,
             apellido2:        req.body.apellido2,
             cedula:           req.body.cedula,
+            direccion:        req.body.direccion,
             sexo:             req.body.sexo,
             fecha_nac:        req.body.fecha_nac,
             estatus:          'A',
@@ -110,12 +111,13 @@ exports.updateDocument = (req,res) => {
         var extension = req.files.archivo.name.split(".").pop();
       }
 
-      let newData = {
+      let updateData = {
         nombre1:          req.body.nombre,
         nombre2:          req.body.nombre2,
         apellido:         req.body.apellido,
         apellido2:        req.body.apellido2,
         cedula:           req.body.cedula,
+        direccion:        req.body.direccion,
         sexo:             req.body.sexo,
         fecha_nac:        req.body.fecha_nac,
         estatus:          req.body.estatus,
@@ -131,7 +133,7 @@ exports.updateDocument = (req,res) => {
       empleado.save(updateData)
         .then(function(data){
           // ----- Guardar Imagen -----
-          if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empleado/"+data.id+"."+extension);
+          //if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empleado/"+data.id+"."+extension);
 
           res.status(200).json({ error : false, data : { message : 'empleado actualizado'} });
         })
