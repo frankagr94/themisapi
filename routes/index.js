@@ -56,6 +56,7 @@ const vista_todos_servicios = require('./vista_todos_servicios');
 
 //----TABLAS BASICAS------
 const acceso_rol = require('./acceso_rol');
+const actuacion = require('./actuacion');
 const actuacion_catalogo = require('./actuacion_catalogo');
 const actuacion_servicio = require('./actuacion_servicio');
 const agenda = require('./agenda');
@@ -82,6 +83,7 @@ const detalle_proveedor = require('./detalle_proveedor');
 const detalle_servicio = require('./detalle_servicio');
 const dia_laborable = require('./dia_laborable');
 const documento_actuacion_servicio = require('./documento_actuacion_servicio');
+const documento = require('./documento');
 const empleado = require('./empleado');
 const empleado_asignado = require('./empleado_asignado');
 const especialidad = require('./especialidad');
@@ -130,6 +132,7 @@ const tipo_comentario = require('./tipo_comentario');
 const tipo_documento = require('./tipo_documento');
 const tipo_incidencia = require('./tipo_incidencia');
 const tipo_empleado = require('./tipo_empleado');
+const tipo_garantia = require('./tipo_garantia');
 const tipo_notificacion = require('./tipo_notificacion');
 const tipo_parametro = require('./tipo_parametro');
 const tipo_reclamo = require('./tipo_reclamo');
@@ -160,6 +163,7 @@ app.use('/',
 	empresa,
 	parametro,
 	perfil,
+	actuacion,
 	tipo_parametro,
 	categoria_servicio,
 	conocenos_web,
@@ -170,7 +174,7 @@ app.use('/',
 	imagen,
 	filosofia,
 	imagen_carrusel,
-	conocenos_web,
+	inicio_web,
 	titulo_seccion,
 	promocion,
 	calificacion_orden,
@@ -199,6 +203,7 @@ app.use('/',
 	detalle_proveedor,
 	detalle_servicio,
 	dia_laborable,
+	documento,
 	empleado_asignado,
 	solicitud,
 	orden_servicio,
@@ -219,6 +224,7 @@ app.use('/',
 	notificacion,
 	presupuesto,
 	proveedor,
+	tipo_garantia,
 	razon_incidencia,
 	respuesta_presupuesto,
 	servicio_parametro,

@@ -18,14 +18,9 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_tipo_actuacion:    req.body.id_tipo_actuacion,
-    id_servicio:          req.body.id_servicio,
-    descripcion:          req.body.descripcion,
-    duracion_hrs:         req.body.duracion_hrs,
-    fecha_creacion:       req.body.fecha_creacion,
-    fecha_fin:            req.body.fecha_fin,
+    actuacion_id:    req.body.actuacion_id,
+    servicio_id:          req.body.servicio_id,
     estatus:              req.body.estatus,
-    id_empleado:          req.body.id_empleado
   }
 
   Actuacion_servicio.forge(newData).save()
@@ -63,15 +58,10 @@ exports.updateDocument = (req,res) => {
     .then(function(actuacion_servicio){
       if(!actuacion_servicio) return res.status(404).json({ error : true, data : { message : 'actuacion_servicio no existe' } });
 
-      let updateData = {
-        id_tipo_actuacion:    req.body.id_tipo_actuacion,
-        id_servicio:          req.body.id_servicio,
-        descripcion:          req.body.descripcion,
-        duracion_hrs:         req.body.duracion_hrs,
-        fecha_creacion:       req.body.fecha_creacion,
-        fecha_fin:            req.body.fecha_fin,
+      let newData = {
+        actuacion_id:    req.body.actuacion_id,
+        servicio_id:          req.body.servicio_id,
         estatus:              req.body.estatus,
-        id_empleado:          req.body.id_empleado
       }
       
       actuacion_servicio.save(updateData)

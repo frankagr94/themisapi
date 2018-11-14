@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Garantia = require('../models/garantia');
+const Documento = require('../models/documento');
 
 exports.findDocuments = (req,res) => {
   
-  Garantia.forge().fetchAll()
+  Documento.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -18,17 +18,15 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    cantidad_dias:      req.body.cantidad_dias,
-    descripcion:        req.body.descripcion,
-    servicio_id:        req.body.servicio_id,
-    estatus:            req.body.estatus,
-    fecha_creacion:     req.body.fecha_creacion,
-    tipo_garantia_id:   req.body.tipo_garantia_id
+    tipo_documento_id:        req.body.id_tipo_documento,
+    nombre:                   req.body.nombre,
+    estatus:                  req.body.estatus,
   }
 
-  Garantia.forge(newData).save()
+  
+  Documento.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'garantia creado' } });
+    res.status(200).json({ error: false, data: { message: 'documento creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -40,9 +38,9 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Garantia.forge(conditions).fetch()
+  Documento.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'garantia no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'documento no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -57,22 +55,19 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Garantia.forge(conditions).fetch()
-    .then(function(garantia){
-      if(!garantia) return res.status(404).json({ error : true, data : { message : 'garantia no existe' } });
+  Documento.forge(conditions).fetch()
+    .then(function(documento){
+      if(!documento) return res.status(404).json({ error : true, data : { message : 'documento no existe' } });
 
-      let updateData = {
-        cantidad_dias:      req.body.cantidad_dias,
-        descripcion:        req.body.descripcion,
-        servicio_id:        req.body.servicio_id,
-        estatus:            req.body.estatus,
-        fecha_creacion:     req.body.fecha_creacion,
-        tipo_garantia_id:   req.body.tipo_garantia_id
+      let newData = {
+        tipo_documento_id:        req.body.id_tipo_documento,
+        nombre:                   req.body.nombre,
+        estatus:                  req.body.estatus,
       }
       
-      garantia.save(updateData)
+      Documento.save(updateData)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'garantia actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'documento actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -89,13 +84,13 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Garantia.forge(conditions).fetch()
-    .then(function(garantia){
-      if(!garantia) return res.status(404).json({ error : true, data : { message : 'garantia no existe' } });
+  Documento.forge(conditions).fetch()
+    .then(function(documento){
+      if(!documento) return res.status(404).json({ error : true, data : { message : 'documento no existe' } });
 
-      garantia.destroy()
+      documento.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'garantia eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'documento eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});

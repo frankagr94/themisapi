@@ -5,7 +5,7 @@ const Funcion = require('../models/funcion');
 
 exports.findDocuments = (req,res) => {
   
-  Funcion.forge().fetch({
+  Funcion.forge().fetchAll({
     withRelated : [
       'ruta'
     ]
@@ -24,7 +24,7 @@ exports.createDocument = (req,res) => {
   let newData = {
     nombre:             req.body.nombre,
     estatus:            req.body.estatus,
-    id_funcion:     req.body.id_funcion
+    funcion_id:         req.body.funcion_id
   }
 
   Funcion.forge(newData).save()
@@ -65,7 +65,7 @@ exports.updateDocument = (req,res) => {
       let updateData = {
         nombre:             req.body.nombre,
         estatus:            req.body.estatus,
-        id_funcion:         req.body.id_funcion
+        funcion_id:         req.body.funcion_id
       }
       
       funcion.save(updateData)

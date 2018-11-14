@@ -18,9 +18,9 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_cliente:         req.body.id_cliente,
+    cliente_id:         req.body.cliente_id,
     fecha_creacion:     req.body.fecha_creacion,
-    id_catalogo_serv:         req.body.id_catalogo_serv,
+    catalogo_serv_id:         req.body.catalogo_serv_id,
     descripcion:        req.body.descripcion
     //id_promocion:       req.body.id_promocion,
     //estatus:            req.body.estatus,
@@ -65,7 +65,7 @@ exports.updateDocument = (req,res) => {
       if(!solicitud) return res.status(404).json({ error : true, data : { message : 'solicitud no existe' } });
 
       let updateData = {
-        //id_cliente:         req.body.id_cliente,
+        //cliente_id:         req.body.cliente_id,
         //fecha_creacion:     req.body.fecha_creacion,
         //id_tiposrv:         req.body.id_tiposrv,
         //id_promocion:       req.body.id_promocion,
