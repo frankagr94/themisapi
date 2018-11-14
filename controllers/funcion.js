@@ -5,7 +5,7 @@ const Funcion = require('../models/funcion');
 
 exports.findDocuments = (req,res) => {
   
-  Funcion.forge().fetch({
+  Funcion.forge().fetchAll({
     withRelated : [
       'ruta'
     ]

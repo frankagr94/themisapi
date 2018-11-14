@@ -5,9 +5,10 @@ const Rol = require('../models/rol');
 
 exports.findDocuments = (req,res) => {
   
-  Rol.forge().fetch({
+  Rol.forge().fetchAll({
     withRelated:[
-      'funciones'
+      'funciones',
+      'funciones.ruta'
     ]
   })
   .then(function(data){
@@ -62,7 +63,9 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Rol.forge(conditions).fetch()
+  Rol.forge(conditions).fetch({
+    withRelated: ['funciones']
+  })
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'rol no existe' } });
 

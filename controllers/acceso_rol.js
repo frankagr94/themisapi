@@ -1,7 +1,7 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Acceso_rol = require('../models/rol');
+const Acceso_rol = require('../models/acceso_rol');
 
 exports.findDocuments = (req,res) => {
   
