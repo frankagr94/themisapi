@@ -23,11 +23,10 @@ exports.createDocument = (req,res) => {
     cedula:             req.body.cedula,
     telefono:           req.body.telefono,
     direccion:          req.body.direccion,
-    id_ciudad:          req.body.id_ciudad,
     fecha_nacimiento:   req.body.fecha_nacimiento,
-    tipo_cliente:       req.body.tipo_cliente,
+    tipo_cliente_id:    req.body.tipo_cliente_id,
     estatus:            req.body.estatus,
-    id_usuario:         req.body.id_usuario,
+    usuario_id:         req.body.usuario_id,
   }
 
   Cliente.forge(newData).save()
@@ -71,11 +70,10 @@ exports.updateDocument = (req,res) => {
         cedula:             req.body.cedula,
         telefono:           req.body.telefono,
         direccion:          req.body.direccion,
-        id_ciudad:          req.body.id_ciudad,
         fecha_nacimiento:   req.body.fecha_nacimiento,
-        tipo_cliente:       req.body.tipo_cliente,
+        tipo_cliente_id:    req.body.tipo_cliente_id,
         estatus:            req.body.estatus,
-        id_usuario:         req.body.id_usuario,
+        usuario_id:         req.body.usuario_id,
       }
       
       cliente.save(updateData)

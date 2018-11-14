@@ -1,6 +1,6 @@
 //---- dependencias ------
 const Bookshelf = require('../db');
-const Actuacion_servicio = require('./Actuacion_servicio')
+
 const Cliente = require('./Cliente')
 const Catalogo_servicio = require('./Catalogo_servicio')
 

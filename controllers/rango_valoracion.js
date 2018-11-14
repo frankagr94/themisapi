@@ -18,7 +18,7 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_valor:        req.body.valor,
+    valo_id:        req.body.valor,
     imagen:          req.body.imagen,
     descripcion:     req.body.descripcion
   }
@@ -59,7 +59,7 @@ exports.updateDocument = (req,res) => {
       if(!rango_valoracion) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
 
       let updateData = {
-        id_valor:        req.body.valor,
+        valo_id:        req.body.valor,
         imagen:          req.body.imagen,
         descripcion:     req.body.descripcion
       }
