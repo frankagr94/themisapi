@@ -29,19 +29,17 @@ exports.createDocument = (req,res) => {
     nombre:           req.body.nombre,
     apellido:         req.body.apellido,
     cedula:           req.body.cedula,
-    //telefono:         req.body.telefono,
+    telefono:         req.body.telefono,
     sexo:             req.body.sexo,
     fecha_nacimiento: req.body.fecha_nacimiento,
     estatus:          req.body.estatus,
-    //id_ciudad:        req.body.id_ciudad,
-    id_usuario:       req.body.id_usuario,
+    ciudad:           req.body.ciudad_id,
+    usuario_id:       req.body.usuario_id,
     //imagen:           extension,
     fecha_creacion:   req.body.fecha_creacion,
-    //visible:          req.body.visible,
+    visible:          req.body.visible,
     sexo:             req.body.sexo,
-    id_rol:           req.body.id_usuario,
-    id_empresa:       req.body.id_empresa,
-    id_tipo_empleado: req.body.id_tipo_empleado
+    rol_id:           req.body.rol_id,
   }
 
   Empleado.forge(newData).save()
@@ -88,19 +86,20 @@ exports.updateDocument = (req,res) => {
       }
 
       let updateData = {
-        nombre:           req.body.nombre,
-        apellido:         req.body.apellido,
-        cedula:           req.body.cedula,
-        //telefono:         req.body.telefono,
-        sexo:             req.body.sexo,
-        fecha_nacimiento: req.body.fecha_nacimiento,
-        estatus:          req.body.estatus,
-        //id_ciudad:        req.body.id_ciudad,
-        //id_usuario:       req.body.id_usuario,
-        imagen:           extension,
-        fecha_creacion:   req.body.fecha_creacion,
-        visible:          req.body.visible,
-        
+	    nombre:           req.body.nombre,
+	    apellido:         req.body.apellido,
+	    cedula:           req.body.cedula,
+	    telefono:         req.body.telefono,
+	    sexo:             req.body.sexo,
+	    fecha_nacimiento: req.body.fecha_nacimiento,
+	    estatus:          req.body.estatus,
+	    ciudad:           req.body.ciudad_id,
+	    usuario_id:       req.body.usuario_id,
+	    //imagen:           extension,
+	    fecha_creacion:   req.body.fecha_creacion,
+	    visible:          req.body.visible,
+	    sexo:             req.body.sexo,
+	    rol_id:           req.body.rol_id,
       }
       
       empleado.save(updateData)
