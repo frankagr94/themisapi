@@ -2,7 +2,7 @@
 'use strict'
 const bcrypt = require("bcryptjs");
 const Empleado = require('../models/empleado');
-const Usuario = require('./models/usuario');
+const Usuario = require('../models/usuario');
 const fs = require("fs");
 
 exports.findDocuments = (req,res) => {
