@@ -5,7 +5,13 @@ const Especialidad = require('../models/especialidad');
 
 exports.findDocuments = (req,res) => {
   
-  Especialidad.forge().fetchAll()
+  Especialidad.forge().fetchAll({
+    withRelated: [
+      'abogados',
+      'categorias',
+      'categorias.catalogo'
+    ]
+  })
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -18,8 +24,7 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    categoria_servicio_id:  req.body.categoria_servicio_id,
-    empleado_id:            req.body.empleado_id,
+    nombre:                 req.body.nombre,
     fecha_creacion:         req.body.fecha_creacion,
     estatus:                req.body.estatus,
   }
@@ -60,8 +65,7 @@ exports.updateDocument = (req,res) => {
       if(!especialidad) return res.status(404).json({ error : true, data : { message : 'especialidad no existe' } });
 
       let updateData = {
-        categoria_servicio_id:  req.body.categoria_servicio_id,
-        empleado_id:            req.body.empleado_id,
+        nombre:                 req.body.nombre,
         fecha_creacion:         req.body.fecha_creacion,
         estatus:                req.body.estatus,
       }
