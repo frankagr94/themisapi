@@ -5,7 +5,11 @@ const Categoria = require('../models/categoria');
 
 exports.findDocuments = (req,res) => {
   
-  Categoria.forge().fetchAll()
+  Categoria.forge().fetchAll({
+    withRelated: [
+      'catalogo'
+    ]
+  })
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })

@@ -113,6 +113,32 @@ exports.createDocument = (req,res) => {
     });
 }
 
+exports.mostrarVisibles = (req, res)=> {
+  Empleado.where({visible: true}).fetchAll()
+  .then(function(data){
+    res.status(200).json({ error : false, data : data.toJSON() });
+  })
+  .catch(function (err) {
+    res.status(500).json({ error: true, data: {message: err.message} });
+  });
+}
+
+exports.hacerVisible = (req, res)=>{
+  Empleado.forge({id: req.params.id}).fetch()
+    .then(function(empleado){
+      if(!empleado){
+        res.status(404).send({ error: true, data: {message: `El empleado con id ${req.params.id} no existe`} })
+      }
+      empleado.save({visible:req.body.visible})
+        .then(function(data){
+          res.status(200).json({ error : false, data : { message : 'empleado visible'} });
+        })
+        .catch(function(err){
+          res.status(500).json({ error: true, data: {message: err.message} });
+        });
+    })
+}
+
 exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
