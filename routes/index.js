@@ -89,6 +89,7 @@ const empleado_servicio = require('./empleado_servicio');
 const empleado_asignado = require('./empleado_asignado');
 const especialidad = require('./especialidad');
 const estado = require('./estado');
+const estado_civil = require('./estado');
 const filosofia = require('./filosofia');
 const funcion = require('./funcion');
 const garantia = require('./garantia');
@@ -106,6 +107,7 @@ const empresa = require('./empresa');
 const notificacion = require('./notificacion');
 const objetivo = require('./objetivo_empresa');
 const orden_servicio = require('./orden_servicio');
+const pais = require('./pais');
 const parametro = require('./parametro');
 const perfil = require('./perfil');
 const presupuesto = require('./presupuesto');
@@ -192,6 +194,8 @@ app.use('/',
 	agenda,
 	auditoria,
 	bloque,
+	estado_civil,
+	pais,
 	categoria_parametro,
 	ciudad,
 	comentario,

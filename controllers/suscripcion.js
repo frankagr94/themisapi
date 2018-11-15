@@ -26,7 +26,7 @@ function signUp(req,res) {
 			let hash = bcrypt.hashSync(pass, salt);
 			
 			let newUser = {
-				id_rol:         '1',
+				rol_id:         '1',
 				correo:         req.body.correo,
 				contrasenia:    hash,
 				ultimo_acceso:  null,
@@ -35,14 +35,12 @@ function signUp(req,res) {
 			Usuario.forge(newUser).save()
 			.then(function(usuario){  
 				let newClient = {
-					nombre:             req.body.nombre,
-					apellido:           req.body.apellido,
+					nombre1:            req.body.nombre,
+					apellido1:          req.body.apellido,
 					cedula:             req.body.cedula,
 					telefono:           req.body.telefono,
 					sexo:          		req.body.sexo,
-					//id_ciudad:          req.body.id_ciudad,
-					fecha_nacimiento:   req.body.fecha_nacimiento,
-					//id_rol:         	'1',
+					fecha_nac:		    req.body.fecha_nac,
 					id_usuario:         usuario.id
 				}
 

@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Estado = require('../models/estado');
+const Estado_civil = require('../models/estado_civil');
 
 exports.findDocuments = (req,res) => {
   
-  Estado.forge().fetchAll()
+  Estado_civil.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -20,12 +20,11 @@ exports.createDocument = (req,res) => {
   let newData = {
     nombre:             req.body.nombre,
     estatus:            req.body.estatus,
-    pais_id:            req.body.pais_id
   }
 
-  Estado.forge(newData).save()
+  Estado_civil.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'estado creado' } });
+    res.status(200).json({ error: false, data: { message: 'estado civil creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -37,9 +36,9 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Estado.forge(conditions).fetch()
+  Estado_civil.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'estado no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'estado civil no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -54,19 +53,18 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Estado.forge(conditions).fetch()
-    .then(function(estado){
-      if(!estado) return res.status(404).json({ error : true, data : { message : 'estado no existe' } });
+  Estado_civil.forge(conditions).fetch()
+    .then(function(estado_civil){
+      if(!estado_civil) return res.status(404).json({ error : true, data : { message : 'estado civil no existe' } });
 
       let updateData = {
         nombre:             req.body.nombre,
-        estatus:            req.body.estatus,
-        pais_id:            req.body.pais_id
+        estatus:            req.body.estatus
       }
       
-      estado.save(updateData)
+      estado_civil.save(updateData)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'estado actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'estado civil actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -83,13 +81,13 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Estado.forge(conditions).fetch()
-    .then(function(estado){
-      if(!estado) return res.status(404).json({ error : true, data : { message : 'estado no existe' } });
+  estado_civil.forge(conditions).fetch()
+    .then(function(estado_civil){
+      if(!estado_civil) return res.status(404).json({ error : true, data : { message : 'estado civil no existe' } });
 
-      estado.destroy()
+      estado_civil.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'estado eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'estado civil eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});

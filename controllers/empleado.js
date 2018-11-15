@@ -2,6 +2,7 @@
 'use strict'
 const bcrypt = require("bcryptjs");
 const Empleado = require('../models/empleado');
+const Usuario = require('../models/usuario');
 const fs = require("fs");
 
 exports.findDocuments = (req,res) => {
@@ -18,7 +19,7 @@ exports.findDocuments = (req,res) => {
 
 exports.createDocument = (req,res) => {
 
-  // ----- Extension Imagen -----
+  /* ----- Extension Imagen -----
   if(req.files.archivo) {
     var extension = req.files.archivo.name.split(".").pop();
   }else{
@@ -52,7 +53,64 @@ exports.createDocument = (req,res) => {
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
   });
+=======
+  }*/
 
+  Usuario.where({correo: req.body.correo}).fetch()
+    .then(function(usuario){
+      if(usuario){
+        res.status(404).send({ error: true, data: {message: "Ya existe un usuario con ese correo"} })
+      }
+      else{
+        let newUser = {
+          correo:           req.body.correo,
+          contrasenia:      req.body.contrasenia,
+          rol_id:           req.body.rol_id,
+          ultimo_acceso:    req.body.ultimo_acceso
+        }
+
+        Usuario.forge(newUser).save()
+        .then(function(usuario){
+          let newData = {
+            nombre1:          req.body.nombre,
+            nombre2:          req.body.nombre2,
+            apellido:         req.body.apellido,
+            apellido2:        req.body.apellido2,
+            cedula:           req.body.cedula,
+            direccion:        req.body.direccion,
+            sexo:             req.body.sexo,
+            fecha_nac:        req.body.fecha_nac,
+            telefono:         req.body.telefono,
+            estatus:          req.body.estatus,
+            usuario_id:       req.body.usuario_id,
+            pais_id:          req.body.pais_id,
+            estado_id:        req.body.estado_id,
+            estado_civil_id:  req.body.estado_civil_id,
+            sexo:             req.body.sexo,
+            empresa_id:       req.body.empresa_id,
+            visible:          req.body.visible,
+            tipo_empleado_id: req.body.tipo_empleado_id
+          }
+        
+          Empleado.forge(newData).save()
+          .then(function(data){
+            // ----- Guardar Imagen -----
+            //if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empleado/"+data.id+"."+extension);
+            
+            res.status(200).json({ error: false, data: { message: 'empleado creado' } });
+          })
+          .catch(function (err) {
+            res.status(500).json({ error: true, data: {message: err.message} });
+          });
+        })
+        .catch(function(err){
+          res.status(500).json({ error: true, data: {message: err2.message} });
+        });
+      }
+    })
+    .catch(function(err){
+      res.status(500).json({ error: true, data: {message: err2.message} });
+    });
 }
 
 exports.findOneDocument = (req,res) => {
@@ -91,11 +149,15 @@ exports.updateDocument = (req,res) => {
         apellido:         req.body.apellido,
         apellido2:        req.body.apellido2,
         cedula:           req.body.cedula,
+        direccion:        req.body.direccion,
         sexo:             req.body.sexo,
         fecha_nac:        req.body.fecha_nac,
         telefono:         req.body.telefono,
         estatus:          req.body.estatus,
         usuario_id:       req.body.usuario_id,
+        pais_id:          req.body.pais_id,
+        estado_id:        req.body.estado_id,
+        estado_civil_id:  req.body.estado_civil_id,
         sexo:             req.body.sexo,
         empresa_id:       req.body.empresa_id,
         visible:          req.body.visible,
@@ -105,7 +167,7 @@ exports.updateDocument = (req,res) => {
       empleado.save(updateData)
         .then(function(data){
           // ----- Guardar Imagen -----
-          if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empleado/"+data.id+"."+extension);
+          //if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empleado/"+data.id+"."+extension);
 
           res.status(200).json({ error : false, data : { message : 'empleado actualizado'} });
         })

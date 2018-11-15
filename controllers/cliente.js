@@ -65,15 +65,22 @@ exports.updateDocument = (req,res) => {
       if(!cliente) return res.status(404).json({ error : true, data : { message : 'cliente no existe' } });
 
       let updateData = {
-        nombre:             req.body.nombre,
-        apellido:           req.body.apellido,
-        cedula:             req.body.cedula,
-        telefono:           req.body.telefono,
-        direccion:          req.body.direccion,
-        fecha_nacimiento:   req.body.fecha_nacimiento,
-        tipo_cliente_id:    req.body.tipo_cliente_id,
-        estatus:            req.body.estatus,
-        usuario_id:         req.body.usuario_id,
+        nombre1:          req.body.nombre,
+        nombre2:          req.body.nombre2,
+        apellido:         req.body.apellido,
+        apellido2:        req.body.apellido2,
+        cedula:           req.body.cedula,
+        direccion:        req.body.direccion,
+        sexo:             req.body.sexo,
+        fecha_nac:        req.body.fecha_nac,
+        estatus:          req.body.estatus,
+        usuario_id:       req.body.usuario_id,
+        pais_id:          req.body.pais_id,
+        estado_id:        req.body.estado_id,
+        estado_civil_id:  req.body.estado_civil_id,
+        sexo:             req.body.sexo,
+        empresa_id:       req.body.empresa_id,
+        tipo_cliente_id:  req.body.tipo_cliente_id,
       }
       
       cliente.save(updateData)
