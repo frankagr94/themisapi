@@ -85,6 +85,7 @@ const dia_laborable = require('./dia_laborable');
 const documento_actuacion_servicio = require('./documento_actuacion_servicio');
 const documento = require('./documento');
 const empleado = require('./empleado');
+const empleado_servicio = require('./empleado_servicio');
 const empleado_asignado = require('./empleado_asignado');
 const especialidad = require('./especialidad');
 const estado = require('./estado');
@@ -172,6 +173,7 @@ app.use('/',
 	servicio,
 	consejo,
 	empleado,
+	empleado_servicio,
 	red_social,
 	imagen,
 	filosofia,

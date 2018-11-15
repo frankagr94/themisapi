@@ -6,7 +6,12 @@ const fs = require("fs");
 
 exports.findDocuments = (req,res) => {
   
-  Servicio.forge().fetchAll()
+  //Servicio.forge().fetchAll()
+    Rol.forge().fetch({
+    withRelated:[
+      'actuaciones_servicio'
+    ]
+  })
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -26,12 +31,13 @@ exports.createDocument = (req,res) => {
   }
 
   let newData = {
-    cliente_id:         req.body.cliente_id, 
-    catalogo_serv_id:   req.body.catalogo_serv_id,
-    descripcion:        req.body.descripcion,
-    estatus:            req.body.estatus,
-    fecha_creacion:     req.body.fecha_creacion,
-    fecha_cierre:       req.body.fecha_cierre
+      cliente_id:             req.body.cliente_id, 
+      catalogo_servicio_id:   req.body.catalogo_servicio_id,
+      descripcion:            req.body.descripcion,
+      estatus:                req.body.estatus,
+      fecha_creado:           req.body.fecha_creado,
+      fecha_cierre:           req.body.fecha_cierre,
+      pagado:                 req.body.pagado
   }
 
   Servicio.forge(newData).save()
@@ -80,12 +86,13 @@ exports.updateDocument = (req,res) => {
       }
 
       let updateData = {
-        cliente_id:         req.body.cliente_id, 
-        catalogo_serv_id:   req.body.catalogo_serv_id,
-        descripcion:        req.body.descripcion,
-        estatus:            req.body.estatus,
-        fecha_creacion:     req.body.fecha_creacion,
-        fecha_cierre:       req.body.fecha_cierre
+        cliente_id:             req.body.cliente_id, 
+        catalogo_servicio_id:   req.body.catalogo_servicio_id,
+        descripcion:            req.body.descripcion,
+        estatus:                req.body.estatus,
+        fecha_creado:           req.body.fecha_creado,
+        fecha_cierre:           req.body.fecha_cierre,
+        pagado:                 req.body.pagado
       } 
       
       servicio.save(updateData)

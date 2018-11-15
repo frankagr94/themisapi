@@ -24,6 +24,36 @@ exports.createDocument = (req,res) => {
     var extension = req.files.archivo.name.split(".").pop();
   }else{
     var extension = null;
+  }
+
+  let newData = {
+        nombre1:          req.body.nombre,
+        nombre2:          req.body.nombre2,
+        apellido:         req.body.apellido,
+        apellido2:        req.body.apellido2,
+        cedula:           req.body.cedula,
+        sexo:             req.body.sexo,
+        fecha_nac:        req.body.fecha_nac,
+        telefono:         req.body.telefono,
+        estatus:          req.body.estatus,
+        usuario_id:       req.body.usuario_id,
+        sexo:             req.body.sexo,
+        empresa_id:       req.body.empresa_id,
+        visible:          req.body.visible,
+        tipo_empleado_id: req.body.tipo_empleado_id
+  }
+
+  Empleado.forge(newData).save()
+  .then(function(data){
+    // ----- Guardar Imagen -----
+    if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empleado/"+data.id+"."+extension);
+    
+    res.status(200).json({ error: false, data: { message: 'empleado creado' } });
+  })
+  .catch(function (err) {
+    res.status(500).json({ error: true, data: {message: err.message} });
+  });
+=======
   }*/
 
   Usuario.where({correo: req.body.correo}).fetch()
@@ -50,14 +80,16 @@ exports.createDocument = (req,res) => {
             direccion:        req.body.direccion,
             sexo:             req.body.sexo,
             fecha_nac:        req.body.fecha_nac,
-            estatus:          'A',
-            usuario_id:       usuario.id,
+            telefono:         req.body.telefono,
+            estatus:          req.body.estatus,
+            usuario_id:       req.body.usuario_id,
             pais_id:          req.body.pais_id,
             estado_id:        req.body.estado_id,
             estado_civil_id:  req.body.estado_civil_id,
             sexo:             req.body.sexo,
             empresa_id:       req.body.empresa_id,
-            tipo_empleado_id: req.body.tipo_empleado_id,
+            visible:          req.body.visible,
+            tipo_empleado_id: req.body.tipo_empleado_id
           }
         
           Empleado.forge(newData).save()
@@ -146,6 +178,7 @@ exports.updateDocument = (req,res) => {
         direccion:        req.body.direccion,
         sexo:             req.body.sexo,
         fecha_nac:        req.body.fecha_nac,
+        telefono:         req.body.telefono,
         estatus:          req.body.estatus,
         usuario_id:       req.body.usuario_id,
         pais_id:          req.body.pais_id,
@@ -153,7 +186,8 @@ exports.updateDocument = (req,res) => {
         estado_civil_id:  req.body.estado_civil_id,
         sexo:             req.body.sexo,
         empresa_id:       req.body.empresa_id,
-        tipo_empleado_id: req.body.tipo_empleado_id,
+        visible:          req.body.visible,
+        tipo_empleado_id: req.body.tipo_empleado_id
       }
       
       empleado.save(updateData)

@@ -18,8 +18,8 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_actuacion_servicio:    req.body.id_actuacion_servicio,
-    id_tipo_documento:        req.body.id_tipo_documento,
+    actuacion_servicio_id:    req.body.actuacion_servicio_id,
+    tipo_documento_id:        req.body.tipo_documento_id,
     descripcion:              req.body.descripcion,
     ruta:                     req.body.ruta,
     fecha_fin:                req.body.fin,
@@ -62,14 +62,12 @@ exports.updateDocument = (req,res) => {
       if(!documento_actuacion_servicio) return res.status(404).json({ error : true, data : { message : 'documento_actuacion_servicio no existe' } });
 
       let updateData = {
-        id_tipo_actuacion:    req.body.id_tipo_actuacion,
-        id_servicio:          req.body.id_servicio,
-        descripcion:          req.body.descripcion,
-        duracion_hrs:         req.body.duracion_hrs,
-        fecha_creacion:       req.body.fecha_creacion,
-        fecha_fin:            req.body.fin,
-        estatus:              req.body.estatus,
-        id_empleado:          req.body.id_empleado
+        actuacion_servicio_id:    req.body.actuacion_servicio_id,
+        tipo_documento_id:        req.body.tipo_documento_id,
+        descripcion:              req.body.descripcion,
+        ruta:                     req.body.ruta,
+        fecha_fin:                req.body.fin,
+        estatus:                  req.body.estatus,
       }
       
       documento_actuacion_servicio.save(updateData)

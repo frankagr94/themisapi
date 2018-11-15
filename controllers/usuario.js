@@ -28,7 +28,7 @@ exports.createDocument = (req,res) => {
   let hash = bcrypt.hashSync(req.body.contrasenia, salt);
 
   let newData = {
-    id_rol:         req.body.id_rol,
+    rol_id:         req.body.rol_id,
     correo:         req.body.correo,
     contrasenia:    hash,
     ultimo_acceso:  req.body.ultimo_acceso,
@@ -50,13 +50,7 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { correo: req.params.correo };
 
-  Usuario.forge(conditions).fetch({
-    withRelated : [
-      'rol',
-      'rol.funciones',
-      'rol.funciones.ruta'
-    ]
-  })
+  Usuario.forge(conditions).fetch()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'usuario no existe' } });
 
@@ -82,7 +76,7 @@ exports.updateDocument = (req,res) => {
       let hash = bcrypt.hashSync(req.body.contrasenia, salt);
 
       let updateData = {
-        id_rol:         req.body.id_rol,
+        rol_id:         req.body.rol_id,
         correo:         req.body.correo,
         contrasenia:    hash,
         ultimo_acceso:  req.body.ultimo_acceso,

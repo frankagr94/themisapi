@@ -22,7 +22,7 @@ exports.createDocument = (req,res) => {
     nombre:                req.body.nombre,
     descripcion:           req.body.descripcion,
     estatus:               req.body.estatus,
-    //fecha_creacion:        req.body.fecha_creacion,
+    fecha_creacion:        req.body.fecha_creacion,
   }
 
   Catalogo_servicio.forge(newData).save()
