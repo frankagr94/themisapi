@@ -7,7 +7,7 @@ exports.findDocuments = (req,res) => {
   
   Categoria.forge().fetchAll({
     withRelated: [
-      'catalogo'
+      'catalogo_servicio'
     ]
   })
   .then(function(data){
