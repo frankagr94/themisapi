@@ -35,8 +35,8 @@ function signUp(req,res) {
 			Usuario.forge(newUser).save()
 			.then(function(usuario){  
 				let newClient = {
-					nombre1:            req.body.nombre,
-					apellido1:          req.body.apellido,
+					nombre:            req.body.nombre,
+					apellido:          req.body.apellido,
 					cedula:             req.body.cedula,
 					telefono:           req.body.telefono,
 					sexo:          		req.body.sexo,
