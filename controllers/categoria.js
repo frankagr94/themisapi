@@ -2,6 +2,7 @@
 'use strict'
 const bcrypt = require("bcryptjs");
 const Categoria = require('../models/categoria');
+const mw = require('../middlewares/uploader');
 
 exports.findDocuments = (req,res) => {
   
@@ -24,19 +25,32 @@ exports.createDocument = (req,res) => {
   let newData = {
     nombre:                req.body.nombre,
     descripcion:           req.body.descripcion,
-    imagen:                req.body.imagen,
+    imagen:                '',
     estatus:               req.body.estatus,
     especialidad_id:       req.body.especialidad_id
   }
-
-  Categoria.forge(newData).save()
-  .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'categoria creado' } });
-  })
-  .catch(function (err) {
-    res.status(500).json({ error: true, data: {message: err.message} });
-  });
-
+  console.log(req);
+  if(!req.files.imagen){
+      res.status(404).json({ error: true, data: { message: 'Debe seleccionar una imagen para la categoria' } });
+  }
+  else{
+    mw.uploader('imagen/',req.files.imagen).then(function(result) {
+      if(result.error){
+        console.log('Error al subir imagen')
+        return res.status(500).send({ message : 'hubo un error' })
+      }else{
+        newData.imagen = result.url;
+        Categoria.forge(newData).save()
+        .then(function(data){
+          console.log('Se guardo con imagen '+newData.imagen)
+          res.status(200).json({ error: false, data: { message: 'categoria creado' } });
+        })
+        .catch(function (err) {
+          res.status(500).json({ error: true, data: {message: err.message} });
+        });
+      }
+    })
+  }
 }
 
 exports.findOneDocument = (req,res) => {

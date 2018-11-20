@@ -14,6 +14,7 @@ const id = ':id'
 router.get(`${path}`, controller.findDocuments)
 router.post(`${path}`,controller.createDocument)
 router.get(`${path}/${id}`,controller.findOneDocument)
+router.get(`${path}/usuario/:id_usuario`,controller.findOneClientByUser)
 router.put(`${path}/${id}`,controller.updateDocument)
 router.delete(`${path}/${id}`,controller.deleteDocument)
 
