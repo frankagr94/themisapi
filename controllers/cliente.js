@@ -56,6 +56,23 @@ exports.findOneDocument = (req,res) => {
 
 }
 
+exports.findOneClientByUser = (req,res) => {
+
+  let conditions = { id_usuario: req.params.id_usuario };
+
+  Cliente.forge(conditions).fetch()
+    .then(function(data){
+      if(!data) return res.status(404).json({ error : true, data : { message : 'cliente no existe' } });
+
+      res.status(200).json({ error : false, data : data.toJSON() })
+
+    })
+    .catch(function(err){
+      res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
 exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
