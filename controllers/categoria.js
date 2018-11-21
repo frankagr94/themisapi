@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
       res.status(404).json({ error: true, data: { message: 'Debe seleccionar una imagen para la categoria' } });
   }
   else{
-    mw.uploader('imagen/categoria/',req.files.imagen).then(function(result) {
+    mw.uploader('imagen/categoria',req.files.imagen).then(function(result) {
       if(result.error){
         return res.status(500).send({ message : 'hubo un error' })
       }else{
@@ -95,7 +95,7 @@ exports.updateDocument = (req,res) => {
         })
       } 
       else{
-        mw.uploader('imagen/categoria/',req.files.imagen).then(function(result) {
+        mw.uploader('imagen/categoria',req.files.imagen).then(function(result) {
           if(result.error){
             console.log('Error al subir imagen')
             return res.status(500).send({ message : 'hubo un error' })
