@@ -130,6 +130,7 @@ const servicio_solicitado = require('./servicio_solicitado');
 const sistema = require('./sistema');
 const solicitud = require('./solicitud');
 const suscripcion = require('./suscripcion');
+const tipo_cliente = require('./tipo_cliente');
 const tipo_actuacion = require('./tipo_actuacion');
 const tipo_comentario = require('./tipo_comentario');
 const tipo_documento = require('./tipo_documento');
@@ -145,6 +146,7 @@ const tipo_respuesta_presupuesto = require('./tipo_respuesta_presupuesto');
 const tipo_respuesta_reclamo = require('./tipo_respuesta_reclamo');
 const tipo_respuesta_solicitud = require('./tipo_respuesta_solicitud');
 const tipo_servicio = require('./tipo_servicio');
+const tipo_sugerencia = require('./tipo_sugerencia');
 const tipo_valoracion = require('./tipo_valoracion');
 const tipo_valoracion_rango_valoracion = require('./tipo_valoracion_rango_valoracion');
 const titulo_seccion = require('./titulo_seccion');
@@ -190,6 +192,8 @@ app.use('/',
 	funcion,
 	rol_funcion,
 	objetivo,
+	tipo_cliente,
+	tipo_sugerencia,
 	contacto_negocio,
 	descripcion_negocio,
 	agenda,
