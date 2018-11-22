@@ -18,13 +18,8 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_negocio:         req.body.id_negocio,
     nombre:    		      req.body.nombre,
-    url: 	              req.body.url,
-    estatus:            req.body.estatus,
-    fecha_creacion:     req.body.fecha_creacion,
-    visible:            req.body.visible,
-  }
+    estatus:            'A',  }
 
   Red_social.forge(newData).save()
   .then(function(data){
@@ -62,12 +57,7 @@ exports.updateDocument = (req,res) => {
       if(!red_social) return res.status(404).json({ error : true, data : { message : 'red_social no existe' } });
 
       let updateData = {
-        id_negocio:         req.body.id_negocio,
         nombre:             req.body.nombre,
-        url:                req.body.url,
-        estatus:            req.body.estatus,
-        fecha_creacion:     req.body.fecha_creacion,
-        visible:            req.body.visible,
       }
       
       red_social.save(updateData)

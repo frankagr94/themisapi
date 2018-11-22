@@ -62,6 +62,7 @@ const actuacion_servicio = require('./actuacion_servicio');
 const agenda = require('./agenda');
 const auditoria = require('./auditoria');
 const bloque = require('./bloque');
+const bloque_hora = require('./bloque_hora');
 const calificacion_orden = require('./calificacion_orden');
 const catalogo_servicio = require('./catalogo_servicio');
 const categoria = require('./categoria');
@@ -138,6 +139,7 @@ const tipo_garantia = require('./tipo_garantia');
 const tipo_notificacion = require('./tipo_notificacion');
 const tipo_parametro = require('./tipo_parametro');
 const tipo_reclamo = require('./tipo_reclamo');
+const tipo_respuesta = require('./tipo_respuesta');
 const tipo_respuesta_comentario = require('./tipo_respuesta_comentario');
 const tipo_respuesta_presupuesto = require('./tipo_respuesta_presupuesto');
 const tipo_respuesta_reclamo = require('./tipo_respuesta_reclamo');
@@ -171,6 +173,7 @@ app.use('/',
 	conocenos_web,
 	servicio,
 	consejo,
+	bloque_hora,
 	empleado,
 	red_social,
 	imagen,
@@ -192,6 +195,7 @@ app.use('/',
 	agenda,
 	auditoria,
 	bloque,
+	tipo_respuesta,
 	estado_civil,
 	pais,
 	categoria_parametro,
