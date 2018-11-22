@@ -19,7 +19,6 @@ exports.createDocument = (req,res) => {
 
   let newData = {
     nombre:        req.body.nombres,
-    estatus:       req.body.estatus,
     descripcion:   req.body.descripcion
   }
 
@@ -60,7 +59,6 @@ exports.updateDocument = (req,res) => {
 
       let updateData = {
         nombre:        req.body.nombres,
-        estatus:       req.body.estatus,
         descripcion:   req.body.descripcion
       }
       

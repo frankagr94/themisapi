@@ -35,8 +35,8 @@ function signUp(req,res) {
 			Usuario.forge(newUser).save()
 			.then(function(usuario){  
 				let newClient = {
-					nombre1:            req.body.nombre,
-					apellido1:          req.body.apellido,
+					nombre:            req.body.nombre,
+					apellido:          req.body.apellido,
 					cedula:             req.body.cedula,
 					telefono:           req.body.telefono,
 					sexo:          		req.body.sexo,
@@ -74,7 +74,13 @@ function signIn(req,res) {
 	
   let conditions = { correo: req.body.correo };
 
-  Usuario.forge(conditions).fetch()
+  Usuario.forge(conditions).fetch({
+    withRelated: [
+	  'rol',
+	  'rol.funciones',
+	  'rol.funciones.ruta'
+    ]
+  })
 	.then(function(usuario){
 		if(!usuario) return res.status(404).send({ error: true, data: {message: "El correo es incorrecto"} })
         
@@ -87,7 +93,7 @@ function signIn(req,res) {
 
 			usuario.save(updateData)
 			.then(function(usuario) {
-				res.status(200).json({ error: false, data: { message:"Sesion iniciada", token: jwt.createToken(usuario), id: usuario.get("id"), id_cliente: usuario.get("id_cliente") } })
+				res.status(200).json({ error: false, data: { message:"Sesion iniciada", token: jwt.createToken(usuario), usuario: usuario } })
 			})
 			.catch(function(err) {
 			   res.status(500).json({ error : false, data : {message : err.message} });

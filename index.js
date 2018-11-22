@@ -3,7 +3,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const formidable = require('express-form-data');
+//const formidable = require('express-form-data');
+const fileUpload = require('express-fileupload')
 
 //---- dependencias ------
 const config = require('./config');
@@ -20,10 +21,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 //---- express-formidable (para las img) ------
-app.use(formidable.parse({keepExtensions: true}));
+//app.use(formidable.parse({keepExtensions: true}));
 
 //----Agregar Archivos staticos (para las img)------
 app.use("/files",express.static('files'));
+
+//---Subidor de Archivos---
+app.use(fileUpload())
 
 //---- routes ----
 app.use('/api',routes);
