@@ -18,8 +18,9 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    nombre:        req.body.nombres,
-    estatus:       req.body.estatus
+    nombre:        req.body.nombre,
+    descripcion:   req.body.descripcion,
+    estatus:       'A'
   }
 
   Tipo_documento.forge(newData).save()
@@ -58,8 +59,8 @@ exports.updateDocument = (req,res) => {
       if(!tipo_documento) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
 
       let updateData = {
-        nombre:        req.body.nombres,
-        estatus:       req.body.estatus
+        nombre:        req.body.nombre,
+        descripcion:   req.body.descripcion
       }
       
       tipo_documento.save(updateData)

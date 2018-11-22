@@ -18,10 +18,9 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_razon_incidencia:  req.body.id_razon_incidencia,
-    nombre:               req.body.nombre,
-    fecha_creacion:       req.body.fecha_creacion,
-    estatus:              req.body.estatus,
+    nombre:             req.body.nombre,
+    descripcion:        req.body.descripcion,
+    estatus:            'A'
   }
 
   Tipo_incidencia.forge(newData).save()
@@ -59,11 +58,9 @@ exports.updateDocument = (req,res) => {
     .then(function(tipo_incidencia){
       if(!tipo_incidencia) return res.status(404).json({ error : true, data : { message : 'tipo_incidencia no existe' } });
 
-      let updateData = {
-        id_razon_incidencia:  req.body.id_razon_incidencia,
-        nombre:               req.body.nombre,
-        fecha_creacion:       req.body.fecha_creacion,
-        estatus:              req.body.estatus,
+      let newData = {
+        nombre:             req.body.nombre,
+        descripcion:        req.body.descripcion,
       }
       
       tipo_incidencia.save(updateData)

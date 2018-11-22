@@ -19,6 +19,7 @@ exports.createDocument = (req,res) => {
 
   let newData = {
     nombre:         req.body.nombre,
+    descripcion:    req.body.descripcion,
     estatus:        'A'
   }
 
@@ -58,7 +59,8 @@ exports.updateDocument = (req,res) => {
       if(!tipo_garantia) return res.status(404).json({ error : true, data : { message : 'tipo_garantia no existe' } });
 
       let updateData = {
-        nombre:            req.body.nombre
+        nombre:            req.body.nombre,
+        descripcion:       req.body.descripcion
       }
       
       tipo_garantia.save(updateData)
