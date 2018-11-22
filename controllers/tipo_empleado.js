@@ -2,6 +2,7 @@
 'use strict'
 const bcrypt = require("bcryptjs");
 const Tipo_empleado = require('../models/tipo_empleado');
+const utils = require('./../middlewares/utils');
 
 exports.findDocuments = (req,res) => {
   
@@ -18,8 +19,9 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    fecha_creacion:     req.body.fecha_creacion,
-    estatus:            req.body.estatus,
+    nombre:             req.body.nombre,
+    fecha_creacion:     utils.fecha(),
+    estatus:            'A',
   }
 
   Tipo_empleado.forge(newData).save()
@@ -58,8 +60,7 @@ exports.updateDocument = (req,res) => {
       if(!tipo_empleado) return res.status(404).json({ error : true, data : { message : 'tipo_empleado no existe' } });
 
       let updateData = {
-        fecha_creacion:     req.body.fecha_creacion,
-        estatus:            req.body.estatus,
+        nombre:         req.body.nombre
       }
       
       tipo_empleado.save(updateData)
