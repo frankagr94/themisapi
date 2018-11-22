@@ -8,7 +8,6 @@ exports.findDocuments = (req,res) => {
   
   Especialidad.where({estatus:'A'||'a'}).fetchAll({
     withRelated: [
-      'abogados',
       'categorias',
       'categorias.catalogo'
     ]

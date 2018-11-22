@@ -18,13 +18,14 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    nombre:        req.body.nombres,
-    estatus:       req.body.estatus
+    nombre:        req.body.nombre,
+    descripcion:   req.body.descripcion,
+    estatus:       'A'
   }
 
   Tipo_documento.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'valoracion creado' } });
+    res.status(200).json({ error: false, data: { message: 'tipo de documento creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -38,7 +39,7 @@ exports.findOneDocument = (req,res) => {
 
   Tipo_documento.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'tipo de documento no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -55,16 +56,16 @@ exports.updateDocument = (req,res) => {
 
   Tipo_documento.forge(conditions).fetch()
     .then(function(tipo_documento){
-      if(!tipo_documento) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
+      if(!tipo_documento) return res.status(404).json({ error : true, data : { message : 'tipo de documento no existe' } });
 
       let updateData = {
-        nombre:        req.body.nombres,
-        estatus:       req.body.estatus
+        nombre:        req.body.nombre,
+        descripcion:   req.body.descripcion
       }
       
       tipo_documento.save(updateData)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'valoracion actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'tipo de documento actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -83,11 +84,11 @@ exports.deleteDocument = (req,res) => {
 
   Tipo_documento.forge(conditions).fetch()
     .then(function(tipo_documento){
-      if(!tipo_documento) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
+      if(!tipo_documento) return res.status(404).json({ error : true, data : { message : 'tipo de documento no existe' } });
 
       tipo_documento.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'valoracion eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'tipo de documento eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});

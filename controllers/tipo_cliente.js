@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Tipo_reclamo = require('../models/tipo_reclamo');
+const Tipo_cliente = require('../models/tipo_cliente');
 
 exports.findDocuments = (req,res) => {
   
-  Tipo_reclamo.forge().fetchAll()
+  Tipo_cliente.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -18,14 +18,14 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    nombre:             req.body.nombre,
-    descripcion:        req.body.descripcion,
-    estatus:            'A'
+    nombre:        req.body.nombre,
+    descripcion:   req.body.descripcion,
+    estatus:       'A'
   }
 
-  Tipo_reclamo.forge(newData).save()
+  Tipo_cliente.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'tipo_reclamo creado' } });
+    res.status(200).json({ error: false, data: { message: 'tipo de cliente creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -37,9 +37,9 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Tipo_reclamo.forge(conditions).fetch()
+  Tipo_cliente.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'tipo_reclamo no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'tipo de cliente no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -54,18 +54,18 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Tipo_reclamo.forge(conditions).fetch()
-    .then(function(tipo_reclamo){
-      if(!tipo_reclamo) return res.status(404).json({ error : true, data : { message : 'tipo_reclamo no existe' } });
+  Tipo_cliente.forge(conditions).fetch()
+    .then(function(tipo_cliente){
+      if(!tipo_cliente) return res.status(404).json({ error : true, data : { message : 'tipo de cliente no existe' } });
 
       let updateData = {
-        nombre:             req.body.nombre,
-        descripcion:        req.body.descripcion,
+        nombre:        req.body.nombre,
+        descripcion:   req.body.descripcion
       }
       
-      tipo_reclamo.save(updateData)
+      tipo_cliente.save(updateData)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'tipo_reclamo actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'tipo de cliente actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -82,13 +82,13 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Tipo_reclamo.forge(conditions).fetch()
-    .then(function(tipo_reclamo){
-      if(!tipo_reclamo) return res.status(404).json({ error : true, data : { message : 'tipo_reclamo no existe' } });
+  Tipo_cliente.forge(conditions).fetch()
+    .then(function(tipo_cliente){
+      if(!tipo_cliente) return res.status(404).json({ error : true, data : { message : 'tipo de cliente no existe' } });
 
-      tipo_reclamo.destroy()
+      tipo_cliente.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'tipo_reclamo eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'tipo de cliente eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});

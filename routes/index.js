@@ -62,6 +62,7 @@ const actuacion_servicio = require('./actuacion_servicio');
 const agenda = require('./agenda');
 const auditoria = require('./auditoria');
 const bloque = require('./bloque');
+const bloque_hora = require('./bloque_hora');
 const calificacion_orden = require('./calificacion_orden');
 const catalogo_servicio = require('./catalogo_servicio');
 const categoria = require('./categoria');
@@ -129,6 +130,7 @@ const servicio_solicitado = require('./servicio_solicitado');
 const sistema = require('./sistema');
 const solicitud = require('./solicitud');
 const suscripcion = require('./suscripcion');
+const tipo_cliente = require('./tipo_cliente');
 const tipo_actuacion = require('./tipo_actuacion');
 const tipo_comentario = require('./tipo_comentario');
 const tipo_documento = require('./tipo_documento');
@@ -138,11 +140,13 @@ const tipo_garantia = require('./tipo_garantia');
 const tipo_notificacion = require('./tipo_notificacion');
 const tipo_parametro = require('./tipo_parametro');
 const tipo_reclamo = require('./tipo_reclamo');
+const tipo_respuesta = require('./tipo_respuesta');
 const tipo_respuesta_comentario = require('./tipo_respuesta_comentario');
 const tipo_respuesta_presupuesto = require('./tipo_respuesta_presupuesto');
 const tipo_respuesta_reclamo = require('./tipo_respuesta_reclamo');
 const tipo_respuesta_solicitud = require('./tipo_respuesta_solicitud');
 const tipo_servicio = require('./tipo_servicio');
+const tipo_sugerencia = require('./tipo_sugerencia');
 const tipo_valoracion = require('./tipo_valoracion');
 const tipo_valoracion_rango_valoracion = require('./tipo_valoracion_rango_valoracion');
 const titulo_seccion = require('./titulo_seccion');
@@ -171,6 +175,7 @@ app.use('/',
 	conocenos_web,
 	servicio,
 	consejo,
+	bloque_hora,
 	empleado,
 	red_social,
 	imagen,
@@ -187,11 +192,14 @@ app.use('/',
 	funcion,
 	rol_funcion,
 	objetivo,
+	tipo_cliente,
+	tipo_sugerencia,
 	contacto_negocio,
 	descripcion_negocio,
 	agenda,
 	auditoria,
 	bloque,
+	tipo_respuesta,
 	estado_civil,
 	pais,
 	categoria_parametro,
