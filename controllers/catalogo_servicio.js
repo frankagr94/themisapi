@@ -27,14 +27,13 @@ exports.createDocument = (req,res) => {
     fecha_creacion:        util.fecha(),
     categoria_id:          req.body.categoria_id,
     visible:               true
-  } 
-  console.log(newData);
+  }
 
   if(!req.files){
     res.status(404).json({ error: true, data: { message: 'Debe seleccionar una imagen para el nuevo servicio' } });
   }
   else{
-    upload.uploader('imagen/catalogo',req.files.imagen).then(function(result) {
+    upload.uploader(req.files.imagen).then(function(result) {
       if(result.error){
         return res.status(500).send({ message : 'hubo un error' })
       }else{
@@ -120,7 +119,7 @@ exports.updateDocument = (req,res) => {
         })
       }
       else{
-        upload.uploader('imagen/catalogo',req.files.imagen).then(function(result) {
+        upload.uploader(req.files.imagen).then(function(result) {
           if(result.error){
             return res.status(500).send({ message : 'hubo un error' })
           }
