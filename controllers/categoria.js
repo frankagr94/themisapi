@@ -26,10 +26,10 @@ exports.createDocument = (req,res) => {
     nombre:                req.body.nombre,
     descripcion:           req.body.descripcion,
     imagen:                '',
-    estatus:               req.body.estatus,
+    estatus:               'A',
     especialidad_id:       req.body.especialidad_id
   }
-  if(!req.files.imagen){
+  if(!req.files){
       res.status(404).json({ error: true, data: { message: 'Debe seleccionar una imagen para la categoria' } });
   }
   else{
@@ -52,7 +52,7 @@ exports.createDocument = (req,res) => {
 
 exports.findOneDocument = (req,res) => {
 
-  let conditions = { id: req.params.id, estatus: 'A' };
+  let conditions = { id: req.params.id };
 
   Categoria.forge(conditions).fetch()
     .then(function(data){
@@ -85,7 +85,6 @@ exports.updateDocument = (req,res) => {
       //Verifica si en la peticion va adjuntada una imagen, en caso falso guarda lo que viene en el body,
       //en caso positivo sube la imagen y guarda los datos con la imagen en base de datos
       if(!req.files){
-        console.log('entra aqui')
         categoria.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'categoria actualizado'} });

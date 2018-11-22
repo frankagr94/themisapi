@@ -2,10 +2,11 @@
 'use strict'
 const bcrypt = require("bcryptjs");
 const Especialidad = require('../models/especialidad');
+const util = require('../middlewares/utils');
 
 exports.findDocuments = (req,res) => {
   
-  Especialidad.forge().fetchAll({
+  Especialidad.where({estatus:'A'||'a'}).fetchAll({
     withRelated: [
       'abogados',
       'categorias',
@@ -25,8 +26,8 @@ exports.createDocument = (req,res) => {
 
   let newData = {
     nombre:                 req.body.nombre,
-    fecha_creacion:         req.body.fecha_creacion,
-    estatus:                req.body.estatus,
+    fecha_creacion:         util.fecha(),
+    estatus:                'A',
   }
 
   Especialidad.forge(newData).save()
@@ -64,13 +65,13 @@ exports.updateDocument = (req,res) => {
     .then(function(especialidad){
       if(!especialidad) return res.status(404).json({ error : true, data : { message : 'especialidad no existe' } });
 
-      let updateData = {
+      /* let updateData = {
         nombre:                 req.body.nombre,
         fecha_creacion:         req.body.fecha_creacion,
         estatus:                req.body.estatus,
-      }
+      } */
       
-      especialidad.save(updateData)
+      especialidad.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'especialidad actualizado'} });
         })
