@@ -19,6 +19,7 @@ exports.createDocument = (req,res) => {
 
   let newData = {
     tipo_actuacion_id:    req.body.tipo_actuacion_id,
+    descripcion:          req.body.descripcion,
     nombre:               req.body.nombre,
     estatus:              req.body.estatus
   }
@@ -60,6 +61,7 @@ exports.updateDocument = (req,res) => {
 
       let newData = {
         tipo_actuacion_id:    req.body.tipo_actuacion_id,
+        descripcion:          req.body.descripcion,
         nombre:               req.body.nombre,
         estatus:              req.body.estatus
       }

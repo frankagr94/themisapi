@@ -54,7 +54,11 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Categoria.forge(conditions).fetch()
+  Categoria.forge(conditions).fetch({
+    withRelated:[
+      'catalogo_servicio'
+    ]
+  })
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'categoria no existe' } });
 
