@@ -24,7 +24,8 @@ exports.createDocument = (req,res) => {
   let newData = {
     nombre:             req.body.nombre,
     estatus:            req.body.estatus,
-    funcion_id:         req.body.funcion_id
+    funcion_id:         req.body.funcion_id, 
+    ruta_id:            req.body.ruta_id
   }
 
   Funcion.forge(newData).save()
@@ -41,7 +42,11 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Funcion.forge(conditions).fetch()
+  Funcion.forge(conditions).fetch({
+    withRelated:[
+      'ruta'
+    ]
+  })
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'funcion no existe' } });
 
@@ -65,7 +70,8 @@ exports.updateDocument = (req,res) => {
       let updateData = {
         nombre:             req.body.nombre,
         estatus:            req.body.estatus,
-        funcion_id:         req.body.funcion_id
+        funcion_id:         req.body.funcion_id, 
+        ruta_id:            req.body.ruta_id
       }
       
       funcion.save(updateData)
@@ -82,6 +88,29 @@ exports.updateDocument = (req,res) => {
     })
 
 }
+
+exports.cambiarEstatus = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Actuacion.forge(conditions).fetch()
+    .then(function(actuacion){
+      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'funcion no existe' } });
+      actuacion.save({estatus:req.body.estatus})
+        .then(function(data){
+          res.status(200).json({ error : false, data : { message : 'estatus de la funcion actualizado'} });
+        })
+        .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} });
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
 
 exports.deleteDocument = (req,res) => {
 

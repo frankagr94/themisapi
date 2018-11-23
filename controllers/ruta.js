@@ -18,8 +18,8 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_funcion:         req.body.rol_id,
-    nombre:             req.body.acceso_id
+    nombre:             req.body.nombre,
+    descripcion:        req.body.descripcion
   }
 
   ruta.forge(newData).save()
@@ -58,8 +58,8 @@ exports.updateDocument = (req,res) => {
       if(!ruta) return res.status(404).json({ error : true, data : { message : 'ruta no existe' } });
 
       let updateData = {
-        id_funcion:         req.body.rol_id,
-        nombre:             req.body.acceso_id
+        descripcion:        req.body.descripcion,
+        nombre:             req.body.nombre
       }
       
       ruta.save(updateData)

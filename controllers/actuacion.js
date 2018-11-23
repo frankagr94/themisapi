@@ -21,7 +21,7 @@ exports.createDocument = (req,res) => {
     tipo_actuacion_id:    req.body.tipo_actuacion_id,
     descripcion:          req.body.descripcion,
     nombre:               req.body.nombre,
-    estatus:              req.body.estatus
+    estatus:              'A'
   }
 
   Actuacion.forge(newData).save()
@@ -69,6 +69,28 @@ exports.updateDocument = (req,res) => {
       actuacion.save(updateData)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'actuacion actualizado'} });
+        })
+        .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} });
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
+exports.cambiarEstatus = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Actuacion.forge(conditions).fetch()
+    .then(function(actuacion){
+      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'actuacion no existe' } });
+      actuacion.save({estatus:req.body.estatus})
+        .then(function(data){
+          res.status(200).json({ error : false, data : { message : 'estatus de la actuacion actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
