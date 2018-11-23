@@ -23,7 +23,7 @@ exports.createDocument = (req,res) => {
     estatus:         'A'
   }
 
-  caracteristica_base.forge(newData).save()
+  Caracteristica_base.forge(newData).save()
   .then(function(data){
     res.status(200).json({ error: false, data: { message: 'caracteristica base creado' } });
   })

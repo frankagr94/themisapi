@@ -41,7 +41,7 @@ function signUp(req,res) {
 					telefono:           req.body.telefono,
 					sexo:          		req.body.sexo,
 					fecha_nac:		    req.body.fecha_nac,
-					id_usuario:         usuario.id
+					usuario_id:         usuario.id
 				}
 
 				Cliente.forge(newClient).save()
