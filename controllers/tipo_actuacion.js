@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Tipo_tipo_actuacion = require('../models/tipo_tipo_actuacion');
+const Tipo_actuacion = require('../models/tipo_actuacion');
 
 exports.findDocuments = (req,res) => {
   
-  Tipo_tipo_actuacion.forge().fetchAll()
+  Tipo_actuacion.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -23,7 +23,7 @@ exports.createDocument = (req,res) => {
     estatus:       'A'
   }
 
-  Tipo_tipo_actuacion.forge(newData).save()
+  Tipo_actuacion.forge(newData).save()
   .then(function(data){
     res.status(200).json({ error: false, data: { message: 'tipo de tipo_actuacion creado' } });
   })
@@ -37,7 +37,7 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Tipo_tipo_actuacion.forge(conditions).fetch()
+  Tipo_actuacion.forge(conditions).fetch()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'tipo de tipo_actuacion no existe' } });
 
@@ -54,7 +54,7 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Tipo_tipo_actuacion.forge(conditions).fetch()
+  Tipo_actuacion.forge(conditions).fetch()
     .then(function(tipo_tipo_actuacion){
       if(!tipo_tipo_actuacion) return res.status(404).json({ error : true, data : { message : 'tipo de tipo_actuacion no existe' } });
 
@@ -63,7 +63,7 @@ exports.updateDocument = (req,res) => {
         descripcion:   req.body.descripcion
       }
       
-      tipo_tipo_actuacion.save(updateData)
+      tipo_actuacion.save(updateData)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'tipo de tipo_actuacion actualizado'} });
         })

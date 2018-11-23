@@ -17,6 +17,18 @@ exports.findDocuments = (req,res) => {
 
 }
 
+exports.catalogoPorCategoria = (req,res) => {
+  
+  Catalogo_servicio.where({categoria_id:req.params.id}).fetchAll()
+  .then(function(data){
+    res.status(200).json({ error : false, data : data.toJSON() });
+  })
+  .catch(function (err) {
+    res.status(500).json({ error: true, data: {message: err.message} });
+  });
+
+}
+
 exports.createDocument = (req,res) => {
 
   let newData = {
