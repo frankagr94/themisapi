@@ -13,6 +13,7 @@ const id = ':id'
 //----Rutas------ 
 router.get(`${path}`, controller.findDocuments)
 router.get(`${path}/visibles`, controller.mostrarVisibles)
+router.get(`${path}/categoria/${id}`, controller.catalogoPorCategoria)
 router.post(`${path}`,controller.createDocument)
 router.get(`${path}/${id}`,controller.findOneDocument)
 router.put(`${path}/${id}`,controller.updateDocument)
