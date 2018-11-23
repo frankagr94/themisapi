@@ -18,8 +18,9 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    nombre:        req.body.nombres,
-    descripcion:   req.body.descripcion
+    hora_inicio:        req.body.hora_inicio,
+    hora_fin:          req.body.hora_fin,
+    estatus:           'A'
   }
 
   Bloque_hora.forge(newData).save()
@@ -58,13 +59,35 @@ exports.updateDocument = (req,res) => {
       if(!bloque_hora) return res.status(404).json({ error : true, data : { message : 'bloque de hora no existe' } });
 
       let updateData = {
-        nombre:        req.body.nombres,
-        descripcion:   req.body.descripcion
+        hora_inicio:        req.body.hora_inicio,
+        hora_fin:          req.body.hora_fin
       }
       
       bloque_hora.save(updateData)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'bloque de hora actualizado'} });
+        })
+        .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} });
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
+exports.cambiarEstatus = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Bloque_hora.forge(conditions).fetch()
+    .then(function(bloque_hora){
+      if(!bloque_hora) return res.status(404).json({ error : true, data : { message : 'bloque de hora no existe' } });
+      bloque_hora.save({estatus:req.body.estatus})
+        .then(function(data){
+          res.status(200).json({ error : false, data : { message : 'estatus del bloque de hora actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });

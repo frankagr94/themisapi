@@ -82,10 +82,10 @@ exports.cambiarEstatus = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion.forge(conditions).fetch()
-    .then(function(actuacion){
-      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'tipo de respuesta no existe' } });
-      actuacion.save({estatus:req.body.estatus})
+  Tipo_respuesta.forge(conditions).fetch()
+    .then(function(tipo_respuesta){
+      if(!tipo_respuesta) return res.status(404).json({ error : true, data : { message : 'tipo de respuesta no existe' } });
+      tipo_respuesta.save({estatus:req.body.estatus})
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'estatus del tipo de respuesta actualizado'} });
         })

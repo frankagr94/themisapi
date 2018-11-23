@@ -69,6 +69,8 @@ const categoria = require('./categoria');
 const calificacion_servicio = require('./calificacion_servicio');
 const categoria_parametro = require('./categoria_parametro');
 const categoria_servicio = require('./categoria_servicio');
+const caracteristica = require('./caracteristica');
+const caracteristica_base = require('./caracteristica_base');
 const cita = require('./cita');
 const ciudad = require('./ciudad');
 const cliente = require('./cliente');
@@ -180,6 +182,8 @@ app.use('/',
 	red_social,
 	imagen,
 	filosofia,
+	caracteristica,
+	caracteristica_base,
 	imagen_carrusel,
 	inicio_web,
 	titulo_seccion,

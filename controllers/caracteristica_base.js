@@ -1,15 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Funcion = require('../models/funcion');
+const Caracteristica_base = require('../models/caracteristica_base');
 
 exports.findDocuments = (req,res) => {
   
-  Funcion.forge().fetchAll({
-    withRelated : [
-      'ruta'
-    ]
-  })
+  Caracteristica_base.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -22,15 +18,14 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    nombre:             req.body.nombre,
-    estatus:            req.body.estatus,
-    funcion_id:         req.body.funcion_id, 
-    ruta_id:            req.body.ruta_id
+    nombre:          req.body.nombre,
+    descripcion:     req.body.descripcion,
+    estatus:         'A'
   }
 
-  Funcion.forge(newData).save()
+  caracteristica_base.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'funcion creado' } });
+    res.status(200).json({ error: false, data: { message: 'caracteristica base creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -42,13 +37,9 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Funcion.forge(conditions).fetch({
-    withRelated:[
-      'ruta'
-    ]
-  })
+  Caracteristica_base.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'funcion no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'caracteristica base no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -63,20 +54,18 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Funcion.forge(conditions).fetch()
-    .then(function(funcion){
-      if(!funcion) return res.status(404).json({ error : true, data : { message : 'funcion no existe' } });
+  Caracteristica_base.forge(conditions).fetch()
+    .then(function(caracteristica_base){
+      if(!caracteristica_base) return res.status(404).json({ error : true, data : { message : 'caracteristica base no existe' } });
 
       let updateData = {
-        nombre:             req.body.nombre,
-        estatus:            req.body.estatus,
-        funcion_id:         req.body.funcion_id, 
-        ruta_id:            req.body.ruta_id
+        nombre:          req.body.nombre,
+        descripcion:     req.body.descripcion
       }
       
-      funcion.save(updateData)
+      caracteristica_base.save(updateData)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'funcion actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'caracteristica base actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -93,12 +82,12 @@ exports.cambiarEstatus = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Funcion.forge(conditions).fetch()
-    .then(function(funcion){
-      if(!funcion) return res.status(404).json({ error : true, data : { message : 'funcion no existe' } });
-      funcion.save({estatus:req.body.estatus})
+  Caracteristica_base.forge(conditions).fetch()
+    .then(function(caracteristica_base){
+      if(!caracteristica_base) return res.status(404).json({ error : true, data : { message : 'caracteristica base no existe' } });
+      caracteristica_base.save({estatus:req.body.estatus})
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'estatus de la funcion actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'estatus de la caracteristica base actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -116,13 +105,13 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Funcion.forge(conditions).fetch()
-    .then(function(funcion){
-      if(!funcion) return res.status(404).json({ error : true, data : { message : 'funcion no existe' } });
+  Caracteristica_base.forge(conditions).fetch()
+    .then(function(caracteristica_base){
+      if(!caracteristica_base) return res.status(404).json({ error : true, data : { message : 'caracteristica base no existe' } });
 
-      funcion.destroy()
+      caracteristica_base.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'funcion eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'caracteristica base eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});

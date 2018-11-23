@@ -18,8 +18,9 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    valor_id:        req.body.valor,
-    descripcion:     req.body.descripcion
+    nombre:          req.body.nombre,
+    descripcion:     req.body.descripcion,
+    estatus:         'A'
   }
 
   Tipo_valoracion.forge(newData).save()
@@ -58,7 +59,7 @@ exports.updateDocument = (req,res) => {
       if(!tipo_valoracion) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
 
       let updateData = {
-        valor_id:        req.body.valor,
+        nombre:          req.body.nombre,
         descripcion:     req.body.descripcion
       }
       
@@ -81,10 +82,10 @@ exports.cambiarEstatus = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion.forge(conditions).fetch()
-    .then(function(actuacion){
-      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'tipo de valoracion no existe' } });
-      actuacion.save({estatus:req.body.estatus})
+  Tipo_valoracion.forge(conditions).fetch()
+    .then(function(tipo_valoracion){
+      if(!tipo_valoracion) return res.status(404).json({ error : true, data : { message : 'tipo de valoracion no existe' } });
+      tipo_valoracion.save({estatus:req.body.estatus})
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'estatus del tipo de valoracio actualizado'} });
         })

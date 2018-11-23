@@ -97,10 +97,10 @@ exports.cambiarEstatus = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion.forge(conditions).fetch()
-    .then(function(actuacion){
-      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'servicio del catalogo no existe' } });
-      actuacion.save({estatus:req.body.estatus})
+  Catalogo_servicio.forge(conditions).fetch()
+    .then(function(catalogo_servicio){
+      if(!catalogo_servicio) return res.status(404).json({ error : true, data : { message : 'servicio del catalogo no existe' } });
+      catalogo_servicio.save({estatus:req.body.estatus})
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'estatus del servicio del catalogo actualizado'} });
         })
