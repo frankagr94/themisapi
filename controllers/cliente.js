@@ -58,7 +58,7 @@ exports.findOneDocument = (req,res) => {
 
 exports.findOneClientByUser = (req,res) => {
 
-  let conditions = { id_usuario: req.params.id_usuario };
+  let conditions = { usuario_id: req.params.usuario_id };
 
   Cliente.forge(conditions).fetch()
     .then(function(data){
