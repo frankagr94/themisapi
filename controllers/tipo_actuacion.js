@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Tipo_actuacion = require('../models/tipo_actuacion');
+const Tipo_tipo_actuacion = require('../models/tipo_tipo_actuacion');
 
 exports.findDocuments = (req,res) => {
   
-  Tipo_actuacion.forge().fetchAll()
+  Tipo_tipo_actuacion.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -23,9 +23,9 @@ exports.createDocument = (req,res) => {
     estatus:       'A'
   }
 
-  Tipo_actuacion.forge(newData).save()
+  Tipo_tipo_actuacion.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'tipo de actuacion creado' } });
+    res.status(200).json({ error: false, data: { message: 'tipo de tipo_actuacion creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -37,9 +37,9 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Tipo_actuacion.forge(conditions).fetch()
+  Tipo_tipo_actuacion.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'tipo de actuacion no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'tipo de tipo_actuacion no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -54,18 +54,18 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Tipo_actuacion.forge(conditions).fetch()
-    .then(function(tipo_actuacion){
-      if(!tipo_actuacion) return res.status(404).json({ error : true, data : { message : 'tipo de actuacion no existe' } });
+  Tipo_tipo_actuacion.forge(conditions).fetch()
+    .then(function(tipo_tipo_actuacion){
+      if(!tipo_tipo_actuacion) return res.status(404).json({ error : true, data : { message : 'tipo de tipo_actuacion no existe' } });
 
       let updateData = {
         nombre:        req.body.nombre,
         descripcion:   req.body.descripcion
       }
       
-      tipo_actuacion.save(updateData)
+      tipo_tipo_actuacion.save(updateData)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'tipo de actuacion actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'tipo de tipo_actuacion actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -82,12 +82,12 @@ exports.cambiarEstatus = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion.forge(conditions).fetch()
-    .then(function(actuacion){
-      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'tipo actuacion no existe' } });
-      actuacion.save({estatus:req.body.estatus})
+  Tipo_actuacion.forge(conditions).fetch()
+    .then(function(tipo_actuacion){
+      if(!tipo_actuacion) return res.status(404).json({ error : true, data : { message : 'tipo tipo_actuacion no existe' } });
+      tipo_actuacion.save({estatus:req.body.estatus})
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'estatus del tipo actuacion actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'estatus del tipo tipo_actuacion actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -105,13 +105,13 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Tipo_actuacion.forge(conditions).fetch()
-    .then(function(tipo_actuacion){
-      if(!tipo_actuacion) return res.status(404).json({ error : true, data : { message : 'tipo de actuacion no existe' } });
+  Tipo_tipo_actuacion.forge(conditions).fetch()
+    .then(function(tipo_tipo_actuacion){
+      if(!tipo_tipo_actuacion) return res.status(404).json({ error : true, data : { message : 'tipo de tipo_actuacion no existe' } });
 
-      tipo_actuacion.destroy()
+      tipo_tipo_actuacion.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'tipo de actuacion eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'tipo de tipo_actuacion eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});

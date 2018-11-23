@@ -82,10 +82,10 @@ exports.cambiarEstatus = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion.forge(conditions).fetch()
-    .then(function(actuacion){
-      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'tipo de sugerencia no existe' } });
-      actuacion.save({estatus:req.body.estatus})
+  Tipo_sugerencia.forge(conditions).fetch()
+    .then(function(tipo_sugerencia){
+      if(!tipo_sugerencia) return res.status(404).json({ error : true, data : { message : 'tipo de sugerencia no existe' } });
+      tipo_sugerencia.save({estatus:req.body.estatus})
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'estatus del tipo de sugerencia actualizado'} });
         })

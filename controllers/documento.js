@@ -84,10 +84,10 @@ exports.cambiarEstatus = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion.forge(conditions).fetch()
-    .then(function(actuacion){
-      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'documento no existe' } });
-      actuacion.save({estatus:req.body.estatus})
+  Documento.forge(conditions).fetch()
+    .then(function(documento){
+      if(!documento) return res.status(404).json({ error : true, data : { message : 'documento no existe' } });
+      documento.save({estatus:req.body.estatus})
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'estatus del documento actualizado'} });
         })

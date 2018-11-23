@@ -82,10 +82,10 @@ exports.cambiarEstatus = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion.forge(conditions).fetch()
-    .then(function(actuacion){
-      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'tipo de reclamo no existe' } });
-      actuacion.save({estatus:req.body.estatus})
+  Tipo_reclamo.forge(conditions).fetch()
+    .then(function(tipo_reclamo){
+      if(!tipo_reclamo) return res.status(404).json({ error : true, data : { message : 'tipo de reclamo no existe' } });
+      tipo_reclamo.save({estatus:req.body.estatus})
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'estatus del tipo de reclamo actualizado'} });
         })

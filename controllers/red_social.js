@@ -75,6 +75,28 @@ exports.updateDocument = (req,res) => {
 
 }
 
+exports.cambiarEstatus = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Red_social.forge(conditions).fetch()
+    .then(function(red_social){
+      if(!red_social) return res.status(404).json({ error : true, data : { message : 'red_social no existe' } });
+      red_social.save({estatus:req.body.estatus})
+        .then(function(data){
+          res.status(200).json({ error : false, data : { message : 'estatus de la red_social actualizado'} });
+        })
+        .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} });
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
 exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
