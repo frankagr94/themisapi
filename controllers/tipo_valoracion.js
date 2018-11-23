@@ -5,7 +5,7 @@ const Tipo_valoracion = require('../models/tipo_valoracion');
 
 exports.findDocuments = (req,res) => {
   
-  Tipo_valoracion.forge().fetchAll()
+  Tipo_valoracion.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -57,13 +57,8 @@ exports.updateDocument = (req,res) => {
   Tipo_valoracion.forge(conditions).fetch()
     .then(function(tipo_valoracion){
       if(!tipo_valoracion) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
-
-      let updateData = {
-        nombre:          req.body.nombre,
-        descripcion:     req.body.descripcion
-      }
       
-      tipo_valoracion.save(updateData)
+      tipo_valoracion.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'valoracion actualizado'} });
         })

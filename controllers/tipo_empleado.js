@@ -6,7 +6,7 @@ const utils = require('./../middlewares/utils');
 
 exports.findDocuments = (req,res) => {
   
-  Tipo_empleado.forge().fetchAll()
+  Tipo_empleado.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -58,12 +58,8 @@ exports.updateDocument = (req,res) => {
   Tipo_empleado.forge(conditions).fetch()
     .then(function(tipo_empleado){
       if(!tipo_empleado) return res.status(404).json({ error : true, data : { message : 'tipo_empleado no existe' } });
-
-      let updateData = {
-        nombre:         req.body.nombre
-      }
       
-      tipo_empleado.save(updateData)
+      tipo_empleado.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'tipo_empleado actualizado'} });
         })
