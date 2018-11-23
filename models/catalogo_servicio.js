@@ -4,7 +4,7 @@ const Actuacion_catalogo = require('./actuacion_catalogo');
 const Actuacion = require('./actuacion');
 const Recaudo_servicio = require('./recaudo_servicio');
 const Documento = require('./documento');
-const Servicios = require('./Servicios')
+const Servicios = require('./Servicio')
 
 const catalogo_servicio = Bookshelf.Model.extend({
   tableName: 'catalogo_servicio',

@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 //----dependencias------  
 const Usuario = require('../models/usuario');
 const Cliente = require('../models/cliente');
-const Perfil = require('../models/perfil');
+//const Perfil = require('../models/perfil');
 const jwt = require('../services/jwt');
 const mailer = require('../services/mailer');
 const moment = require('moment')

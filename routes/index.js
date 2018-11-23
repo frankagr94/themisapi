@@ -63,6 +63,8 @@ const agenda = require('./agenda');
 const auditoria = require('./auditoria');
 const bloque = require('./bloque');
 const calificacion_orden = require('./calificacion_orden');
+const caracteristica = require('./caracteristica');
+const caracteristica_base = require('./caracteristica_base');
 const catalogo_servicio = require('./catalogo_servicio');
 const categoria = require('./categoria');
 const calificacion_servicio = require('./calificacion_servicio');
@@ -109,7 +111,7 @@ const objetivo = require('./objetivo_empresa');
 const orden_servicio = require('./orden_servicio');
 const pais = require('./pais');
 const parametro = require('./parametro');
-const perfil = require('./perfil');
+const perfil_caracteristica = require('./perfil_caracteristica');
 const presupuesto = require('./presupuesto');
 const promocion = require('./promocion');
 const proveedor = require('./proveedor');
@@ -131,6 +133,7 @@ const sistema = require('./sistema');
 const solicitud = require('./solicitud');
 const suscripcion = require('./suscripcion');
 const tipo_actuacion = require('./tipo_actuacion');
+const tipo_cliente = require('./tipo_cliente');
 const tipo_comentario = require('./tipo_comentario');
 const tipo_documento = require('./tipo_documento');
 const tipo_incidencia = require('./tipo_incidencia');
@@ -165,9 +168,11 @@ app.use('/',
 	cliente,
 	empresa,
 	parametro,
-	perfil,
+	perfil_caracteristica,
 	actuacion,
 	tipo_parametro,
+	caracteristica,
+	caracteristica_base,
 	categoria_servicio,
 	conocenos_web,
 	servicio,
@@ -234,6 +239,7 @@ app.use('/',
 	razon_incidencia,
 	respuesta_presupuesto,
 	servicio_parametro,
+	tipo_cliente,
 	tipo_comentario,
 	tipo_incidencia,
 	tipo_empleado,

@@ -1,7 +1,7 @@
 //---- dependencias ------
 const Bookshelf = require('../db');
 
-const Empleado = Bookshelf.Model.extend({
+const Empleado_servicio = Bookshelf.Model.extend({
   tableName: 'empleado_servicio',
 });
 
