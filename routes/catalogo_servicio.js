@@ -17,6 +17,7 @@ router.post(`${path}`,controller.createDocument)
 router.get(`${path}/${id}`,controller.findOneDocument)
 router.put(`${path}/${id}`,controller.updateDocument)
 router.put(`${path}/${id}/show`, controller.hacerVisible)
+router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)
 router.delete(`${path}/${id}`,controller.deleteDocument)
 
 module.exports = router;

@@ -18,7 +18,7 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    nombre:        req.body.nombres,
+    nombre:        req.body.nombre,
     descripcion:   req.body.descripcion,
     estatus:       'A'
   }
@@ -59,7 +59,7 @@ exports.updateDocument = (req,res) => {
       if(!tipo_actuacion) return res.status(404).json({ error : true, data : { message : 'tipo de actuacion no existe' } });
 
       let updateData = {
-        nombre:        req.body.nombres,
+        nombre:        req.body.nombre,
         descripcion:   req.body.descripcion
       }
       
@@ -77,6 +77,29 @@ exports.updateDocument = (req,res) => {
     })
 
 }
+
+exports.cambiarEstatus = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Actuacion.forge(conditions).fetch()
+    .then(function(actuacion){
+      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'tipo actuacion no existe' } });
+      actuacion.save({estatus:req.body.estatus})
+        .then(function(data){
+          res.status(200).json({ error : false, data : { message : 'estatus del tipo actuacion actualizado'} });
+        })
+        .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} });
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
 
 exports.deleteDocument = (req,res) => {
 

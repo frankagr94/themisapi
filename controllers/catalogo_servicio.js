@@ -93,6 +93,29 @@ exports.findOneDocument = (req,res) => {
 
 }
 
+exports.cambiarEstatus = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Actuacion.forge(conditions).fetch()
+    .then(function(actuacion){
+      if(!actuacion) return res.status(404).json({ error : true, data : { message : 'servicio del catalogo no existe' } });
+      actuacion.save({estatus:req.body.estatus})
+        .then(function(data){
+          res.status(200).json({ error : false, data : { message : 'estatus del servicio del catalogo actualizado'} });
+        })
+        .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} });
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
+
 exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
