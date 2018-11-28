@@ -3,6 +3,7 @@
 const bcrypt = require("bcryptjs");
 const Usuario = require('../models/usuario');
 const util = require('../middlewares/utils');
+const mw = require('../middlewares/uploader');
 
 exports.findDocuments = (req,res) => {
   
