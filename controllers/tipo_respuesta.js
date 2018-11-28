@@ -5,7 +5,7 @@ const Tipo_respuesta = require('../models/tipo_respuesta');
 
 exports.findDocuments = (req,res) => {
   
-  Tipo_respuesta.forge().fetchAll()
+  Tipo_respuesta.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -18,7 +18,7 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    nombre:        req.body.nombres,
+    nombre:        req.body.nombre,
     descripcion:   req.body.descripcion,
     estatus:       'A'
   }
@@ -58,12 +58,12 @@ exports.updateDocument = (req,res) => {
     .then(function(tipo_respuesta){
       if(!tipo_respuesta) return res.status(404).json({ error : true, data : { message : 'tipo de respuesta no existe' } });
 
-      let updateData = {
+      /* let updateData = {
         nombre:        req.body.nombres,
         descripcion:   req.body.descripcion
-      }
+      } */
       
-      tipo_respuesta.save(updateData)
+      tipo_respuesta.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'tipo de respuesta actualizado'} });
         })
