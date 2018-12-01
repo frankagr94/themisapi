@@ -56,7 +56,7 @@ exports.findOneDispositivo = (req,res) => {
 
 exports.updateDispositivo = (req,res) => {
 
-  let conditions = { id: req.params.usuario_id };
+  let conditions = { usuario_id: req.params.usuario_id };
 
   Dispositivo.forge(conditions).fetch()
     .then(function(disp){
