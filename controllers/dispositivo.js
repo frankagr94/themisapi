@@ -59,10 +59,10 @@ exports.updateDispositivo = (req,res) => {
   let conditions = { usuario_id: req.params.usuario_id };
 
   Dispositivo.forge(conditions).fetch()
-    .then(function(disp){
-      if(!disp) return res.status(404).json({ error : true, data : { message : 'el usuario no tiene dispositivo asociado' } });
+    .then(function(dispositivo){
+      if(!dispositivo) return res.status(404).json({ error : true, data : { message : 'el usuario no tiene dispositivo asociado' } });
       
-      Dispositivo.save(req.body)
+      dispositivo.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'dispositivo actualizado'} });
         })
@@ -80,13 +80,13 @@ exports.updateDispositivo = (req,res) => {
 
 exports.deleteDispositivo = (req,res) => {
 
-  let conditions = { id: req.params.usuario_id };
+  let conditions = { usuario_id: req.params.usuario_id };
 
   Dispositivo.forge(conditions).fetch()
-    .then(function(disp){
-      if(!disp) return res.status(404).json({ error : true, data : { message : 'no hay un dispositivo asociado a ese usuario' } });
+    .then(function(dispositivo){
+      if(!dispositivo) return res.status(404).json({ error : true, data : { message : 'no hay un dispositivo asociado a ese usuario' } });
 
-      Dispositivo.destroy()
+      dispositivo.destroy()
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'dispositivo eliminado'} })
         })
