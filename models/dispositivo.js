@@ -4,7 +4,7 @@ const Usuario = require('./usuario');
 
 const Dispositivo = Bookshelf.Model.extend({
   tableName: 'dispositivo',
-  funciones : function(){
+  usuario : function(){
     return this.belongsTo(Usuario, 'usuario_id');
   }
 });
