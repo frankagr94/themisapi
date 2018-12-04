@@ -20,7 +20,8 @@ exports.createDocument = (req,res) => {
   let newData = {
     valor:           req.body.valor,
     imagen:          req.body.imagen,
-    descripcion:     req.body.descripcion
+    descripcion:     req.body.descripcion,
+    estatus:         'A'
   }
 
   Rango_valoracion.forge(newData).save()
