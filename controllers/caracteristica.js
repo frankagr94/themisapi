@@ -5,7 +5,7 @@ const Caracteristica = require('../models/caracteristica');
 
 exports.findDocuments = (req,res) => {
   
-  Caracteristica.forge().fetchAll()
+  Caracteristica.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -24,9 +24,9 @@ exports.createDocument = (req,res) => {
     estatus:         'A'
   }
 
-  caracteristica.forge(newData).save()
+  Caracteristica.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'caracteristica creado' } });
+    res.status(200).json({ error: false, data: { message: 'caracteristica creada' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -38,7 +38,7 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  caracteristica.forge(conditions).fetch()
+  Caracteristica.forge(conditions).fetch()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'caracteristica no existe' } });
 
@@ -55,19 +55,19 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  caracteristica.forge(conditions).fetch()
+  Caracteristica.forge(conditions).fetch()
     .then(function(caracteristica){
       if(!caracteristica) return res.status(404).json({ error : true, data : { message : 'caracteristica no existe' } });
 
-      let updateData = {
+      /* let updateData = {
         nombre:          req.body.nombre,
         descripcion:     req.body.descripcion,
         caracteristica_base_id:    req.body.caracteristica_base_id,
-      }
+      } */
       
-      caracteristica.save(updateData)
+      caracteristica.save(req.body)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'caracteristica actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'caracteristica actualizada'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -107,7 +107,7 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  caracteristica.forge(conditions).fetch()
+  Caracteristica.forge(conditions).fetch()
     .then(function(caracteristica){
       if(!caracteristica) return res.status(404).json({ error : true, data : { message : 'caracteristica no existe' } });
 
