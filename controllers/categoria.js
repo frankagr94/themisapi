@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const Categoria = require('../models/categoria');
 const mw = require('../middlewares/uploader');
 
-exports.findDocuments = (req,res) => {
+exports.findCategorias = (req,res) => {
   
   Categoria.where({estatus:'A'||'a'}).fetchAll({
     withRelated: [
@@ -20,7 +20,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createCategoria = (req,res) => {
 
   let newData = {
     nombre:                req.body.nombre,
@@ -50,7 +50,7 @@ exports.createDocument = (req,res) => {
   }
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneCategoria = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -94,7 +94,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.updateDocument = (req,res) => {
+exports.updateCategoria = (req,res) => {
 
   let conditions = { id: req.params.id };
   //Busca primero si la categoria existe, caso positivo sigue el curso, caso falso retorna 404
@@ -102,13 +102,6 @@ exports.updateDocument = (req,res) => {
     .then(function(categoria){
       if(!categoria) return res.status(404).json({ error : true, data : { message : 'categoria no existe' } });
 
-      /* let updateData = {
-        nombre:                req.body.nombre,
-        descripcion:           req.body.descripcion,
-        imagen:                req.body.imagen,
-        estatus:               req.body.estatus,
-        especialidad_id:       req.body.especialidad_id
-      } */
       //Verifica si en la peticion va adjuntada una imagen, en caso falso guarda lo que viene en el body,
       //en caso positivo sube la imagen y guarda los datos con la imagen en base de datos
       if(!req.files){
@@ -145,7 +138,7 @@ exports.updateDocument = (req,res) => {
     })
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteCategoria = (req,res) => {
 
   let conditions = { id: req.params.id };
 

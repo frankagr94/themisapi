@@ -11,10 +11,10 @@ const path = '/bloque_hora'
 const id = ':id'
 
 //----Rutas------ 
-router.get(`${path}`, controller.findDocuments)
-router.post(`${path}`,controller.createDocument)
-router.get(`${path}/${id}`,controller.findOneDocument)
-router.put(`${path}/${id}`,controller.updateDocument)
-router.delete(`${path}/${id}`,controller.deleteDocument)
+router.get(`${path}`, controller.findBloque_horas)
+router.post(`${path}`,controller.createBloque_hora)
+router.get(`${path}/${id}`,controller.findOneBloque_hora)
+router.put(`${path}/${id}`,controller.updateBloque_hora)
+router.delete(`${path}/${id}`,controller.deleteBloque_hora)
 
 module.exports = router;

@@ -3,7 +3,7 @@
 const bcrypt = require("bcryptjs");
 const Actuacion_catalogo = require('../models/actuacion_catalogo');
 
-exports.findDocuments = (req,res) => {
+exports.findActuacion_catalogos = (req,res) => {
   
   Actuacion_catalogo.forge().fetchAll()
   .then(function(data){
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createActuacion_catalogo = (req,res) => {
 
   let newData = {
     actuacion_id:      req.body.actuacion_id,
@@ -34,7 +34,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneActuacion_catalogo = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -51,7 +51,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateActuacion_catalogo = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -81,7 +81,7 @@ exports.updateDocument = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteActuacion_catalogo = (req,res) => {
 
   let conditions = { id: req.params.id };
 

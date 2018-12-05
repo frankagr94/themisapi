@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Estado = require('../models/estado');
 
-exports.findDocuments = (req,res) => {
+exports.findEstados = (req,res) => {
   
-  Estado.forge().fetchAll()
+  Estado.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createEstado = (req,res) => {
 
   let newData = {
     nombre:             req.body.nombre,
@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneEstado = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -50,7 +50,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateEstado = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -58,13 +58,7 @@ exports.updateDocument = (req,res) => {
     .then(function(estado){
       if(!estado) return res.status(404).json({ error : true, data : { message : 'estado no existe' } });
 
-      let updateData = {
-        nombre:             req.body.nombre,
-        estatus:            req.body.estatus,
-        pais_id:            req.body.pais_id
-      }
-      
-      estado.save(updateData)
+      estado.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'estado actualizado'} });
         })
@@ -79,7 +73,7 @@ exports.updateDocument = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteEstado = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -87,7 +81,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(estado){
       if(!estado) return res.status(404).json({ error : true, data : { message : 'estado no existe' } });
 
-      estado.destroy()
+      estado.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'estado eliminado'} })
         })

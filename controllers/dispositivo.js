@@ -86,7 +86,7 @@ exports.deleteDispositivo = (req,res) => {
     .then(function(dispositivo){
       if(!dispositivo) return res.status(404).json({ error : true, data : { message : 'no hay un dispositivo asociado a ese usuario' } });
 
-      dispositivo.destroy()
+      dispositivo.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'dispositivo eliminado'} })
         })

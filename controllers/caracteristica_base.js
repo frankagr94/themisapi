@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Caracteristica_base = require('../models/caracteristica_base');
 
-exports.findDocuments = (req,res) => {
+exports.findCaracteristica_bases = (req,res) => {
   
-  Caracteristica_base.forge().fetchAll()
+  Caracteristica_base.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createCaracteristica_base = (req,res) => {
 
   let newData = {
     nombre:          req.body.nombre,
@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneCaracteristica_base = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -50,7 +50,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateCaracteristica_base = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -58,12 +58,7 @@ exports.updateDocument = (req,res) => {
     .then(function(caracteristica_base){
       if(!caracteristica_base) return res.status(404).json({ error : true, data : { message : 'caracteristica base no existe' } });
 
-      let updateData = {
-        nombre:          req.body.nombre,
-        descripcion:     req.body.descripcion
-      }
-      
-      caracteristica_base.save(updateData)
+      caracteristica_base.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'caracteristica base actualizado'} });
         })
@@ -101,7 +96,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.deleteDocument = (req,res) => {
+exports.deleteCaracteristica_base = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -109,7 +104,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(caracteristica_base){
       if(!caracteristica_base) return res.status(404).json({ error : true, data : { message : 'caracteristica base no existe' } });
 
-      caracteristica_base.destroy()
+      caracteristica_base.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'caracteristica base eliminado'} })
         })

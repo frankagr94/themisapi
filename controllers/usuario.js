@@ -5,9 +5,9 @@ const Usuario = require('../models/usuario');
 const util = require('../middlewares/utils');
 const mw = require('../middlewares/uploader');
 
-exports.findDocuments = (req,res) => {
+exports.findUsuarios = (req,res) => {
   
-  Usuario.forge().fetchAll({
+  Usuario.where({estatus:'A'||'a'}).fetchAll({
     withRelated:[
       'rol',
       'rol.funciones',
@@ -23,7 +23,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createUsuario = (req,res) => {
 
   //encriptado de contraseña
   let salt = bcrypt.genSaltSync(12);
@@ -48,7 +48,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneUsuario = (req,res) => {
 
   let conditions = { correo: req.params.correo };
 
@@ -71,7 +71,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateUsuario = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -145,7 +145,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.deleteDocument = (req,res) => {
+exports.deleteUsuario = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -153,7 +153,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(usuario){
       if(!usuario) return res.status(404).json({ error : true, data : { message : 'usuario no existe' } });
 
-      usuario.destroy()
+      usuario.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'usuario eliminado'} })
         })

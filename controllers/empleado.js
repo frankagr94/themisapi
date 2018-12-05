@@ -5,9 +5,9 @@ const Empleado = require('../models/empleado');
 const Usuario = require('../models/usuario');
 const fs = require("fs");
 
-exports.findDocuments = (req,res) => {
+exports.findEmpleados = (req,res) => {
   
-  Empleado.forge().fetchAll()
+  Empleado.where({estatus:'A'||'A'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -17,7 +17,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createEmpleado = (req,res) => {
 
   /* ----- Extension Imagen -----
   if(req.files.archivo) {
@@ -107,7 +107,7 @@ exports.hacerVisible = (req, res)=>{
     })
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneEmpleado = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -124,7 +124,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateEmpleado = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -136,27 +136,8 @@ exports.updateDocument = (req,res) => {
       if(req.files.archivo) {
         var extension = req.files.archivo.name.split(".").pop();
       }
-
-      let updateData = {
-        nombre1:          req.body.nombre,
-        nombre2:          req.body.nombre2,
-        apellido:         req.body.apellido,
-        apellido2:        req.body.apellido2,
-        cedula:           req.body.cedula,
-        direccion:        req.body.direccion,
-        sexo:             req.body.sexo,
-        fecha_nac:        req.body.fecha_nac,
-        estatus:          req.body.estatus,
-        usuario_id:       req.body.usuario_id,
-        pais_id:          req.body.pais_id,
-        estado_id:        req.body.estado_id,
-        estado_civil_id:  req.body.estado_civil_id,
-        sexo:             req.body.sexo,
-        empresa_id:       req.body.empresa_id,
-        tipo_empleado_id: req.body.tipo_empleado_id,
-      }
       
-      empleado.save(updateData)
+      empleado.save(req.body)
         .then(function(data){
           // ----- Guardar Imagen -----
           //if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empleado/"+data.id+"."+extension);
@@ -215,7 +196,7 @@ exports.visible = (req, res)=>{
     });
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteEmpleado = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -223,7 +204,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(empleado){
       if(!empleado) return res.status(404).json({ error : true, data : { message : 'empleado no existe' } });
 
-      empleado.destroy()
+      empleado.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'empleado eliminado'} })
         })

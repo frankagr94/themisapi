@@ -11,10 +11,10 @@ const path = '/estado'
 const id = ':id'
 
 //----Rutas------ 
-router.get(`${path}`, controller.findDocuments)
-router.post(`${path}`,controller.createDocument)
-router.get(`${path}/${id}`,controller.findOneDocument)
-router.put(`${path}/${id}`,controller.updateDocument)
-router.delete(`${path}/${id}`,controller.deleteDocument)
+router.get(`${path}`, controller.findEstados)
+router.post(`${path}`,controller.createEstado)
+router.get(`${path}/${id}`,controller.findOneEstado)
+router.put(`${path}/${id}`,controller.updateEstado)
+router.delete(`${path}/${id}`,controller.deleteEstado)
 
 module.exports = router;

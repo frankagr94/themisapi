@@ -1,9 +1,9 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const filosofia = require('../models/filosofia');
+const Filosofia = require('../models/filosofia');
 
-exports.findDocuments = (req,res) => {
+exports.findFilosofias = (req,res) => {
   
   Filosofia.forge().fetchAll()
   .then(function(data){
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createFilosofia = (req,res) => {
 
   let newData = {
     titulo:      req.body.titulo,
@@ -38,7 +38,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneFilosofia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -55,7 +55,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateFilosofia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -88,7 +88,7 @@ exports.updateDocument = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteFilosofia = (req,res) => {
 
   let conditions = { id: req.params.id };
 

@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Tipo_reclamo = require('../models/tipo_reclamo');
 
-exports.findDocuments = (req,res) => {
+exports.findTipo_reclamos = (req,res) => {
   
-  Tipo_reclamo.forge().fetchAll()
+  Tipo_reclamo.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createTipo_reclamo = (req,res) => {
 
   let newData = {
     nombre:             req.body.nombre,
@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneTipo_reclamo = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -50,7 +50,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateTipo_reclamo = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -58,12 +58,7 @@ exports.updateDocument = (req,res) => {
     .then(function(tipo_reclamo){
       if(!tipo_reclamo) return res.status(404).json({ error : true, data : { message : 'tipo_reclamo no existe' } });
 
-      let updateData = {
-        nombre:             req.body.nombre,
-        descripcion:        req.body.descripcion,
-      }
-      
-      tipo_reclamo.save(updateData)
+      tipo_reclamo.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'tipo_reclamo actualizado'} });
         })
@@ -101,7 +96,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.deleteDocument = (req,res) => {
+exports.deleteTipo_reclamo = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -109,7 +104,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(tipo_reclamo){
       if(!tipo_reclamo) return res.status(404).json({ error : true, data : { message : 'tipo_reclamo no existe' } });
 
-      tipo_reclamo.destroy()
+      tipo_reclamo.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'tipo_reclamo eliminado'} })
         })

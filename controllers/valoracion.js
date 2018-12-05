@@ -3,7 +3,7 @@
 const bcrypt = require("bcryptjs");
 const Valoracion = require('../models/valoracion');
 
-exports.findDocuments = (req,res) => {
+exports.findValoracions = (req,res) => {
   
   Valoracion.forge().fetchAll()
   .then(function(data){
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createValoracion = (req,res) => {
 
   let newData = {
     servicio_id:             req.body.servicio_id,
@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneValoracion = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -50,7 +50,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateValoracion = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -79,7 +79,7 @@ exports.updateDocument = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteValoracion = (req,res) => {
 
   let conditions = { id: req.params.id };
 

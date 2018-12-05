@@ -3,7 +3,7 @@
 const bcrypt = require("bcryptjs");
 const Acceso_rol = require('../models/acceso_rol');
 
-exports.findDocuments = (req,res) => {
+exports.findAcceso_rols = (req,res) => {
   
   Acceso_rol.forge().fetchAll()
   .then(function(data){
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createAcceso_rol = (req,res) => {
 
   let newData = {
     rol_id:             req.body.rol_id,
@@ -34,7 +34,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneAcceso_rol = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -51,7 +51,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateAcceso_rol = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -81,7 +81,7 @@ exports.updateDocument = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteAcceso_rol = (req,res) => {
 
   let conditions = { id: req.params.id };
 

@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Documento = require('../models/documento');
 
-exports.findDocuments = (req,res) => {
+exports.findDocumentos = (req,res) => {
   
-  Documento.forge().fetchAll()
+  Documento.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createDocumento = (req,res) => {
 
   let newData = {
     tipo_documento_id:        req.body.id_tipo_documento,
@@ -34,7 +34,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneDocumento = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -51,7 +51,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateDocumento = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -103,7 +103,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.deleteDocument = (req,res) => {
+exports.deleteDocumento = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -111,7 +111,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(documento){
       if(!documento) return res.status(404).json({ error : true, data : { message : 'documento no existe' } });
 
-      documento.destroy()
+      documento.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'documento eliminado'} })
         })

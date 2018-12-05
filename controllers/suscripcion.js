@@ -31,6 +31,7 @@ function signUp(req,res) {
 				correo:         req.body.correo,
 				contrasenia:    hash,
 				ultimo_acceso:  util.fechaConHora(),
+				estatus:        'A',
 				imagen:         'https://res.cloudinary.com/digitalmarket/image/upload/v1528924814/sin_imagen.jpg'
 			}
 
@@ -43,7 +44,8 @@ function signUp(req,res) {
 					telefono:           req.body.telefono,
 					sexo:          		req.body.sexo,
 					fecha_nac:		    req.body.fecha_nac,
-					usuario_id:         usuario.id
+					usuario_id:         usuario.id,
+					estatus:            'A'
 				}
 
 				Cliente.forge(newClient).save()

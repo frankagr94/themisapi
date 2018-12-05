@@ -11,11 +11,11 @@ const path = '/caracteristica_base'
 const id = ':id'
 
 //----Rutas------ 
-router.get(`${path}`, controller.findDocuments)
-router.post(`${path}`,controller.createDocument)
-router.get(`${path}/${id}`,controller.findOneDocument)
-router.put(`${path}/${id}`,controller.updateDocument)
+router.get(`${path}`, controller.findCaracteristica_bases)
+router.post(`${path}`,controller.createCaracteristica_base)
+router.get(`${path}/${id}`,controller.findOneCaracteristica_base)
+router.put(`${path}/${id}`,controller.updateCaracteristica_base)
 router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)
-router.delete(`${path}/${id}`,controller.deleteDocument)
+router.delete(`${path}/${id}`,controller.deleteCaracteristica_base)
 
 module.exports = router;

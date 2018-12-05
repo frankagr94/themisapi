@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Tipo_sugerencia = require('../models/tipo_sugerencia');
 
-exports.findDocuments = (req,res) => {
+exports.findTipo_sugerencias = (req,res) => {
   
-  Tipo_sugerencia.forge().fetchAll()
+  Tipo_sugerencia.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createTipo_sugerencia = (req,res) => {
 
   let newData = {
     nombre:        req.body.nombres,
@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneTipo_sugerencia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -50,7 +50,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateTipo_sugerencia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -58,12 +58,7 @@ exports.updateDocument = (req,res) => {
     .then(function(tipo_sugerencia){
       if(!tipo_sugerencia) return res.status(404).json({ error : true, data : { message : 'tipo de sugerencia no existe' } });
 
-      let updateData = {
-        nombre:        req.body.nombres,
-        descripcion:   req.body.descripcion
-      }
-      
-      tipo_sugerencia.save(updateData)
+      tipo_sugerencia.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'tipo de sugerencia actualizado'} });
         })
@@ -101,7 +96,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.deleteDocument = (req,res) => {
+exports.deleteTipo_sugerencia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -109,7 +104,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(tipo_sugerencia){
       if(!tipo_sugerencia) return res.status(404).json({ error : true, data : { message : 'tipo de sugerencia no existe' } });
 
-      tipo_sugerencia.destroy()
+      tipo_sugerencia.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'tipo de sugerencia eliminado'} })
         })

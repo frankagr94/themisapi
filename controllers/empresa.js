@@ -4,9 +4,9 @@ const bcrypt = require("bcryptjs");
 const Empresa = require('../models/empresa');
 const fs = require("fs");
 
-exports.findDocuments = (req,res) => {
+exports.findEmpresas = (req,res) => {
   
-  Empresa.forge().fetchAll()
+  Empresa.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -16,7 +16,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createEmpresa = (req,res) => {
 
   // ----- Extension Imagen -----
   if(req.files.archivo) {
@@ -49,7 +49,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneEmpresa = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -71,7 +71,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateEmpresa = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -83,18 +83,8 @@ exports.updateDocument = (req,res) => {
       if(req.files.archivo) {
         var extension = req.files.archivo.name.split(".").pop();
       }
-
-      let updateData = {
-        rif:                  req.body.rif,
-        nombre:               req.body.nombre,
-        direccion:            req.body.direccion,
-        correo:               req.body.correo,
-        telefono1:            req.body.telefono1,
-        telefono2:            req.body.telefono2,
-      }
-
       
-      empresa.save(updateData)
+      empresa.save(req.body)
         .then(function(data){
           // ----- Guardar Imagen -----
           if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empresa/"+data.id+"."+extension);
@@ -112,7 +102,7 @@ exports.updateDocument = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteEmpresa = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -120,7 +110,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(empresa){
       if(!empresa) return res.status(404).json({ error : true, data : { message : 'empresa no existe' } });
 
-      Empresa.destroy()
+      empresa.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'empresa eliminado'} })
         })

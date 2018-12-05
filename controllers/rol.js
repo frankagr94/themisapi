@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Rol = require('../models/rol');
 
-exports.findDocuments = (req,res) => {
+exports.findRols = (req,res) => {
   
-  Rol.forge().fetchAll({
+  Rol.where({estatus:'A'||'a'}).fetchAll({
     withRelated:[
       'funciones',
       'funciones.ruta'
@@ -20,17 +20,13 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createRol = (req,res) => {
 
   let newData = {
     nombre:             req.body.nombre,
     estatus:            'A',
   }
-  let funcion = {
-    nombre:             req.body.nombre_funcion,
-    //status:             'A'
-  }
-
+  
   Rol.forge(newData).save()
   .then(function(data){
       res.status(200).json({ error: false, data: { message: 'rol creado' } });
@@ -59,7 +55,7 @@ exports.asociar = (req, res)=>{
     })
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneRol = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -78,7 +74,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateRol = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -86,12 +82,7 @@ exports.updateDocument = (req,res) => {
     .then(function(rol){
       if(!rol) return res.status(404).json({ error : true, data : { message : 'rol no existe' } });
 
-      let updateData = {
-        nombre:             req.body.nombre,
-        estatus:            req.body.estatus,
-      }
-      
-      rol.save(updateData)
+      rol.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'rol actualizado'} });
         })
@@ -129,7 +120,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.deleteDocument = (req,res) => {
+exports.deleteRol = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -137,7 +128,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(rol){
       if(!rol) return res.status(404).json({ error : true, data : { message : 'rol no existe' } });
 
-      rol.destroy()
+      rol.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'rol eliminado'} })
         })

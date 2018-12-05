@@ -3,7 +3,7 @@
 const bcrypt = require("bcryptjs");
 const ruta = require('../models/ruta');
 
-exports.findDocuments = (req,res) => {
+exports.findRutas = (req,res) => {
   
   ruta.forge().fetchAll()
   .then(function(data){
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createRuta = (req,res) => {
 
   let newData = {
     nombre:             req.body.nombre,
@@ -32,7 +32,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneRuta = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -49,7 +49,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateRuta = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -77,7 +77,7 @@ exports.updateDocument = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteRuta = (req,res) => {
 
   let conditions = { id: req.params.id };
 

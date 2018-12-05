@@ -11,11 +11,11 @@ const path = '/tipo_empleado'
 const id = ':id'
 
 //----Rutas------ 
-router.get(`${path}`, controller.findDocuments)
-router.post(`${path}`,controller.createDocument)
-router.get(`${path}/${id}`,controller.findOneDocument)
-router.put(`${path}/${id}`,controller.updateDocument)
+router.get(`${path}`, controller.findTipo_empleados)
+router.post(`${path}`,controller.createTipo_empleado)
+router.get(`${path}/${id}`,controller.findOneTipo_empleado)
+router.put(`${path}/${id}`,controller.updateTipo_empleado)
 router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)
-router.delete(`${path}/${id}`,controller.deleteDocument)
+router.delete(`${path}/${id}`,controller.deleteTipo_empleado)
 
 module.exports = router;

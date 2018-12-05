@@ -11,11 +11,11 @@ const path = '/especialidad'
 const id = ':id'
 
 //----Rutas------ 
-router.get(`${path}`, controller.findDocuments)
-router.post(`${path}`,controller.createDocument)
-router.get(`${path}/${id}`,controller.findOneDocument)
-router.put(`${path}/${id}`,controller.updateDocument)
+router.get(`${path}`, controller.findEspecialidads)
+router.post(`${path}`,controller.createEspecialidad)
+router.get(`${path}/${id}`,controller.findOneEspecialidad)
+router.put(`${path}/${id}`,controller.updateEspecialidad)
 router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)
-router.delete(`${path}/${id}`,controller.deleteDocument)
+router.delete(`${path}/${id}`,controller.deleteEspecialidad)
 
 module.exports = router;

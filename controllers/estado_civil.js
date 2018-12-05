@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Estado_civil = require('../models/estado_civil');
 
-exports.findDocuments = (req,res) => {
+exports.findEstado_civils = (req,res) => {
   
-  Estado_civil.forge().fetchAll()
+  Estado_civil.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createEstado_civil = (req,res) => {
 
   let newData = {
     nombre:             req.body.nombre,
@@ -32,7 +32,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneEstado_civil = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -49,7 +49,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateEstado_civil = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -57,12 +57,7 @@ exports.updateDocument = (req,res) => {
     .then(function(estado_civil){
       if(!estado_civil) return res.status(404).json({ error : true, data : { message : 'estado civil no existe' } });
 
-      let updateData = {
-        nombre:             req.body.nombre,
-        estatus:            req.body.estatus
-      }
-      
-      estado_civil.save(updateData)
+      estado_civil.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'estado civil actualizado'} });
         })
@@ -77,7 +72,7 @@ exports.updateDocument = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteEstado_civil = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -85,7 +80,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(estado_civil){
       if(!estado_civil) return res.status(404).json({ error : true, data : { message : 'estado civil no existe' } });
 
-      estado_civil.destroy()
+      estado_civil.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'estado civil eliminado'} })
         })

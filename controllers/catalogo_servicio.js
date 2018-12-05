@@ -5,7 +5,7 @@ const Catalogo_servicio = require('../models/catalogo_servicio');
 const util = require('../middlewares/utils');
 const upload = require('../middlewares/uploader');
 
-exports.findDocuments = (req,res) => {
+exports.findCatalogos = (req,res) => {
   
   Catalogo_servicio.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
@@ -29,7 +29,7 @@ exports.catalogoPorCategoria = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createCatalogo = (req,res) => {
 
   let newData = {
     nombre:                req.body.nombre,
@@ -88,7 +88,7 @@ exports.hacerVisible = (req, res)=>{
     })
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneCatalogo = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -128,7 +128,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.updateDocument = (req,res) => {
+exports.updateCatalogo = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -136,14 +136,6 @@ exports.updateDocument = (req,res) => {
     .then(function(catalogo_servicio){
       if(!catalogo_servicio) return res.status(404).json({ error : true, data : { message : 'catalogo_servicio no existe' } });
 
-      /* let updateData = {
-        categoria_servicio_id: req.body.categoria_servicio_id,
-        nombre:                req.body.nombre,
-        descripcion:           req.body.descripcion,
-        estatus:               req.body.estatus,
-        fecha_creacion:        req.body.fecha_creacion,
-      } */
-      
       if(!req.files){
         catalogo_servicio.save(req.body)
         .then(function(data){
@@ -177,7 +169,7 @@ exports.updateDocument = (req,res) => {
   })
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteCatalogo = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -185,7 +177,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(catalogo_servicio){
       if(!catalogo_servicio) return res.status(404).json({ error : true, data : { message : 'catalogo_servicio no existe' } });
 
-      catalogo_servicio.destroy()
+      catalogo_servicio.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'catalogo_servicio eliminado'} })
         })

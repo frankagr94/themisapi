@@ -10,10 +10,10 @@ const controller = require('../controllers/valoracion')
 const path = '/valoracion'
 const id = ':id'
 //----Rutas------ 
-router.get(`${path}`, controller.findDocuments)
-router.post(`${path}`,controller.createDocument)
-router.get(`${path}/${id}`,controller.findOneDocument)
-router.put(`${path}/${id}`,controller.updateDocument)
-router.delete(`${path}/${id}`,controller.deleteDocument)
+router.get(`${path}`, controller.findValoracions)
+router.post(`${path}`,controller.createValoracion)
+router.get(`${path}/${id}`,controller.findOneValoracion)
+router.put(`${path}/${id}`,controller.updateValoracion)
+router.delete(`${path}/${id}`,controller.deleteValoracion)
 
 module.exports = router;

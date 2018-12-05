@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Tipo_actuacion = require('../models/tipo_actuacion');
 
-exports.findDocuments = (req,res) => {
+exports.findTipo_actuacions = (req,res) => {
   
-  Tipo_actuacion.forge().fetchAll()
+  Tipo_actuacion.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createTipo_actuacion = (req,res) => {
 
   let newData = {
     nombre:        req.body.nombre,
@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneTipo_actuacion = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -50,7 +50,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateTipo_actuacion = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -58,12 +58,7 @@ exports.updateDocument = (req,res) => {
     .then(function(tipo_tipo_actuacion){
       if(!tipo_tipo_actuacion) return res.status(404).json({ error : true, data : { message : 'tipo de tipo_actuacion no existe' } });
 
-      let updateData = {
-        nombre:        req.body.nombre,
-        descripcion:   req.body.descripcion
-      }
-      
-      tipo_actuacion.save(updateData)
+      tipo_actuacion.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'tipo de tipo_actuacion actualizado'} });
         })
@@ -101,7 +96,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.deleteDocument = (req,res) => {
+exports.deleteTipo_actuacion = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -109,7 +104,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(tipo_tipo_actuacion){
       if(!tipo_tipo_actuacion) return res.status(404).json({ error : true, data : { message : 'tipo de tipo_actuacion no existe' } });
 
-      tipo_tipo_actuacion.destroy()
+      tipo_actuacion.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'tipo de tipo_actuacion eliminado'} })
         })

@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Red_social = require('../models/red_social');
 
-exports.findDocuments = (req,res) => {
+exports.findRed_socials = (req,res) => {
   
-  Red_social.forge().fetchAll()
+  Red_social.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createRed_social = (req,res) => {
 
   let newData = {
     nombre:    		      req.body.nombre,
@@ -31,7 +31,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneRed_social = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -48,7 +48,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateRed_social = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -56,11 +56,7 @@ exports.updateDocument = (req,res) => {
     .then(function(red_social){
       if(!red_social) return res.status(404).json({ error : true, data : { message : 'red_social no existe' } });
 
-      let updateData = {
-        nombre:             req.body.nombre,
-      }
-      
-      red_social.save(updateData)
+      red_social.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'red_social actualizado'} });
         })
@@ -97,7 +93,7 @@ exports.cambiarEstatus = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteRed_social = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -105,7 +101,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(red_social){
       if(!red_social) return res.status(404).json({ error : true, data : { message : 'red_social no existe' } });
 
-      red_social.destroy()
+      red_social.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'red_social eliminado'} })
         })

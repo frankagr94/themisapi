@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Tipo_cliente = require('../models/tipo_cliente');
 
-exports.findDocuments = (req,res) => {
+exports.findTipo_clientes = (req,res) => {
   
-  Tipo_cliente.forge().fetchAll()
+  Tipo_cliente.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createTipo_cliente = (req,res) => {
 
   let newData = {
     nombre:        req.body.nombre,
@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneTipo_cliente = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -50,7 +50,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateTipo_cliente = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -58,12 +58,7 @@ exports.updateDocument = (req,res) => {
     .then(function(tipo_cliente){
       if(!tipo_cliente) return res.status(404).json({ error : true, data : { message : 'tipo de cliente no existe' } });
 
-      let updateData = {
-        nombre:        req.body.nombre,
-        descripcion:   req.body.descripcion
-      }
-      
-      tipo_cliente.save(updateData)
+      tipo_cliente.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'tipo de cliente actualizado'} });
         })
@@ -101,7 +96,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.deleteDocument = (req,res) => {
+exports.deleteTipo_cliente = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -109,7 +104,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(tipo_cliente){
       if(!tipo_cliente) return res.status(404).json({ error : true, data : { message : 'tipo de cliente no existe' } });
 
-      tipo_cliente.destroy()
+      tipo_cliente.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'tipo de cliente eliminado'} })
         })

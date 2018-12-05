@@ -11,10 +11,10 @@ const path = '/actuacion_catalogo'
 const id = ':id'
 
 //----Rutas------ 
-router.get(`${path}`, controller.findDocuments)
-router.post(`${path}`,controller.createDocument)
-router.get(`${path}/${id}`,controller.findOneDocument)
-router.put(`${path}/${id}`,controller.updateDocument)
-router.delete(`${path}/${id}`,controller.deleteDocument)
+router.get(`${path}`, controller.findActuacion_catalogos)
+router.post(`${path}`,controller.createActuacion_catalogo)
+router.get(`${path}/${id}`,controller.findOneActuacion_catalogo)
+router.put(`${path}/${id}`,controller.updateActuacion_catalogo)
+router.delete(`${path}/${id}`,controller.deleteActuacion_catalogo)
 
 module.exports = router;
