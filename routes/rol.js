@@ -11,12 +11,12 @@ const path = '/rol'
 const id = ':id'
 
 //----Rutas------ 
-router.get(`${path}`, controller.findDocuments)
-router.post(`${path}`,controller.createDocument)
+router.get(`${path}`, controller.findRols)
+router.post(`${path}`,controller.createRol)
 router.post(`${path}/asociar`, controller.asociar)
-router.get(`${path}/${id}`,controller.findOneDocument)
-router.put(`${path}/${id}`,controller.updateDocument)
+router.get(`${path}/${id}`,controller.findOneRol)
+router.put(`${path}/${id}`,controller.updateRol)
 router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)
-router.delete(`${path}/${id}`,controller.deleteDocument)
+router.delete(`${path}/${id}`,controller.deleteRol)
 
 module.exports = router;

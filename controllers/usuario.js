@@ -2,10 +2,12 @@
 'use strict'
 const bcrypt = require("bcryptjs");
 const Usuario = require('../models/usuario');
+const util = require('../middlewares/utils');
+const mw = require('../middlewares/uploader');
 
-exports.findDocuments = (req,res) => {
+exports.findUsuarios = (req,res) => {
   
-  Usuario.forge().fetchAll({
+  Usuario.where({estatus:'A'||'a'}).fetchAll({
     withRelated:[
       'rol',
       'rol.funciones',
@@ -21,19 +23,19 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createUsuario = (req,res) => {
 
   //encriptado de contraseña
   let salt = bcrypt.genSaltSync(12);
   let hash = bcrypt.hashSync(req.body.contrasenia, salt);
 
   let newData = {
-    id_rol:         req.body.id_rol,
+    rol_id:         '1',
     correo:         req.body.correo,
     contrasenia:    hash,
-    ultimo_acceso:  req.body.ultimo_acceso,
-    fecha_creacion: req.body.fecha_creacion,
+    fecha_creacion: util.fecha(),
     estatus:        req.body.estatus,
+    imagen:         'https://res.cloudinary.com/digitalmarket/image/upload/v1528924814/sin_imagen.jpg'
   }
 
   Usuario.forge(newData).save()
@@ -46,7 +48,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneUsuario = (req,res) => {
 
   let conditions = { correo: req.params.correo };
 
@@ -69,35 +71,50 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateUsuario = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Usuario.forge(conditions).fetch()
+    Usuario.forge(conditions).fetch()
     .then(function(usuario){
       if(!usuario) return res.status(404).json({ error : true, data : { message : 'usuario no existe' } });
 
-      //encriptado de contraseña
-      let salt = bcrypt.genSaltSync(12);
-      let hash = bcrypt.hashSync(req.body.contrasenia, salt);
-
-      let updateData = {
-        id_rol:         req.body.id_rol,
-        correo:         req.body.correo,
-        contrasenia:    hash,
-        ultimo_acceso:  req.body.ultimo_acceso,
-        fecha_creacion: req.body.fecha_creacion,
-        estatus:        req.body.estatus,
+      if (req.body.contrasenia === null || req.body.contrasenia === undefined) {
+        req.body.contrasenia = usuario.contrasenia;
+      }else{
+        //encriptado de contraseña
+        let salt = bcrypt.genSaltSync(12);
+        let hash = bcrypt.hashSync(req.body.contrasenia, salt);
+        req.body.contrasenia = hash;
       }
       
-      usuario.save(updateData)
+      if(!req.files){
+        usuario.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'usuario actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
         })
-
+      }else {
+        mw.uploader(req.files.imagen).then(function(result) {
+          if(result.error){
+            console.log('Error al subir imagen')
+            return res.status(500).send({ message : 'hubo un error' })
+          }
+          else{
+            let newData = req.body
+            newData.imagen = result.url
+            usuario.save(newData)
+            .then(function(data){
+              res.status(200).json({ error : false, data : { message : 'usuario actualizado'} });
+            })
+            .catch(function(err){
+              res.status(500).json({ error : false, data : {message : err.message} });
+            })
+          }
+        })
+      }  
     })
     .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} })
@@ -128,7 +145,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.deleteDocument = (req,res) => {
+exports.deleteUsuario = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -136,7 +153,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(usuario){
       if(!usuario) return res.status(404).json({ error : true, data : { message : 'usuario no existe' } });
 
-      usuario.destroy()
+      usuario.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'usuario eliminado'} })
         })

@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Solicitud = require('../models/solicitud');
 
-exports.findDocuments = (req,res) => {
+exports.findSolicituds = (req,res) => {
   
-  Solicitud.forge().fetchAll()
+  Solicitud.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,20 +15,14 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createSolicitud = (req,res) => {
 
   let newData = {
     cliente_id:         req.body.cliente_id,
     fecha_creacion:     req.body.fecha_creacion,
-    catalogo_serv_id:         req.body.catalogo_serv_id,
+    catalogo_serv_id:   req.body.catalogo_serv_id,
     descripcion:        req.body.descripcion
-    //id_promocion:       req.body.id_promocion,
-    //estatus:            req.body.estatus,
-    //estatus:             req.body.estado,
-    //empleado:           req.body.empleado,
-    //sexo:               req.body.sexo,
   }
-
   Solicitud.forge(newData).save()
   .then(function(data){
     res.status(200).json({ error: false, data: { message: 'solicitud creado' } });
@@ -39,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneSolicitud = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -56,7 +50,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateSolicitud = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -64,18 +58,7 @@ exports.updateDocument = (req,res) => {
     .then(function(solicitud){
       if(!solicitud) return res.status(404).json({ error : true, data : { message : 'solicitud no existe' } });
 
-      let updateData = {
-        //cliente_id:         req.body.cliente_id,
-        //fecha_creacion:     req.body.fecha_creacion,
-        //id_tiposrv:         req.body.id_tiposrv,
-        //id_promocion:       req.body.id_promocion,
-        status:               req.body.estatus,
-        //estado:             req.body.estado,
-        //empleado:           req.body.empleado,
-        //sexo:               req.body.sexo,
-      }
-      
-      solicitud.save(updateData)
+      solicitud.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'solicitud actualizado'} });
         })
@@ -90,7 +73,7 @@ exports.updateDocument = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteSolicitud = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -98,7 +81,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(solicitud){
       if(!solicitud) return res.status(404).json({ error : true, data : { message : 'solicitud no existe' } });
 
-      solicitud.destroy()
+      solicitud.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'solicitud eliminado'} })
         })

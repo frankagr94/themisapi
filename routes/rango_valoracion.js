@@ -11,10 +11,10 @@ const path = '/rango_valoracion'
 const id = ':id'
 
 //----Rutas------ 
-router.get(`${path}`, controller.findDocuments)
-router.post(`${path}`,controller.createDocument)
-router.get(`${path}/${id}`,controller.findOneDocument)
-router.put(`${path}/${id}`,controller.updateDocument)
-router.delete(`${path}/${id}`,controller.deleteDocument)
+router.get(`${path}`, controller.findRango_valoracions)
+router.post(`${path}`,controller.createRango_valoracion)
+router.get(`${path}/${id}`,controller.findOneRango_valoracion)
+router.put(`${path}/${id}`,controller.updateRango_valoracion)
+router.delete(`${path}/${id}`,controller.deleteRango_valoracion)
 
 module.exports = router;

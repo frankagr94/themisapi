@@ -3,7 +3,7 @@
 const bcrypt = require("bcryptjs");
 const Tipo_valoracion_rango_valoracion = require('../models/tipo_valoracion_rango_valoracion');
 
-exports.findDocuments = (req,res) => {
+exports.findValoracion_rangos = (req,res) => {
   
   Tipo_valoracion_rango_valoracion.forge().fetchAll()
   .then(function(data){
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createValoracion_rango = (req,res) => {
 
   let newData = {
     id_tipo:        req.body.id_tipo,
@@ -32,7 +32,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneValoracion_rango = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -49,7 +49,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateValoracion_rango = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -77,7 +77,7 @@ exports.updateDocument = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteValoracion_rango = (req,res) => {
 
   let conditions = { id: req.params.id };
 

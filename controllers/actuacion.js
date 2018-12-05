@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Actuacion = require('../models/actuacion');
 
-exports.findDocuments = (req,res) => {
+exports.findActuacions = (req,res) => {
   
-  Actuacion.forge().fetchAll()
+  Actuacion.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createActuacion = (req,res) => {
 
   let newData = {
     tipo_actuacion_id:    req.body.tipo_actuacion_id,
@@ -34,7 +34,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneActuacion = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -51,22 +51,15 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateActuacion = (req,res) => {
 
   let conditions = { id: req.params.id };
 
   Actuacion.forge(conditions).fetch()
     .then(function(actuacion){
       if(!actuacion) return res.status(404).json({ error : true, data : { message : 'actuacion no existe' } });
-
-      let newData = {
-        tipo_actuacion_id:    req.body.tipo_actuacion_id,
-        descripcion:          req.body.descripcion,
-        nombre:               req.body.nombre,
-        estatus:              req.body.estatus
-      }
       
-      actuacion.save(updateData)
+      actuacion.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'actuacion actualizado'} });
         })
@@ -103,20 +96,19 @@ exports.cambiarEstatus = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteActuacion = (req,res) => {
 
   let conditions = { id: req.params.id };
 
   Actuacion.forge(conditions).fetch()
     .then(function(actuacion){
       if(!actuacion) return res.status(404).json({ error : true, data : { message : 'actuacion no existe' } });
-
-      actuacion.destroy()
+      actuacion.save({estatus:'I'})
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'actuacion eliminado'} })
+          res.status(200).json({ error : false, data : { message : 'estatus de la actuacion actualizado'} });
         })
         .catch(function(err){
-          res.status(500).json({error : true, data : {message : err.message}});
+          res.status(500).json({ error : false, data : {message : err.message} });
         })
 
     })

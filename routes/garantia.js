@@ -11,10 +11,10 @@ const path = '/garantia'
 const id = ':id'
 
 //----Rutas------ 
-router.get(`${path}`, controller.findDocuments)
-router.post(`${path}`,controller.createDocument)
-router.get(`${path}/${id}`,controller.findOneDocument)
-router.put(`${path}/${id}`,controller.updateDocument)
-router.delete(`${path}/${id}`,controller.deleteDocument)
+router.get(`${path}`, controller.findGarantias)
+router.post(`${path}`,controller.createGarantia)
+router.get(`${path}/${id}`,controller.findOneGarantia)
+router.put(`${path}/${id}`,controller.updateGarantia)
+router.delete(`${path}/${id}`,controller.deleteGarantia)
 
 module.exports = router;

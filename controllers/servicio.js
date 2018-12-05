@@ -4,9 +4,9 @@ const bcrypt = require("bcryptjs");
 const Servicio = require('../models/servicio');
 const fs = require("fs");
 
-exports.findDocuments = (req,res) => {
+exports.findServicios = (req,res) => {
   
-  Servicio.forge().fetchAll()
+  Servicio.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -16,7 +16,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createServicio = (req,res) => {
 
   // ----- Extension Imagen -----
   if(req.files.archivo) {
@@ -47,7 +47,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneServicio = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -66,7 +66,7 @@ exports.findOneDocument = (req,res) => {
 
 
 
-exports.updateDocument = (req,res) => {
+exports.updateServicio = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -79,16 +79,7 @@ exports.updateDocument = (req,res) => {
         var extension = req.files.archivo.name.split(".").pop();
       }
 
-      let updateData = {
-        cliente_id:         req.body.cliente_id, 
-        catalogo_serv_id:   req.body.catalogo_serv_id,
-        descripcion:        req.body.descripcion,
-        estatus:            req.body.estatus,
-        fecha_creacion:     req.body.fecha_creacion,
-        fecha_cierre:       req.body.fecha_cierre
-      } 
-      
-      servicio.save(updateData)
+      servicio.save(req.body)
         .then(function(data){
           // ----- Guardar Imagen -----
           if(req.files.archivo) fs.rename(req.files.archivo.path, "files/servicio/"+data.id+"."+extension);
@@ -128,7 +119,7 @@ exports.cambiarEstatus = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteServicio = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -136,7 +127,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(servicio){
       if(!servicio) return res.status(404).json({ error : true, data : { message : 'servicio no existe' } });
 
-      servicio.destroy()
+      servicio.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'servicio eliminado'} })
         })

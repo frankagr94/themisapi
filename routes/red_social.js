@@ -11,10 +11,10 @@ const path = '/red_social'
 const id = ':id'
 
 //----Rutas------ 
-router.get(`${path}`, controller.findDocuments)
-router.post(`${path}`,controller.createDocument)
-router.get(`${path}/${id}`,controller.findOneDocument)
-router.put(`${path}/${id}`,controller.updateDocument)
-router.delete(`${path}/${id}`,controller.deleteDocument)
+router.get(`${path}`, controller.findRed_socials)
+router.post(`${path}`,controller.createRed_social)
+router.get(`${path}/${id}`,controller.findOneRed_social)
+router.put(`${path}/${id}`,controller.updateRed_social)
+router.delete(`${path}/${id}`,controller.deleteRed_social)
 
 module.exports = router;

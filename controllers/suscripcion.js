@@ -10,6 +10,7 @@ const jwt = require('../services/jwt');
 const mailer = require('../services/mailer');
 const moment = require('moment')
 const generator = require('password-generator');
+const util = require('../middlewares/utils');
 
 //----signup------  
 function signUp(req,res) {
@@ -29,7 +30,9 @@ function signUp(req,res) {
 				rol_id:         '1',
 				correo:         req.body.correo,
 				contrasenia:    hash,
-				ultimo_acceso:  null,
+				ultimo_acceso:  util.fechaConHora(),
+				estatus:        'A',
+				imagen:         'https://res.cloudinary.com/digitalmarket/image/upload/v1528924814/sin_imagen.jpg'
 			}
 
 			Usuario.forge(newUser).save()
@@ -41,7 +44,8 @@ function signUp(req,res) {
 					telefono:           req.body.telefono,
 					sexo:          		req.body.sexo,
 					fecha_nac:		    req.body.fecha_nac,
-					usuario_id:         usuario.id
+					usuario_id:         usuario.id,
+					estatus:            'A'
 				}
 
 				Cliente.forge(newClient).save()
@@ -49,11 +53,11 @@ function signUp(req,res) {
 					
 					//--- Enviar Correo ---
 					let asunto = 'Bienvenido a AC Abogados Corporativos - Datos de Acceso'
-					let mensaje = 'Gracias por unirte '+newClient.nombre+', tenemos un gran numero de abogados y servicios para ti,para acceder a ellos solo debes usar tu correo y la siguiente contraseña:'+pass;
+					let mensaje = 'Gracias por unirte '+newClient.nombre+', tenemos un gran numero de abogados y servicios para ti, para acceder a ellos solo debes usar tu correo y la siguiente contraseña: '+pass;
 
 					mailer.enviarCorreo(newUser.correo,mensaje, asunto);
 					//--- Respuesta exitosa ---
-					res.status(200).json({ error: false, data: { message : 'Registro exitoso, revise su correo'+newUser.correo }, password:pass });
+					res.status(200).json({ error: false, data: { message : 'Registro exitoso, revise su correo '+newUser.correo }, password:pass });
 
 				})
 				.catch(function (err2) {

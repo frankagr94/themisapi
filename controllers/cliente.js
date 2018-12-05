@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Cliente = require('../models/cliente');
 
-exports.findDocuments = (req,res) => {
+exports.findClientes = (req,res) => {
   
-  Cliente.forge().fetchAll()
+  Cliente.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createCliente = (req,res) => {
 
   let newData = {
     nombre:             req.body.nombre,
@@ -39,7 +39,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneCliente = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -58,7 +58,7 @@ exports.findOneDocument = (req,res) => {
 
 exports.findOneClientByUser = (req,res) => {
 
-  let conditions = { id_usuario: req.params.id_usuario };
+  let conditions = { usuario_id: req.params.id_usuario };
 
   Cliente.forge(conditions).fetch()
     .then(function(data){
@@ -73,7 +73,7 @@ exports.findOneClientByUser = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateCliente = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -81,26 +81,7 @@ exports.updateDocument = (req,res) => {
     .then(function(cliente){
       if(!cliente) return res.status(404).json({ error : true, data : { message : 'cliente no existe' } });
 
-      let updateData = {
-        nombre1:          req.body.nombre,
-        nombre2:          req.body.nombre2,
-        apellido:         req.body.apellido,
-        apellido2:        req.body.apellido2,
-        cedula:           req.body.cedula,
-        direccion:        req.body.direccion,
-        sexo:             req.body.sexo,
-        fecha_nac:        req.body.fecha_nac,
-        estatus:          req.body.estatus,
-        usuario_id:       req.body.usuario_id,
-        pais_id:          req.body.pais_id,
-        estado_id:        req.body.estado_id,
-        estado_civil_id:  req.body.estado_civil_id,
-        sexo:             req.body.sexo,
-        empresa_id:       req.body.empresa_id,
-        tipo_cliente_id:  req.body.tipo_cliente_id,
-      }
-      
-      cliente.save(updateData)
+      cliente.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'cliente actualizado'} });
         })
@@ -138,7 +119,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.deleteDocument = (req,res) => {
+exports.deleteCliente = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -146,7 +127,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(cliente){
       if(!cliente) return res.status(404).json({ error : true, data : { message : 'cliente no existe' } });
 
-      cliente.destroy()
+      cliente.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'cliente eliminado'} })
         })

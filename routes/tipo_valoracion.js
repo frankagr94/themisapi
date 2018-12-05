@@ -11,11 +11,11 @@ const path = '/tipo_valoracion'
 const id = ':id'
 
 //----Rutas------ 
-router.get(`${path}`, controller.findDocuments)
-router.post(`${path}`,controller.createDocument)
-router.get(`${path}/${id}`,controller.findOneDocument)
-router.put(`${path}/${id}`,controller.updateDocument)
+router.get(`${path}`, controller.findTipo_valoracions)
+router.post(`${path}`,controller.createTipo_valoracion)
+router.get(`${path}/${id}`,controller.findOneTipo_valoracion)
+router.put(`${path}/${id}`,controller.updateTipo_valoracion)
 router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)
-router.delete(`${path}/${id}`,controller.deleteDocument)
+router.delete(`${path}/${id}`,controller.deleteTipo_valoracion)
 
 module.exports = router;

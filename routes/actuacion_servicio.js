@@ -11,10 +11,10 @@ const path = '/actuacion_servicio'
 const id = ':id'
 
 //----Rutas------ 
-router.get(`${path}`, controller.findDocuments)
-router.post(`${path}`,controller.createDocument)
-router.get(`${path}/${id}`,controller.findOneDocument)
-router.put(`${path}/${id}`,controller.updateDocument)
-router.delete(`${path}/${id}`,controller.deleteDocument)
+router.get(`${path}`, controller.findActuacion_servicios)
+router.post(`${path}`,controller.createActuacion_servicio)
+router.get(`${path}/${id}`,controller.findOneActuacion_servicio)
+router.put(`${path}/${id}`,controller.updateActuacion_servicio)
+router.delete(`${path}/${id}`,controller.deleteActuacion_servicio)
 
 module.exports = router;

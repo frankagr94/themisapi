@@ -3,7 +3,7 @@
 const bcrypt = require("bcryptjs");
 const Tipo_valoracion = require('../models/tipo_valoracion');
 
-exports.findDocuments = (req,res) => {
+exports.findTipo_valoracions = (req,res) => {
   
   Tipo_valoracion.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createTipo_valoracion = (req,res) => {
 
   let newData = {
     nombre:          req.body.nombre,
@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneTipo_valoracion = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -50,7 +50,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateTipo_valoracion = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -96,7 +96,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.deleteDocument = (req,res) => {
+exports.deleteTipo_valoracion = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -104,7 +104,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(tipo_valoracion){
       if(!tipo_valoracion) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
 
-      tipo_valoracion.destroy()
+      tipo_valoracion.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'valoracion eliminado'} })
         })

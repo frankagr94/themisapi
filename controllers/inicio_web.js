@@ -3,7 +3,7 @@
 const bcrypt = require("bcryptjs");
 const Inicio_web = require('../models/inicio_web');
 
-exports.findDocuments = (req,res) => {
+exports.findInicios = (req,res) => {
   
   Inicio_web.forge().fetchAll()
   .then(function(data){
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createInicio = (req,res) => {
 
   let newData = {
     titulo_nosotros:      req.body.titulo_nosotros,
@@ -39,7 +39,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneInicio = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -56,7 +56,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateInicio = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -64,18 +64,7 @@ exports.updateDocument = (req,res) => {
     .then(function(inicio_web){
       if(!inicio_web) return res.status(404).json({ error : true, data : { message : 'inicio_web no existe' } });
 
-      let updateData = {
-        titulo_nosotros:      req.body.titulo_nosotros,
-        texto1_nosotros:      req.body.texto1_nosotros,
-        texto2_nosotros:      req.body.texto2_nosotros,
-        imagen_nosotros:      req.body.imagen_nosotros,
-        titulo_equipo:        req.body.titulo_equipo,
-        titulo_app:           req.body.titulo_app,
-        imagen_app:           req.body.imagen_app,
-        texto_app:            req.body.texto_app,
-      }
-      
-      inicio_web.save(updateData)
+      inicio_web.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'inicio_web actualizado'} });
         })
@@ -90,7 +79,7 @@ exports.updateDocument = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteInicio = (req,res) => {
 
   let conditions = { id: req.params.id };
 

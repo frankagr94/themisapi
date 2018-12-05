@@ -3,7 +3,7 @@
 const bcrypt = require("bcryptjs");
 const Conocenos_web = require('../models/conocenos_web');
 
-exports.findDocuments = (req,res) => {
+exports.findPortals = (req,res) => {
   
   Conocenos_web.forge().fetchAll()
   .then(function(data){
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createPortal = (req,res) => {
 
   let newData = {
     titulo:      req.body.titulo,
@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOnePortal = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -50,21 +50,15 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updatePortal = (req,res) => {
 
   let conditions = { id: req.params.id };
 
   Conocenos_web.forge(conditions).fetch()
     .then(function(conocenos_web){
       if(!conocenos_web) return res.status(404).json({ error : true, data : { message : 'conocenos_web no existe' } });
-
-      let updateData = {
-        titulo:      req.body.titulo,
-        texto:       req.body.texto,
-        empresa_id:  req.body.empresa_id 
-    }
-      
-      conocenos_web.save(updateData)
+ 
+      conocenos_web.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'conocenos_web actualizado'} });
         })
@@ -79,7 +73,7 @@ exports.updateDocument = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deletePortal = (req,res) => {
 
   let conditions = { id: req.params.id };
 

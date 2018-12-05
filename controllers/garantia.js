@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Garantia = require('../models/garantia');
 
-exports.findDocuments = (req,res) => {
+exports.findGarantias = (req,res) => {
   
-  Garantia.forge().fetchAll()
+  Garantia.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createGarantia = (req,res) => {
 
   let newData = {
     cantidad_dias:      req.body.cantidad_dias,
@@ -36,7 +36,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneGarantia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -53,7 +53,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateGarantia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -61,16 +61,7 @@ exports.updateDocument = (req,res) => {
     .then(function(garantia){
       if(!garantia) return res.status(404).json({ error : true, data : { message : 'garantia no existe' } });
 
-      let updateData = {
-        cantidad_dias:      req.body.cantidad_dias,
-        descripcion:        req.body.descripcion,
-        servicio_id:        req.body.servicio_id,
-        estatus:            req.body.estatus,
-        fecha_creacion:     req.body.fecha_creacion,
-        tipo_garantia_id:   req.body.tipo_garantia_id
-      }
-      
-      garantia.save(updateData)
+      garantia.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'garantia actualizado'} });
         })
@@ -85,7 +76,7 @@ exports.updateDocument = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteGarantia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -93,7 +84,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(garantia){
       if(!garantia) return res.status(404).json({ error : true, data : { message : 'garantia no existe' } });
 
-      garantia.destroy()
+      garantia.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'garantia eliminado'} })
         })

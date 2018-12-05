@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Bloque_hora = require('../models/bloque_hora');
 
-exports.findDocuments = (req,res) => {
+exports.findBloque_horas = (req,res) => {
   
-  Bloque_hora.forge().fetchAll()
+  Bloque_hora.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createBloque_hora = (req,res) => {
 
   let newData = {
     hora_inicio:        req.body.hora_inicio,
@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneBloque_hora = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -50,7 +50,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateBloque_hora = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -58,12 +58,7 @@ exports.updateDocument = (req,res) => {
     .then(function(bloque_hora){
       if(!bloque_hora) return res.status(404).json({ error : true, data : { message : 'bloque de hora no existe' } });
 
-      let updateData = {
-        hora_inicio:        req.body.hora_inicio,
-        hora_fin:          req.body.hora_fin
-      }
-      
-      bloque_hora.save(updateData)
+       bloque_hora.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'bloque de hora actualizado'} });
         })
@@ -100,7 +95,7 @@ exports.cambiarEstatus = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteBloque_hora = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -108,7 +103,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(bloque_hora){
       if(!bloque_hora) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
 
-      bloque_hora.destroy()
+      bloque_hora.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'valoracion eliminado'} })
         })

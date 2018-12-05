@@ -3,7 +3,7 @@
 const bcrypt = require("bcryptjs");
 const Actuacion_servicio = require('../models/actuacion_servicio');
 
-exports.findDocuments = (req,res) => {
+exports.findActuacion_servicios = (req,res) => {
   
   Actuacion_servicio.forge().fetchAll()
   .then(function(data){
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createActuacion_servicio = (req,res) => {
 
   let newData = {
     actuacion_id:    req.body.actuacion_id,
@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneActuacion_servicio = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -50,7 +50,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateActuacion_servicio = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -79,7 +79,7 @@ exports.updateDocument = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteActuacion_servicio = (req,res) => {
 
   let conditions = { id: req.params.id };
 

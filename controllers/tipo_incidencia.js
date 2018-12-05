@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Tipo_incidencia = require('../models/tipo_incidencia');
 
-exports.findDocuments = (req,res) => {
+exports.findTipo_incidencias = (req,res) => {
   
-  Tipo_incidencia.forge().fetchAll()
+  Tipo_incidencia.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createTipo_incidencia = (req,res) => {
 
   let newData = {
     nombre:             req.body.nombre,
@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneTipo_incidencia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -50,7 +50,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateTipo_incidencia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -58,12 +58,7 @@ exports.updateDocument = (req,res) => {
     .then(function(tipo_incidencia){
       if(!tipo_incidencia) return res.status(404).json({ error : true, data : { message : 'tipo_incidencia no existe' } });
 
-      let newData = {
-        nombre:             req.body.nombre,
-        descripcion:        req.body.descripcion,
-      }
-      
-      tipo_incidencia.save(updateData)
+      tipo_incidencia.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'tipo_incidencia actualizado'} });
         })
@@ -101,7 +96,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.deleteDocument = (req,res) => {
+exports.deleteTipo_incidencia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -109,7 +104,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(tipo_incidencia){
       if(!tipo_incidencia) return res.status(404).json({ error : true, data : { message : 'tipo_incidencia no existe' } });
 
-      tipo_incidencia.destroy()
+      tipo_incidencia.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'tipo_incidencia eliminado'} })
         })

@@ -3,7 +3,7 @@
 const bcrypt = require("bcryptjs");
 const Tipo_documento = require('../models/tipo_documento');
 
-exports.findDocuments = (req,res) => {
+exports.findTipo_documentos = (req,res) => {
   
   Tipo_documento.forge().fetchAll()
   .then(function(data){
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createTipo_documento = (req,res) => {
 
   let newData = {
     nombre:        req.body.nombre,
@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneTipo_documento = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -50,7 +50,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateTipo_documento = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -58,12 +58,7 @@ exports.updateDocument = (req,res) => {
     .then(function(tipo_documento){
       if(!tipo_documento) return res.status(404).json({ error : true, data : { message : 'tipo de documento no existe' } });
 
-      let updateData = {
-        nombre:        req.body.nombre,
-        descripcion:   req.body.descripcion
-      }
-      
-      tipo_documento.save(updateData)
+      tipo_documento.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'tipo de documento actualizado'} });
         })
@@ -101,7 +96,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.deleteDocument = (req,res) => {
+exports.deleteTipo_documento = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -109,7 +104,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(tipo_documento){
       if(!tipo_documento) return res.status(404).json({ error : true, data : { message : 'tipo de documento no existe' } });
 
-      tipo_documento.destroy()
+      tipo_documento.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'tipo de documento eliminado'} })
         })

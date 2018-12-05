@@ -3,9 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Tipo_garantia = require('../models/tipo_garantia');
 
-exports.findDocuments = (req,res) => {
+exports.findTipo_garantias = (req,res) => {
   
-  Tipo_garantia.forge().fetchAll()
+  Tipo_garantia.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createTipo_garantia = (req,res) => {
 
   let newData = {
     nombre:         req.body.nombre,
@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneTipo_garantia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -50,7 +50,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateTipo_garantia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -58,12 +58,7 @@ exports.updateDocument = (req,res) => {
     .then(function(tipo_garantia){
       if(!tipo_garantia) return res.status(404).json({ error : true, data : { message : 'tipo_garantia no existe' } });
 
-      let updateData = {
-        nombre:            req.body.nombre,
-        descripcion:       req.body.descripcion
-      }
-      
-      tipo_garantia.save(updateData)
+      tipo_garantia.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'tipo_garantia actualizado'} });
         })
@@ -101,7 +96,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.deleteDocument = (req,res) => {
+exports.deleteTipo_garantia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -109,7 +104,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(tipo_garantia){
       if(!tipo_garantia) return res.status(404).json({ error : true, data : { message : 'tipo_garantia no existe' } });
 
-      tipo_garantia.destroy()
+      tipo_garantia.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'tipo_garantia eliminado'} })
         })

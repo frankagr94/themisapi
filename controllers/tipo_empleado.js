@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const Tipo_empleado = require('../models/tipo_empleado');
 const utils = require('./../middlewares/utils');
 
-exports.findDocuments = (req,res) => {
+exports.findTipo_empleados = (req,res) => {
   
   Tipo_empleado.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
@@ -16,7 +16,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createTipo_empleado = (req,res) => {
 
   let newData = {
     nombre:             req.body.nombre,
@@ -34,7 +34,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneTipo_empleado = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -51,7 +51,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateTipo_empleado = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -97,7 +97,7 @@ exports.cambiarEstatus = (req,res) => {
 }
 
 
-exports.deleteDocument = (req,res) => {
+exports.deleteTipo_empleado = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -105,7 +105,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(tipo_empleado){
       if(!tipo_empleado) return res.status(404).json({ error : true, data : { message : 'tipo_empleado no existe' } });
 
-      tipo_empleado.destroy()
+      tipo_empleado.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'tipo_empleado eliminado'} })
         })

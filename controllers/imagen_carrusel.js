@@ -3,7 +3,7 @@
 const bcrypt = require("bcryptjs");
 const Imagen_carrusel = require('../models/imagen_carrusel');
 
-exports.findDocuments = (req,res) => {
+exports.findImagen_carrusels = (req,res) => {
   
   Imagen_carrusel.forge().fetchAll()
   .then(function(data){
@@ -15,7 +15,7 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.createDocument = (req,res) => {
+exports.createImagen_carrusel = (req,res) => {
 
   let newData = {
     imagen:      req.body.imagen,
@@ -33,7 +33,7 @@ exports.createDocument = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneImagen_carrusel = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -50,7 +50,7 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.updateDocument = (req,res) => {
+exports.updateImagen_carrusel = (req,res) => {
 
   let conditions = { id: req.params.id };
 
@@ -79,7 +79,7 @@ exports.updateDocument = (req,res) => {
 
 }
 
-exports.deleteDocument = (req,res) => {
+exports.deleteImagen_carrusel = (req,res) => {
 
   let conditions = { id: req.params.id };
 
