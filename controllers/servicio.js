@@ -19,25 +19,25 @@ exports.findServicios = (req,res) => {
 exports.createServicio = (req,res) => {
 
   // ----- Extension Imagen -----
-  if(req.files.archivo) {
+  /*if(req.files.archivo) {
     var extension = req.files.archivo.name.split(".").pop();
   }else{
     var extension = null;
-  }
+  }*/
 
   let newData = {
     cliente_id:         req.body.cliente_id, 
-    catalogo_serv_id:   req.body.catalogo_serv_id,
+    catalogo_servicio_id: req.body.catalogo_servicio_id,
     descripcion:        req.body.descripcion,
-    estatus:            req.body.estatus,
-    fecha_creacion:     req.body.fecha_creacion,
+    estatus:            'A',
+    fecha_creado:       req.body.fecha_creado,
     fecha_cierre:       req.body.fecha_cierre
   }
 
   Servicio.forge(newData).save()
   .then(function(data){
     // ----- Guardar Imagen -----
-    if(req.files.archivo) fs.rename(req.files.archivo.path, "files/servicio/"+data.id+"."+extension);
+    //if(req.files.archivo) fs.rename(req.files.archivo.path, "files/servicio/"+data.id+"."+extension);
 
     res.status(200).json({ error: false, data: { message: 'servicio creado' } });
   })
@@ -51,7 +51,9 @@ exports.findOneServicio = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Servicio.forge(conditions).fetch()
+  Servicio.forge(conditions).fetch({
+    withRelated:'actuaciones'
+  })
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'servicio no existe' } });
 
@@ -64,7 +66,23 @@ exports.findOneServicio = (req,res) => {
 
 }
 
+exports.asociar = (req, res)=>{
+  let conditions = { id: req.body.id_servicio};
 
+  Servicio.forge(conditions).fetch()
+    .then(function(servicio){
+      servicio.actuaciones().attach({actuacion_id:req.body.actuacion_id,estatus:'P'})
+        .then(function(data){
+          res.status(200).json({ error: false, data: { message: 'Actuaciones asociadas al servicio' } });
+        })
+        .catch(function(err){
+          res.status(500).json({ error: true, data: {message: err.message} });
+        });
+    })
+    .catch(function(err){
+      res.status(500).json({ error: true, data: {message: err.message} });
+    })
+}
 
 exports.updateServicio = (req,res) => {
 

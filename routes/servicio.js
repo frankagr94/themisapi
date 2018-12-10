@@ -13,6 +13,7 @@ const id = ':id'
 //----Rutas------ 
 router.get(`${path}`, controller.findServicios)
 router.post(`${path}`,controller.createServicio)
+router.post(`${path}/asociar`,controller.asociar)
 router.get(`${path}/${id}`,controller.findOneServicio)
 router.put(`${path}/${id}`,controller.updateServicio)
 router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)
