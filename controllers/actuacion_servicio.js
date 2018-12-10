@@ -57,14 +57,8 @@ exports.updateActuacion_servicio = (req,res) => {
   Actuacion_servicio.forge(conditions).fetch()
     .then(function(actuacion_servicio){
       if(!actuacion_servicio) return res.status(404).json({ error : true, data : { message : 'actuacion_servicio no existe' } });
-
-      let newData = {
-        actuacion_id:    req.body.actuacion_id,
-        servicio_id:          req.body.servicio_id,
-        estatus:              req.body.estatus,
-      }
       
-      actuacion_servicio.save(updateData)
+      actuacion_servicio.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'actuacion_servicio actualizado'} });
         })
