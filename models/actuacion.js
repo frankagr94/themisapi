@@ -7,9 +7,9 @@ const Actuacion_servicio = require('./actuacion_servicio');
 
 const Actuacion = Bookshelf.Model.extend({
   tableName: 'actuacion',
-  catalogo_servicios : function(){
-    return this.belongsToMany(Catalogo_servicio),through(Actuacion_catalogo);
-  },
+  /*catalogo_servicios : function(){
+    return this.belongsToMany(Catalogo_servicio).through(Actuacion_catalogo);
+  },*/
   servicios : function(){
     return this.belongsToMany(Servicio).through(Actuacion_servicio);
   }

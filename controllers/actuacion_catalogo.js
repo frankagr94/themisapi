@@ -18,10 +18,9 @@ exports.findActuacion_catalogos = (req,res) => {
 exports.createActuacion_catalogo = (req,res) => {
 
   let newData = {
-    actuacion_id:      req.body.actuacion_id,
+    actuacion_id:           req.body.actuacion_id,
     catalogo_servicio_id:   req.body.catalogo_servicio_id,
-    orden:                  req.body.orden,
-    estatus:                req.body.estatus,
+    orden:                  req.body.orden
   }
 
   Actuacion_catalogo.forge(newData).save()
@@ -59,14 +58,7 @@ exports.updateActuacion_catalogo = (req,res) => {
     .then(function(actuacion_catalogo){
       if(!actuacion_catalogo) return res.status(404).json({ error : true, data : { message : 'actuacion_catalogo no existe' } });
 
-      let updateData = {
-        actuacion_id:      req.body.actuacion_id,
-        catalogo_servicio_id:   req.body.catalogo_servicio_id,
-        orden:                  req.body.orden,
-        estatus:                req.body.estatus,
-      }
-      
-      actuacion_catalogo.save(updateData)
+      actuacion_catalogo.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'actuacion_catalogo actualizado'} });
         })

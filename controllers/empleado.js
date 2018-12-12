@@ -19,12 +19,12 @@ exports.findEmpleados = (req,res) => {
 
 exports.createEmpleado = (req,res) => {
 
-  /* ----- Extension Imagen -----
+  /* ----- Extension Imagen -----*/
   if(req.files.archivo) {
     var extension = req.files.archivo.name.split(".").pop();
   }else{
     var extension = null;
-  }*/
+  }
 
   Usuario.where({correo: req.body.correo}).fetch()
     .then(function(usuario){
@@ -63,7 +63,7 @@ exports.createEmpleado = (req,res) => {
           Empleado.forge(newData).save()
           .then(function(data){
             // ----- Guardar Imagen -----
-            //if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empleado/"+data.id+"."+extension);
+            if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empleado/"+data.id+"."+extension);
             
             res.status(200).json({ error: false, data: { message: 'empleado creado' } });
           })
@@ -122,6 +122,24 @@ exports.findOneEmpleado = (req,res) => {
       res.status(500).json({ error : false, data : {message : err.message} })
     })
 
+}
+
+exports.asociar = (req, res)=>{
+  let conditions = { id: req.body.id_empleado};
+
+  Empleado.forge(conditions).fetch()
+    .then(function(empleado){
+      empleado.servicios().attach(req.body.servicio_id)
+        .then(function(data){
+          res.status(200).json({ error: false, data: { message: 'Servicios asociados al empleado' } });
+        })
+        .catch(function(err){
+          res.status(500).json({ error: true, data: {message: err.message} });
+        });
+    })
+    .catch(function(err){
+      res.status(500).json({ error: true, data: {message: err.message} });
+    })
 }
 
 exports.updateEmpleado = (req,res) => {

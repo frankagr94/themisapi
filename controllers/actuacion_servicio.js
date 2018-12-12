@@ -5,7 +5,9 @@ const Actuacion_servicio = require('../models/actuacion_servicio');
 
 exports.findActuacion_servicios = (req,res) => {
   
-  Actuacion_servicio.forge().fetchAll()
+  Actuacion_servicio.forge().fetchAll({
+    withRelated:'actuacion'
+  })
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,21 +17,22 @@ exports.findActuacion_servicios = (req,res) => {
 
 }
 
-exports.createActuacion_servicio = (req,res) => {
+exports.findActuacion_servicioByServicio = (req,res) => {
 
-  let newData = {
-    actuacion_id:    req.body.actuacion_id,
-    servicio_id:          req.body.servicio_id,
-    estatus:              req.body.estatus,
-  }
+  let conditions = { servicio_id: req.params.id_servicio };
 
-  Actuacion_servicio.forge(newData).save()
-  .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'actuacion_servicio creado' } });
+  Actuacion_servicio.forge(conditions).fetch({
+    withRelated:'actuacion'
   })
-  .catch(function (err) {
-    res.status(500).json({ error: true, data: {message: err.message} });
-  });
+    .then(function(data){
+      if(!data) return res.status(404).json({ error : true, data : { message : 'actuacion_servicio no existe' } });
+
+      res.status(200).json({ error : false, data : data.toJSON() })
+
+    })
+    .catch(function(err){
+      res.status(500).json({ error : false, data : {message : err.message} })
+    })
 
 }
 
@@ -37,7 +40,9 @@ exports.findOneActuacion_servicio = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Actuacion_servicio.forge(conditions).fetch()
+  Actuacion_servicio.forge(conditions).fetch({
+    withRelated:'actuacion'
+  })
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'actuacion_servicio no existe' } });
 
