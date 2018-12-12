@@ -12,7 +12,7 @@ const id = ':id'
 
 //----Rutas------ 
 router.get(`${path}`, controller.findActuacion_servicios)
-router.post(`${path}`,controller.createActuacion_servicio)
+router.get(`${path}/servicio/:id_servicio`,controller.findActuacion_servicioByServicio)
 router.get(`${path}/${id}`,controller.findOneActuacion_servicio)
 router.put(`${path}/${id}`,controller.updateActuacion_servicio)
 router.delete(`${path}/${id}`,controller.deleteActuacion_servicio)

@@ -127,6 +127,41 @@ exports.cambiarEstatus = (req,res) => {
 
 }
 
+exports.asociarActuaciones = (req, res)=>{
+  let conditions = { id: req.body.catalogo_servicio_id};
+
+  Catalogo_servicio.forge(conditions).fetch()
+    .then(function(catalogo_servicio){
+      catalogo_servicio.actuaciones().attach(req.body.actuacion_id)
+        .then(function(data){
+          res.status(200).json({ error: false, data: { message: 'Actuaciones asociadas al catalogo' } });
+        })
+        .catch(function(err){
+          res.status(500).json({ error: true, data: {message: err.message} });
+        });
+    })
+    .catch(function(err){
+      res.status(500).json({ error: true, data: {message: err.message} });
+    })
+}
+
+exports.asociarDocumentos = (req, res)=>{
+  let conditions = { id: req.body.id_catalogo_servicio};
+
+  Catalogo_servicio.forge(conditions).fetch()
+    .then(function(catalogo_servicio){
+      catalogo_servicio.recaudos().attach(req.body.documento_id)
+        .then(function(data){
+          res.status(200).json({ error: false, data: { message: 'Recaudos asociados al catalogo' } });
+        })
+        .catch(function(err){
+          res.status(500).json({ error: true, data: {message: err.message} });
+        });
+    })
+    .catch(function(err){
+      res.status(500).json({ error: true, data: {message: err.message} });
+    })
+}
 
 exports.updateCatalogo = (req,res) => {
 

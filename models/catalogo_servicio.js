@@ -5,14 +5,14 @@ const Actuacion = require('./actuacion');
 const Recaudo_servicio = require('./recaudo_servicio');
 const Documento = require('./documento');
 
-const catalogo_servicio = Bookshelf.Model.extend({
+const Catalogo_servicio = Bookshelf.Model.extend({
   tableName: 'catalogo_servicio',
-  actuaciones: function(){
-    return this.belongsToMany(Actuacion).through(Actuacion_catalogo);
+  actuaciones : function(){
+    return this.belongsToMany(Actuacion, 'actuacion_catalogo');
   },
   recaudos : function(){
-    return this.belongsToMany(Documento).through(Recaudo_servicio);
+    return this.belongsToMany(Documento, 'recaudo_servicio');
   }
 });
 
-module.exports = catalogo_servicio;
+module.exports = Catalogo_servicio;

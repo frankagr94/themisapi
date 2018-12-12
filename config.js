@@ -12,6 +12,6 @@ module.exports = {
       password : 'postgres',
       database : 'themis',
       charset  : 'utf8'
-    } */ 
+    } */
   }
 }

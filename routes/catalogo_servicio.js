@@ -14,6 +14,8 @@ const id = ':id'
 router.get(`${path}`, controller.findCatalogos)
 router.get(`${path}/visibles`, controller.mostrarVisibles)
 router.get(`${path}/categoria/${id}`, controller.catalogoPorCategoria)
+router.post(`${path}/actuacion`,controller.asociarActuaciones)
+router.post(`${path}/documento`,controller.asociarDocumentos)
 router.post(`${path}`,controller.createCatalogo)
 router.get(`${path}/${id}`,controller.findOneCatalogo)
 router.put(`${path}/${id}`,controller.updateCatalogo)
