@@ -55,7 +55,7 @@ exports.createEmpleado = (req,res) => {
             pais_id:          req.body.pais_id,
             estado_id:        req.body.estado_id,
             estado_civil_id:  req.body.estado_civil_id,
-            sexo:             req.body.sexo,
+            ciudad:           req.body.ciudad,
             empresa_id:       req.body.empresa_id,
             tipo_empleado_id: req.body.tipo_empleado_id,
           }
