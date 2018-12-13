@@ -32,7 +32,7 @@ exports.createSolicitud = (req,res) => {
   let newData = {
     cliente_id:         req.body.cliente_id,
     fecha_creacion:     util.fecha(),
-    catalogo_serv_id:   req.body.catalogo_servicio_id,
+    catalogo_servicio_id:   req.body.catalogo_servicio_id,
     descripcion:        req.body.descripcion,
     estatus:            'P'
   }
