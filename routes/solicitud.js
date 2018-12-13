@@ -14,6 +14,7 @@ const id = ':id'
 router.get(`${path}`, controller.findSolicituds)
 router.post(`${path}`,controller.createSolicitud)
 router.get(`${path}/${id}`,controller.findOneSolicitud)
+router.get(`${path}/estatus/:estatus`,controller.findSolicitudsByEstatus)
 router.put(`${path}/${id}`,controller.updateSolicitud)
 router.delete(`${path}/${id}`,controller.deleteSolicitud)
 
