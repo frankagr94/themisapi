@@ -133,6 +133,7 @@ const servicio_parametro = require('./servicio_parametro');
 const servicio_solicitado = require('./servicio_solicitado');
 const sistema = require('./sistema');
 const solicitud = require('./solicitud');
+const sugerencia = require('./sugerencia');
 const suscripcion = require('./suscripcion');
 const tipo_cliente = require('./tipo_cliente');
 const tipo_actuacion = require('./tipo_actuacion');
@@ -204,6 +205,7 @@ app.use('/',
 	descripcion_negocio,
 	agenda,
 	auditoria,
+	sugerencia,
 	bloque,
 	tipo_respuesta,
 	estado_civil,

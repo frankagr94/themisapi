@@ -6,7 +6,13 @@ const fs = require("fs");
 
 exports.findServicios = (req,res) => {
   
-  Servicio.where({estatus:'A'||'a'}).fetchAll()
+  Servicio.where({estatus:'A'||'a'}).fetchAll({
+    withRelated:[
+      'cliente',
+      'servicio',
+      'actuaciones'      
+    ]
+  })
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -52,7 +58,11 @@ exports.findOneServicio = (req,res) => {
   let conditions = { id: req.params.id };
 
   Servicio.forge(conditions).fetch({
-    withRelated:'actuaciones'
+    withRelated:[
+      'cliente',
+      'servicio',
+      'actuaciones'      
+    ]
   })
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'servicio no existe' } });
