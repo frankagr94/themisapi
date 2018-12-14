@@ -38,7 +38,7 @@ exports.createSugerencia = (req,res) => {
     cliente_id:             req.body.cliente_id,
     descripcion:            req.body.descripcion,
     fecha_creacion:         req.body.fecha_creacion,
-    estatus:                'A',
+    estatus:                'P',
   }
 
   Sugerencia.forge(newData).save()
