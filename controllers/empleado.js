@@ -3,7 +3,9 @@
 const bcrypt = require("bcryptjs");
 const Empleado = require('../models/empleado');
 const Usuario = require('../models/usuario');
-const fs = require("fs");
+const util = require('../middlewares/utils');
+const generator = require('password-generator');
+const mailer = require('../services/mailer');
 
 exports.findEmpleados = (req,res) => {
   
@@ -18,13 +20,10 @@ exports.findEmpleados = (req,res) => {
 }
 
 exports.createEmpleado = (req,res) => {
-
-  /* ----- Extension Imagen -----*/
-  if(req.files.archivo) {
-    var extension = req.files.archivo.name.split(".").pop();
-  }else{
-    var extension = null;
-  }
+      let pass = generator(12, false);
+			//---- encriptado de contraseña
+			let salt = bcrypt.genSaltSync(12);
+			let hash = bcrypt.hashSync(pass, salt);
 
   Usuario.where({correo: req.body.correo}).fetch()
     .then(function(usuario){
@@ -34,18 +33,20 @@ exports.createEmpleado = (req,res) => {
       else{
         let newUser = {
           correo:           req.body.correo,
-          contrasenia:      req.body.contrasenia,
+          contrasenia:      hash,
           rol_id:           req.body.rol_id,
-          ultimo_acceso:    req.body.ultimo_acceso
+          ultimo_acceso:    '',
+          imagen:         'https://res.cloudinary.com/digitalmarket/image/upload/v1528924814/sin_imagen.jpg'
         }
 
         Usuario.forge(newUser).save()
         .then(function(usuario){
           let newData = {
-            nombre1:          req.body.nombre,
+            nombre1:          req.body.nombre1,
             nombre2:          req.body.nombre2,
-            apellido:         req.body.apellido,
+            apellido1:        req.body.apellido1,
             apellido2:        req.body.apellido2,
+            correo:           req.body.correo,
             cedula:           req.body.cedula,
             direccion:        req.body.direccion,
             sexo:             req.body.sexo,
@@ -54,17 +55,20 @@ exports.createEmpleado = (req,res) => {
             usuario_id:       usuario.id,
             pais_id:          req.body.pais_id,
             estado_id:        req.body.estado_id,
-            estado_civil_id:  req.body.estado_civil_id,
             ciudad:           req.body.ciudad,
             empresa_id:       req.body.empresa_id,
             tipo_empleado_id: req.body.tipo_empleado_id,
+            especialidad_id:  req.body.especialidad_id,
+            visible:          true
           }
         
           Empleado.forge(newData).save()
           .then(function(data){
-            // ----- Guardar Imagen -----
-            if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empleado/"+data.id+"."+extension);
-            
+            //--- Enviar Correo ---
+            let asunto = 'Bienvenido a AC Abogados Corporativos - Datos de Acceso'
+            let mensaje = 'Gracias por unirte '+newData.nombre1+', tenemos un gran numero de abogados y servicios para ti, para acceder a ellos solo debes usar tu correo y la siguiente contraseña: '+pass;
+
+            mailer.enviarCorreo(req.body.correo,mensaje, asunto);
             res.status(200).json({ error: false, data: { message: 'empleado creado' } });
           })
           .catch(function (err) {

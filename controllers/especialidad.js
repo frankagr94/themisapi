@@ -9,7 +9,7 @@ exports.findEspecialidads = (req,res) => {
   Especialidad.where({estatus:'A'||'a'}).fetchAll({
     withRelated: [
       'categorias',
-      'categorias.catalogo'
+      'categorias.catalogo_servicio'
     ]
   })
   .then(function(data){

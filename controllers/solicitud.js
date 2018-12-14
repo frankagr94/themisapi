@@ -2,10 +2,11 @@
 'use strict'
 const bcrypt = require("bcryptjs");
 const Solicitud = require('../models/solicitud');
+const util = require('../middlewares/utils')
 
 exports.findSolicituds = (req,res) => {
   
-  Solicitud.where({estatus:'A'||'a'}).fetchAll()
+  Solicitud.fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,17 +16,29 @@ exports.findSolicituds = (req,res) => {
 
 }
 
+exports.findSolicitudsByEstatus = (req,res) => {
+  Solicitud.where({estatus:req.params.estatus.toUpperCase()||req.params.estatus.toLowerCase()}).fetchAll()
+  .then(function(data){
+    console.log(req)
+    res.status(200).json({ error : false, data : data.toJSON() });
+  })
+  .catch(function (err) {
+    res.status(500).json({ error: true, data: {message: err.message} });
+  });
+}
+
 exports.createSolicitud = (req,res) => {
 
   let newData = {
     cliente_id:         req.body.cliente_id,
-    fecha_creacion:     req.body.fecha_creacion,
-    catalogo_serv_id:   req.body.catalogo_serv_id,
-    descripcion:        req.body.descripcion
+    fecha_creacion:     util.fecha(),
+    catalogo_servicio_id:   req.body.catalogo_servicio_id,
+    descripcion:        req.body.descripcion,
+    estatus:            'P'
   }
   Solicitud.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'solicitud creado' } });
+    res.status(200).json({ error: false, data: { message: 'Solicitud Enviada' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -39,7 +52,7 @@ exports.findOneSolicitud = (req,res) => {
 
   Solicitud.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'solicitud no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'La Solicitud No Existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -47,6 +60,18 @@ exports.findOneSolicitud = (req,res) => {
     .catch(function(err){
       res.status(500).json({ error : false, data : {message : err.message} })
     })
+
+}
+
+exports.findSolicitudsByCliente = (req,res) => {
+  
+  Solicitud.where({cliente_id: req.params.cliente_id}).fetchAll()
+  .then(function(data){
+    res.status(200).json({ error : false, data : data.toJSON() });
+  })
+  .catch(function (err) {
+    res.status(500).json({ error: true, data: {message: err.message} });
+  });
 
 }
 
@@ -60,7 +85,7 @@ exports.updateSolicitud = (req,res) => {
 
       solicitud.save(req.body)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'solicitud actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'solicitud actualizada'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -83,7 +108,7 @@ exports.deleteSolicitud = (req,res) => {
 
       solicitud.save({estatus:'I'})
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'solicitud eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'solicitud eliminada'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});

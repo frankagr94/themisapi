@@ -2,6 +2,7 @@
 'use strict'
 const bcrypt = require("bcryptjs");
 const Rango_valoracion = require('../models/rango_valoracion');
+const mw = require('../middlewares/uploader');
 
 exports.findRango_valoracions = (req,res) => {
   
@@ -19,19 +20,30 @@ exports.createRango_valoracion = (req,res) => {
 
   let newData = {
     valor:           req.body.valor,
-    imagen:          req.body.imagen,
+    imagen:          '',
     descripcion:     req.body.descripcion,
     estatus:         'A'
   }
 
-  Rango_valoracion.forge(newData).save()
-  .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'valoracion creado' } });
-  })
-  .catch(function (err) {
-    res.status(500).json({ error: true, data: {message: err.message} });
-  });
-
+  if(!req.files){
+    res.status(404).json({ error: true, data: { message: 'Debe seleccionar una imagen para la categoria' } });
+  }
+  else{
+    mw.uploader(req.files.imagen).then(function(result) {
+      if(result.error){
+        return res.status(500).send({ message : 'hubo un error subiendo la imagen' })
+      }else{
+        newData.imagen = result.url;
+        Rango_valoracion.forge(newData).save()
+        .then(function(data){
+          res.status(200).json({ error: false, data: { message: 'rango_valoracion creado con exito' } });
+        })
+        .catch(function (err) {
+          res.status(500).json({ error: true, data: {message: err.message} });
+        });
+      }
+    })
+  }
 }
 
 exports.findOneRango_valoracion = (req,res) => {
@@ -59,14 +71,34 @@ exports.updateRango_valoracion = (req,res) => {
     .then(function(rango_valoracion){
       if(!rango_valoracion) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
 
-      rango_valoracion.save(req.body)
+      if(!req.files){
+        rango_valoracion.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'valoracion actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
         })
-
+      }
+      else{
+        mw.uploader(req.files.imagen).then(function(result) {
+          if(result.error){
+            console.log('Error al subir imagen')
+            return res.status(500).send({ message : 'hubo un error' })
+          }
+          else{
+            let newData = req.body
+            newData.imagen = result.url
+            rango_valoracion.save(newData)
+            .then(function(data){
+              res.status(200).json({ error : false, data : { message : 'valoracion actualizado'} });
+            })
+            .catch(function(err){
+              res.status(500).json({ error : false, data : {message : err.message} });
+            })
+          }
+        })
+      }
     })
     .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} })

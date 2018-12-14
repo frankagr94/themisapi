@@ -84,6 +84,7 @@ const detalle_consejo = require('./detalle_consejo');
 const detalle_promocion = require('./detalle_promocion');
 const detalle_proveedor = require('./detalle_proveedor');
 const detalle_servicio = require('./detalle_servicio');
+const dia_semana = require('./dia_semana');
 const dia_laborable = require('./dia_laborable');
 const dispositivo = require('./dispositivo');
 const documento_actuacion_servicio = require('./documento_actuacion_servicio');
@@ -220,6 +221,7 @@ app.use('/',
 	detalle_proveedor,
 	detalle_servicio,
 	dia_laborable,
+	dia_semana,
 	dispositivo,
 	documento,
 	empleado_asignado,
