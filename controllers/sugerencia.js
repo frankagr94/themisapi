@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Reclamo = require('../models/reclamo');
+const Sugerencia = require('../models/sugerencia');
 
-exports.findReclamos = (req,res) => {
+exports.findSugerencias = (req,res) => {
   
-  Reclamo.forge().fetchAll()
+  Sugerencia.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,11 +15,11 @@ exports.findReclamos = (req,res) => {
 
 }
 
-exports.findReclamosByEstatus = (req,res) => {
-  Reclamo.where({estatus:req.params.estatus.toUpperCase()||req.params.estatus.toLowerCase()}).fetchAll({
+exports.findSugerenciasByEstatus = (req,res) => {
+  Sugerencia.where({estatus:req.params.estatus.toUpperCase()||req.params.estatus.toLowerCase()}).fetchAll({
     withRelated:[
       'cliente',
-      'tipo_reclamo'
+      'tipo_sugerencia'
     ]
   })
   .then(function(data){
@@ -31,19 +31,19 @@ exports.findReclamosByEstatus = (req,res) => {
   });
 }
 
-exports.createReclamo = (req,res) => {
+exports.createSugerencia = (req,res) => {
 
   let newData = {
-    tipo_reclamo_id:        req.body.tipo_reclamo_id,
+    tipo_sugerencia_id:     req.body.tipo_sugerencia_id,
     cliente_id:             req.body.cliente_id,
     descripcion:            req.body.descripcion,
     fecha_creacion:         req.body.fecha_creacion,
     estatus:                'A',
   }
 
-  Reclamo.forge(newData).save()
+  Sugerencia.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'reclamo creado' } });
+    res.status(200).json({ error: false, data: { message: 'sugerencia creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -51,18 +51,18 @@ exports.createReclamo = (req,res) => {
 
 }
 
-exports.findOneReclamo = (req,res) => {
+exports.findOneSugerencia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Reclamo.forge(conditions).fetch({
+  Sugerencia.forge(conditions).fetch({
     withRelated:[
       'cliente',
-      'tipo_reclamo'
+      'tipo_sugerencia'
     ]
   })
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'reclamo no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'sugerencia no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -73,17 +73,17 @@ exports.findOneReclamo = (req,res) => {
 
 }
 
-exports.updateReclamo = (req,res) => {
+exports.updateSugerencia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Reclamo.forge(conditions).fetch()
-    .then(function(reclamo){
-      if(!reclamo) return res.status(404).json({ error : true, data : { message : 'reclamo no existe' } });
+  Sugerencia.forge(conditions).fetch()
+    .then(function(sugerencia){
+      if(!sugerencia) return res.status(404).json({ error : true, data : { message : 'sugerencia no existe' } });
 
-      reclamo.save(req.body)
+      sugerencia.save(req.body)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'reclamo actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'sugerencia actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -100,12 +100,12 @@ exports.cambiarEstatus = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Reclamo.forge(conditions).fetch()
-    .then(function(reclamo){
-      if(!reclamo) return res.status(404).json({ error : true, data : { message : 'reclamo no existe' } });
-      reclamo.save({estatus:req.body.estatus})
+  Sugerencia.forge(conditions).fetch()
+    .then(function(sugerencia){
+      if(!sugerencia) return res.status(404).json({ error : true, data : { message : 'sugerencia no existe' } });
+      sugerencia.save({estatus:req.body.estatus})
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'estatus del reclamo actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'estatus del sugerencia actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -118,17 +118,17 @@ exports.cambiarEstatus = (req,res) => {
 
 }
 
-exports.deleteReclamo = (req,res) => {
+exports.deleteSugerencia = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Reclamo.forge(conditions).fetch()
-    .then(function(reclamo){
-      if(!reclamo) return res.status(404).json({ error : true, data : { message : 'reclamo no existe' } });
+  Sugerencia.forge(conditions).fetch()
+    .then(function(sugerencia){
+      if(!sugerencia) return res.status(404).json({ error : true, data : { message : 'sugerencia no existe' } });
 
-      reclamo.destroy()
+      sugerencia.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'reclamo eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'sugerencia eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});
