@@ -20,7 +20,7 @@ exports.createDocumento = (req,res) => {
   let newData = {
     tipo_documento_id:        req.body.id_tipo_documento,
     nombre:                   req.body.nombre,
-    estatus:                  req.body.estatus,
+    estatus:                  'A',
   }
 
   
@@ -58,14 +58,8 @@ exports.updateDocumento = (req,res) => {
   Documento.forge(conditions).fetch()
     .then(function(documento){
       if(!documento) return res.status(404).json({ error : true, data : { message : 'documento no existe' } });
-
-      let newData = {
-        tipo_documento_id:        req.body.id_tipo_documento,
-        nombre:                   req.body.nombre,
-        estatus:                  req.body.estatus,
-      }
       
-      Documento.save(updateData)
+      documento.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'documento actualizado'} });
         })
