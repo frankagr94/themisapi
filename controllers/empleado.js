@@ -153,17 +153,9 @@ exports.updateEmpleado = (req,res) => {
   Empleado.forge(conditions).fetch()
     .then(function(empleado){
       if(!empleado) return res.status(404).json({ error : true, data : { message : 'empleado no existe' } });
-
-      // ----- Extension Imagen -----
-      if(req.files.archivo) {
-        var extension = req.files.archivo.name.split(".").pop();
-      }
       
       empleado.save(req.body)
         .then(function(data){
-          // ----- Guardar Imagen -----
-          //if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empleado/"+data.id+"."+extension);
-
           res.status(200).json({ error : false, data : { message : 'empleado actualizado'} });
         })
         .catch(function(err){
