@@ -18,7 +18,7 @@ exports.findDocumentos = (req,res) => {
 exports.createDocumento = (req,res) => {
 
   let newData = {
-    tipo_documento_id:        req.body.id_tipo_documento,
+    tipo_documento_id:        req.body.tipo_documento_id,
     nombre:                   req.body.nombre,
     estatus:                  'A',
   }
