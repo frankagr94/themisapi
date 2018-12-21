@@ -28,6 +28,7 @@ const vista_detalle_promocion = require('./vista_detalle_promocion');
 const vista_detalle_proveedor = require('./vista_detalle_proveedor');
 const vista_detalle_servicios_true = require('./vista_detalle_servicios_true');
 const vista_empleados_categoria = require('./vista_empleados_categoria');
+const vista_empleado = require('./vista_empleado');
 const vista_especialidad = require('./vista_especialidad');
 const vista_incidencia_de_orden = require('./vista_incidencia_de_orden');
 const vista_insumo_asociados = require('./vista_insumo_asociados');
@@ -317,6 +318,7 @@ app.use('/',
 	vista_insumo_asociados,
 	vista_insumos,
 	vista_roles,
+	vista_empleado,
 	vista_servicio_con_incidencia,
 	vista_servicios_calificados,
 	vista_servicios_con_garantia,
