@@ -25,7 +25,7 @@ exports.createFilosofia = (req,res) => {
     valor1:      req.body.valor1,
     valor2:      req.body.valor2,
     valor3:      req.body.valor3,
-    empresa_id:  req.body.empresa_id 
+    inicio_web_id:  req.body.inicio_web_id 
   }
 
   Filosofia.forge(newData).save()
