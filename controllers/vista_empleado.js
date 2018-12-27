@@ -17,7 +17,7 @@ exports.findEmpleados = (req,res) => {
 
 exports.findOneEmpleado = (req,res) => {
 
-  let conditions = { id: req.params.id };
+  let conditions = { empleado_id: req.params.id };
 
   Vista_empleado.forge(conditions).fetch()
     .then(function(data){
