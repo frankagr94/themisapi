@@ -21,7 +21,7 @@ exports.findActuacion_servicioByServicio = (req,res) => {
 
   let conditions = { servicio_id: req.params.id_servicio };
 
-  Actuacion_servicio.forge(conditions).fetch({
+  Actuacion_servicio.where(conditions).fetchAll({
     withRelated:'actuacion'
   })
     .then(function(data){

@@ -33,8 +33,10 @@ exports.createServicio = (req,res) => {
 
   let newData = {
     cliente_id:         req.body.cliente_id, 
+    abogado_id:         req.body.abogado_id,
     catalogo_servicio_id: req.body.catalogo_servicio_id,
     descripcion:        req.body.descripcion,
+    pagado:             req.body.pagado,
     estatus:            'A',
     fecha_creado:       req.body.fecha_creado,
     fecha_cierre:       req.body.fecha_cierre
@@ -81,7 +83,7 @@ exports.asociar = (req, res)=>{
 
   Servicio.forge(conditions).fetch()
     .then(function(servicio){
-      servicio.actuaciones().attach({actuacion_id:req.body.actuacion_id,estatus:'P'})
+      servicio.actuaciones().attach({actuacion_id:req.body.actuacion_id,estatus:'P', fecha: req.body.fecha})
         .then(function(data){
           res.status(200).json({ error: false, data: { message: 'Actuaciones asociadas al servicio' } });
         })

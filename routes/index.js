@@ -13,6 +13,7 @@ const gestion_tipo_parametro = require('./gestion_tipo_parametro');
 
 //---- Vistas ------
 const vista_agendas = require('./vista_agendas');
+const vista_agenda = require('./vista_agenda');
 const vista_calificacion_orden = require('./vista_calificacion_orden');
 const vista_cliente_comentario = require('./vista_cliente_comentario');
 const vista_cliente_consejo = require('./vista_cliente_consejo');
@@ -30,6 +31,7 @@ const vista_detalle_servicios_true = require('./vista_detalle_servicios_true');
 const vista_empleados_categoria = require('./vista_empleados_categoria');
 const vista_empleado = require('./vista_empleado');
 const vista_especialidad = require('./vista_especialidad');
+const vista_horario = require('./vista_horario');
 const vista_incidencia_de_orden = require('./vista_incidencia_de_orden');
 const vista_insumo_asociados = require('./vista_insumo_asociados');
 const vista_insumos = require('./vista_insumos');
@@ -306,6 +308,7 @@ app.use('/',
 	vista_cliente_solicitud,
 	vista_cliente_orden,
 	vista_agendas,
+	vista_agenda,
 	vista_detalle_consejo,
 	vista_detalle_promocion,
 	vista_servicio_parametro,
@@ -317,6 +320,7 @@ app.use('/',
 	vista_incidencia_de_orden,
 	vista_insumo_asociados,
 	vista_insumos,
+	vista_horario,
 	vista_roles,
 	vista_empleado,
 	vista_servicio_con_incidencia,
