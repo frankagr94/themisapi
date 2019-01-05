@@ -18,10 +18,8 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_dia_laborable:   req.body.id_dia_laborable,
-    id_bloque:          req.body.id_bloque,
-    fecha_creacion:     req.body.fecha_creacion,
-    estatus:            req.body.estatus,
+    dia_semana_id:   req.body.dia_semana_id,
+    bloque_hora_id:  req.body.bloque_hora_id
   }
 
   Horario.forge(newData).save()
@@ -59,14 +57,7 @@ exports.updateDocument = (req,res) => {
     .then(function(horario){
       if(!horario) return res.status(404).json({ error : true, data : { message : 'horario no existe' } });
 
-      let updateData = {
-        id_dia_laborable:   req.body.id_dia_laborable,
-        id_bloque:          req.body.id_bloque,
-        fecha_creacion:     req.body.fecha_creacion,
-        estatus:            req.body.estatus,
-      }
-      
-      horario.save(updateData)
+      horario.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'horario actualizado'} });
         })
