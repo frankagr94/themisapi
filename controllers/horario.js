@@ -19,7 +19,8 @@ exports.createDocument = (req,res) => {
 
   let newData = {
     dia_semana_id:   req.body.dia_semana_id,
-    bloque_hora_id:  req.body.bloque_hora_id
+    bloque_hora_id:  req.body.bloque_hora_id,
+    estatus:         req.body.estatus
   }
 
   Horario.forge(newData).save()
