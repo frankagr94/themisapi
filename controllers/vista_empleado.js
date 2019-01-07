@@ -5,7 +5,9 @@ const Vista_empleado = require('../models/vista_empleado');
 
 exports.findEmpleados = (req,res) => {
   
-  Vista_empleado.forge().fetchAll()
+  Vista_empleado.forge().fetchAll({
+    withRelated:['redes_sociales']
+  })
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -19,7 +21,9 @@ exports.findOneEmpleado = (req,res) => {
 
   let conditions = { empleado_id: req.params.id };
 
-  Vista_empleado.forge(conditions).fetch()
+  Vista_empleado.forge(conditions).fetch({
+    withRelated:['redes_sociales']
+  })
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'vista_empleado no existe' } });
 

@@ -40,6 +40,7 @@ const vista_orden_cita = require('./vista_orden_cita');
 const vista_perfil = require('./vista_perfil');
 const vista_presupuesto = require('./vista_presupuesto');
 const vista_reclamo = require('./vista_reclamo');
+const vista_red_social_empleado = require('./vista_red_social_empleado');
 const vista_respuesta_presupuesto = require('./vista_respuesta_presupuesto');
 const vista_respuesta_solicitud = require('./vista_respuesta_solicitud');
 const vista_roles = require('./vista_roles');
@@ -314,6 +315,7 @@ app.use('/',
 	vista_detalle_promocion,
 	vista_servicio_parametro,
 	vista_todas_promociones,
+	vista_red_social_empleado,
 	vista_todos_consejos,
 	vista_todos_servicios,
 	vista_calificacion_orden,
