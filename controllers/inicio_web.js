@@ -121,6 +121,15 @@ exports.updateInicio = (req,res) => {
                   }
                 });
               }
+              else{
+                inicio_web.save(newData) //actualiza todo con las imagenes que se subieron
+                    .then(function(data){
+                      return res.status(200).json({ error : false, data : { message : 'inicio_web actualizado'} });
+                    })
+                    .catch(function(err){
+                      return res.status(500).json({ error : false, data : {message : err.message} });
+                    })
+              }
             }
           });
         } else if(req.files.imagen_app){//si no existe imagen_nosotros, pero existe la imagen_app la sube
