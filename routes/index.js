@@ -15,6 +15,7 @@ const gestion_tipo_parametro = require('./gestion_tipo_parametro');
 const vista_agendas = require('./vista_agendas');
 const vista_agenda = require('./vista_agenda');
 const vista_calificacion_orden = require('./vista_calificacion_orden');
+const vista_cita = require('./vista_cita');
 const vista_cliente_comentario = require('./vista_cliente_comentario');
 const vista_cliente_consejo = require('./vista_cliente_consejo');
 const vista_cliente_orden = require('./vista_cliente_orden');
@@ -53,6 +54,7 @@ const vista_servicios_calificados = require('./vista_servicios_calificados');
 const vista_servicios_con_garantia = require('./vista_servicios_con_garantia');
 const vista_solicitud = require('./vista_solicitud');
 const vista_solicitud_insumo = require('./vista_solicitud_insumo');
+const vista_sugerencia = require('./vista_sugerencia');
 const vista_todas_promociones = require('./vista_todas_promociones');
 const vista_todos_consejos = require('./vista_todos_consejos');
 const vista_todos_servicio_garantia = require('./vista_todos_servicio_garantia');
@@ -304,6 +306,7 @@ app.use('/',
 	vista_perfil,
 	vista_presupuesto,
 	vista_orden,
+	vista_cita,
 	vista_cliente_comentario,
 	vista_cliente_perfil,
 	vista_cliente_reclamo,
@@ -313,6 +316,7 @@ app.use('/',
 	vista_agenda,
 	vista_detalle_consejo,
 	vista_detalle_promocion,
+	vista_sugerencia,
 	vista_servicio_parametro,
 	vista_todas_promociones,
 	vista_red_social_empleado,
