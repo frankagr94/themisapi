@@ -36,7 +36,7 @@ exports.findOneDocumentByClienteId = (req,res) => {
 
   let conditions = { cliente_id: req.params.cliente_id };
 
-  Vista_sugerencia.forge(conditions).fetch()
+  Vista_sugerencia.forge(conditions).fetchAll()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'vista_sugerencia no existe' } });
 
