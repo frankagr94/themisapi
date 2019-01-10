@@ -32,9 +32,9 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.findOneDocumentByUserId = (req,res) => {
+exports.findOneDocumentByClienteId = (req,res) => {
 
-  let conditions = { usuario_id: req.params.usuario_id };
+  let conditions = { cliente_id: req.params.cliente_id };
 
   Vista_reclamo.forge(conditions).fetch()
     .then(function(data){
