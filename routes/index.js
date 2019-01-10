@@ -12,6 +12,7 @@ const gestion_solicitud = require('./gestion_solicitud');
 const gestion_tipo_parametro = require('./gestion_tipo_parametro');
 
 //---- Vistas ------
+const vista_actuacion_catalogo = require('./vista_actuacion_catalogo');
 const vista_agendas = require('./vista_agendas');
 const vista_agenda = require('./vista_agenda');
 const vista_calificacion_orden = require('./vista_calificacion_orden');
@@ -40,6 +41,7 @@ const vista_orden = require('./vista_orden');
 const vista_orden_cita = require('./vista_orden_cita');
 const vista_perfil = require('./vista_perfil');
 const vista_presupuesto = require('./vista_presupuesto');
+const vista_recaudo_servicio = require('./vista_recaudo_catalogo');
 const vista_reclamo = require('./vista_reclamo');
 const vista_red_social_empleado = require('./vista_red_social_empleado');
 const vista_respuesta_presupuesto = require('./vista_respuesta_presupuesto');
@@ -298,6 +300,8 @@ app.use('/',
 	gestion_calificacion,
 	//---- Vistas ----
 	vista_comentario,
+	vista_actuacion_catalogo,
+	vista_recaudo_servicio,
 	vista_solicitud,
 	vista_servicio_solicitado,
 	vista_reclamo,

@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Vista_sugerencia = require('../models/vista_sugerencia');
+const Vista_recaudo_catalogo = require('../models/vista_recaudo_catalogo');
 
 exports.findDocuments = (req,res) => {
   
-  Vista_sugerencia.forge().fetchAll()
+  Vista_recaudo_catalogo.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -17,11 +17,11 @@ exports.findDocuments = (req,res) => {
 
 exports.findOneDocument = (req,res) => {
 
-  let conditions = { sugerencia_id: req.params.id };
+  let conditions = { recaudo_catalogo_id: req.params.id };
 
-  Vista_sugerencia.forge(conditions).fetch()
+  Vista_recaudo_catalogo.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_sugerencia no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_recaudo_catalogo no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -32,13 +32,13 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.findOneDocumentByClienteId = (req,res) => {
+exports.findOneDocumentByCatalogoId = (req,res) => {
 
-  let conditions = { cliente_id: req.params.cliente_id };
+  let conditions = { catalogo_servicio_id: req.params.catalogo_servicio_id };
 
-  Vista_sugerencia.where(conditions).fetchAll()
+  Vista_recaudo_catalogo.where(conditions).fetchAll()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_sugerencia no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_recaudo_catalogo no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
