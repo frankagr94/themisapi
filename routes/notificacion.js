@@ -16,5 +16,6 @@ router.post(`${path}`,controller.createDocument)
 router.get(`${path}/${id}`,controller.findOneDocument)
 router.put(`${path}/${id}`,controller.updateDocument)
 router.delete(`${path}/${id}`,controller.deleteDocument)
+router.post(`${path}/enviar`,controller.sendNotification)
 
 module.exports = router;
