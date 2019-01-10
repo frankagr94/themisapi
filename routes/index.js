@@ -67,6 +67,7 @@ const acceso_rol = require('./acceso_rol');
 const actuacion = require('./actuacion');
 const actuacion_catalogo = require('./actuacion_catalogo');
 const actuacion_servicio = require('./actuacion_servicio');
+const abogado_servicio = require('./abogado_servicio');
 const agenda = require('./agenda');
 const auditoria = require('./auditoria');
 const bloque = require('./bloque');
@@ -95,7 +96,7 @@ const detalle_servicio = require('./detalle_servicio');
 const dia_semana = require('./dia_semana');
 const dia_laborable = require('./dia_laborable');
 const dispositivo = require('./dispositivo');
-const documento_actuacion_servicio = require('./documento_actuacion_servicio');
+const recaudo_catalogo = require('./recaudo_catalogo');
 const documento = require('./documento');
 const empleado = require('./empleado');
 const empleado_asignado = require('./empleado_asignado');
@@ -127,6 +128,7 @@ const promocion = require('./promocion');
 const proveedor = require('./proveedor');
 const razon_incidencia = require('./razon_incidencia');
 const reclamo = require('./reclamo');
+const recaudo_servicio = require('./recaudo_servicio');
 const red_social = require('./red_social');
 const rango_valoracion = require('./rango_valoracion');
 const respuesta_comentario = require('./respuesta_comentario');
@@ -183,6 +185,7 @@ app.use('/',
 	empresa,
 	parametro,
 	perfil,
+	abogado_servicio,
 	actuacion,
 	tipo_parametro,
 	categoria_servicio,
@@ -255,6 +258,7 @@ app.use('/',
 	insumo_usado,
 	notificacion,
 	presupuesto,
+	recaudo_servicio,
 	proveedor,
 	tipo_garantia,
 	razon_incidencia,
@@ -276,7 +280,7 @@ app.use('/',
 	catalogo_servicio,
 	categoria_servicio,
 	categoria,
-	documento_actuacion_servicio,
+	recaudo_catalogo,
 	promocion,
 	rango_valoracion,
     tipo_actuacion,
