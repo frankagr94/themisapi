@@ -2,6 +2,7 @@
 'use strict'
 const bcrypt = require("bcryptjs");
 const Notificacion = require('../models/notificacion');
+const notif = require('../middlewares/notification');
 
 exports.findDocuments = (req,res) => {
   
@@ -103,5 +104,17 @@ exports.deleteDocument = (req,res) => {
     .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} })
     })
+
+}
+
+exports.sendNotification = (req,res) => {
+
+  notif.sender(req.body.dispositivos, req.body.titulo, req.body.mensaje).then(function(result) {
+    if(result.error){
+        return res.status(404).send({ message : 'Fallaron algunos, Exitosos: '+result.success+', Fallidos: '+result.failure })
+    }else{
+        res.status(200).send({ message : 'Notificacion Enviada con exito a '+result.sent+' dispositivos' })
+    }
+  })
 
 }
