@@ -54,6 +54,7 @@ const vista_servicios_calificados = require('./vista_servicios_calificados');
 const vista_servicios_con_garantia = require('./vista_servicios_con_garantia');
 const vista_solicitud = require('./vista_solicitud');
 const vista_solicitud_insumo = require('./vista_solicitud_insumo');
+const vista_solicitud_rechazada = require('./vista_solicitud_rechazada');
 const vista_sugerencia = require('./vista_sugerencia');
 const vista_todas_promociones = require('./vista_todas_promociones');
 const vista_todos_consejos = require('./vista_todos_consejos');
@@ -140,6 +141,7 @@ const servicio_parametro = require('./servicio_parametro');
 const servicio_solicitado = require('./servicio_solicitado');
 const sistema = require('./sistema');
 const solicitud = require('./solicitud');
+const solicitud_rechazo = require('./solicitud_rechazo');
 const sugerencia = require('./sugerencia');
 const suscripcion = require('./suscripcion');
 const tipo_cliente = require('./tipo_cliente');
@@ -235,6 +237,7 @@ app.use('/',
 	documento,
 	empleado_asignado,
 	solicitud,
+	solicitud_rechazo,
 	orden_servicio,
 	servicio_solicitado,
 	garantia,
@@ -336,6 +339,7 @@ app.use('/',
 	vista_todos_servicio_garantia,
 	vista_servicio_solicitud,
 	vista_solicitud_insumo,
+	vista_solicitud_rechazada,
 	vista_orden_cita,
 	usuario_cliente,
 	vista_usuario

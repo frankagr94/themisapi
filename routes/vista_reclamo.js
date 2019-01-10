@@ -12,6 +12,7 @@ const id = ':id'
 //----Rutas------ 
 router.get(`${path}`, controller.findDocuments)
 router.get(`${path}/${id}`,controller.findOneDocument)
+router.get(`${path}/user/:usuario_id`,controller.findOneDocumentByUserId)
 
 
 module.exports = router;

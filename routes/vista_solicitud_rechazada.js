@@ -1,17 +1,17 @@
+//----dependencias------ 
 'use strict'
 const express = require('express')
 
 //----dependencias------ 
 const router = express.Router()
-const controller = require('../controllers/vista_sugerencia')
+const controller = require('../controllers/vista_solicitud_rechazada')
 
 //----Parametros------
-const path = '/vista_sugerencia'
+const path = '/vista_solicitud_rechazada'
 const id = ':id'
 
 //----Rutas------ 
 router.get(`${path}`, controller.findDocuments)
-router.get(`${path}/${id}`,controller.findOneDocument)
-router.get(`${path}/user/:usuario_id`,controller.findOneDocumentByUserId)
+router.get(`${path}/${id}`, controller.findOneDocument)
 
 module.exports = router;
