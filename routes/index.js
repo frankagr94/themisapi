@@ -112,6 +112,7 @@ const horario = require('./horario');
 const horario_empleado = require('./horario_empleado');
 const imagen = require('./imagen');
 const imagen_carrusel=require('./imagen_carrusel');
+const incidencia = require('./incidencia');
 const incidencia_orden = require('./incidencia_orden');
 const incidencia_servicio = require('./incidencia_servicio');
 const insumo = require('./insumo');
@@ -199,6 +200,7 @@ app.use('/',
 	red_social,
 	imagen,
 	filosofia,
+	incidencia,
 	caracteristica,
 	caracteristica_base,
 	imagen_carrusel,
