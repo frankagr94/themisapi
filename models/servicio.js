@@ -21,10 +21,10 @@ const Servicio = Bookshelf.Model.extend({
     return this.belongsToMany(Empleado).through(Abogado_servicio);
   },
   servicio : function(){
-    return this.belonsgTo(Catalogo_servicio);
+    return this.belongsTo(Catalogo_servicio);
   },
   cliente : function(){
-    return this.belonsgTo(Cliente);
+    return this.belongsTo(Cliente);
   }
 });
 
