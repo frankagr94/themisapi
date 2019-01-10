@@ -20,7 +20,6 @@ exports.createRecaudo_servicio = (req,res) => {
   let newData = {
     documento_id:           req.body.actuacion_id,
     catalogo_servicio_id:   req.body.catalogo_servicio_id,
-    nombre:                 req.body.nombre,
     estatus:                'A'
   }
 
