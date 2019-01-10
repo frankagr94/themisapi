@@ -13,6 +13,7 @@ const id = ':id'
 //----Rutas------ 
 router.get(`${path}`, controller.findEmpleados)
 router.get(`${path}/visibles`, controller.mostrarVisibles)
+router.get(`${path}/user/:usuario_id`,controller.findOneEmpleadoByUserId)
 router.post(`${path}`,controller.createEmpleado)
 router.get(`${path}/${id}`,controller.findOneEmpleado)
 router.put(`${path}/${id}`,controller.updateEmpleado)
