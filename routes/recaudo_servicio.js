@@ -11,10 +11,9 @@ const path = '/recaudo_servicio'
 const id = ':id'
 
 //----Rutas------ 
-router.get(`${path}`, controller.findDocuments)
-router.post(`${path}`,controller.createDocument)
-router.get(`${path}/${id}`,controller.findOneDocument)
-router.put(`${path}/${id}`,controller.updateDocument)
-router.delete(`${path}/${id}`,controller.deleteDocument)
+router.get(`${path}`, controller.findRecaudo_servicios)
+router.post(`${path}/`, controller.createRecaudo_servicio)
+router.get(`${path}/${id}`, controller.findOneRecaudo_servicio)
+router.put(`${path}/${id}`,controller.updateRecaudo_servicio)
 
 module.exports = router;
