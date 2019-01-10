@@ -83,7 +83,7 @@ exports.asociar = (req, res)=>{
 
   Servicio.forge(conditions).fetch()
     .then(function(servicio){
-      servicio.actuaciones().attach({actuacion_id:req.body.actuacion_id,estatus:'P', fecha: req.body.fecha})
+      servicio.actuaciones().attach({actuacion_id:req.body.actuacion_id,estatus:'P', fecha: req.body.fecha, horario_id:req.body.horario_id})
         .then(function(data){
           res.status(200).json({ error: false, data: { message: 'Actuaciones asociadas al servicio' } });
         })
