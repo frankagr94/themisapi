@@ -20,7 +20,7 @@ exports.createincidencia = (req,res) => {
   let newData = {
     cliente_id:           req.body.cliente_id,
     descripcion:          req.body.descripcion,
-    fecha:                releaseEvents.body.fecha,
+    fecha_creado:         req.body.fecha_creado,
     estatus:              'P'
   }
 
