@@ -1,7 +1,7 @@
 const Bookshelf = require('../db');
 
-const Abogado = Bookshelf.Model.extend({
-  tableName: 'abogado',
+const Vista_abogado = Bookshelf.Model.extend({
+  tableName: 'vista_abogado',
 });
 
-module.exports = Abogado;
+module.exports = Vista_abogado;
