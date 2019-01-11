@@ -11,6 +11,7 @@ const id = ':id'
 
 //----Rutas------ 
 router.get(`${path}`, controller.findEmpleados)
+router.get(`${path}/show`,controller.findEmpleadosVisibles)
 router.get(`${path}/${id}`,controller.findOneEmpleado)
 
 
