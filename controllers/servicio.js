@@ -101,7 +101,7 @@ exports.asociarRecaudos = (req, res)=>{
 
   Servicio.forge(conditions).fetch()
     .then(function(servicio){
-      servicio.documentos().attach({documento_id:req.body.documento,estatus:'P'})
+      servicio.documentos().attach({documento_id:req.body.documento_id,estatus:'P'})
         .then(function(data){
           res.status(200).json({ error: false, data: { message: 'Actuaciones asociadas al servicio' } });
         })
