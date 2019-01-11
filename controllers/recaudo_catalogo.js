@@ -36,7 +36,7 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  recaudo_catalogo.forge(conditions).fetch()
+  Recaudo_catalogo.forge(conditions).fetch()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'recaudo_catalogo no existe' } });
 
@@ -53,7 +53,7 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  recaudo_catalogo.forge(conditions).fetch()
+  Recaudo_catalogo.forge(conditions).fetch()
     .then(function(recaudo_catalogo){
       if(!recaudo_catalogo) return res.status(404).json({ error : true, data : { message : 'recaudo_catalogo no existe' } });
 
@@ -76,7 +76,7 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  recaudo_catalogo.forge(conditions).fetch()
+  Recaudo_catalogo.forge(conditions).fetch()
     .then(function(recaudo_catalogo){
       if(!recaudo_catalogo) return res.status(404).json({ error : true, data : { message : 'recaudo_catalogo no existe' } });
 

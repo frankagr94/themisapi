@@ -5,7 +5,7 @@ const Incidencia = require('../models/incidencia');
 
 exports.findincidencias = (req,res) => {
   
-  Incidencia.where({estatus:'A'||'a'||'P'||'p'}).fetchAll()
+  Incidencia.where({estatus:'P'||'A'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
