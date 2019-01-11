@@ -102,9 +102,9 @@ exports.deleteTipo_actuacion = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Tipo_tipo_actuacion.forge(conditions).fetch()
-    .then(function(tipo_tipo_actuacion){
-      if(!tipo_tipo_actuacion) return res.status(404).json({ error : true, data : { message : 'tipo de tipo_actuacion no existe' } });
+  Tipo_actuacion.forge(conditions).fetch()
+    .then(function(tipo_actuacion){
+      if(!tipo_actuacion) return res.status(404).json({ error : true, data : { message : 'tipo de tipo_actuacion no existe' } });
 
       tipo_actuacion.save({estatus:'I'})
         .then(function(data){
