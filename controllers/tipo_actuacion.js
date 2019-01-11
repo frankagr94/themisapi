@@ -20,7 +20,7 @@ exports.createTipo_actuacion = (req,res) => {
   let newData = {
     nombre:        req.body.nombre,
     descripcion:   req.body.descripcion,
-    color_principal: req.body.color_principal,
+    color_primario: req.body.color_primario,
     color_secundario: req.body.color_secundario,
     estatus:       'A'
   }
