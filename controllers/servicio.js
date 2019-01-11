@@ -141,14 +141,14 @@ exports.updateServicio = (req,res) => {
       if(!servicio) return res.status(404).json({ error : true, data : { message : 'servicio no existe' } });
 
       // ----- Extension Imagen -----
-      if(req.files.archivo) {
+      /*if(req.files.archivo) {
         var extension = req.files.archivo.name.split(".").pop();
-      }
+      }*/
 
       servicio.save(req.body)
         .then(function(data){
           // ----- Guardar Imagen -----
-          if(req.files.archivo) fs.rename(req.files.archivo.path, "files/servicio/"+data.id+"."+extension);
+          //if(req.files.archivo) fs.rename(req.files.archivo.path, "files/servicio/"+data.id+"."+extension);
 
           res.status(200).json({ error : false, data : { message : 'servicio actualizado'} });
         })
