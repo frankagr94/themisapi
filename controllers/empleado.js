@@ -59,6 +59,8 @@ exports.createEmpleado = (req,res) => {
             empresa_id:       req.body.empresa_id,
             tipo_empleado_id: req.body.tipo_empleado_id,
             especialidad_id:  req.body.especialidad_id,
+            telefono:         req.body.telefono,
+            estado_civil_id:  req.body.estado_civil_id,
             visible:          true
           }
         

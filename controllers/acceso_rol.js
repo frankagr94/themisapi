@@ -59,14 +59,7 @@ exports.updateAcceso_rol = (req,res) => {
     .then(function(acceso_rol){
       if(!acceso_rol) return res.status(404).json({ error : true, data : { message : 'acceso_rol no existe' } });
 
-      let updateData = {
-        rol_id:             req.body.rol_id,
-        funcion_id:         req.body.acceso_id,
-        ver:                req.body.ver,
-        nombre_icono:       req.body.nombre_icono
-      }
-      
-      acceso_rol.save(updateData)
+      acceso_rol.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'acceso_rol actualizado'} });
         })
