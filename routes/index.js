@@ -136,8 +136,8 @@ const reclamo = require('./reclamo');
 const recaudo_servicio = require('./recaudo_servicio');
 const red_social = require('./red_social');
 const rango_valoracion = require('./rango_valoracion');
-const respuesta_comentario = require('./respuesta_comentario');
-const respuesta_presupuesto = require('./respuesta_presupuesto');
+const respuesta_sugerencia = require('./respuesta_sugerencia');
+const respuesta_incidencia = require('./respuesta_incidencia');
 const respuesta_reclamo = require('./respuesta_reclamo');
 const respuesta_solicitud = require('./respuesta_solicitud');
 const rol = require('./rol');
@@ -253,7 +253,7 @@ app.use('/',
 	respuesta_solicitud,
 	reclamo,
 	tipo_reclamo,
-	respuesta_comentario,
+	respuesta_sugerencia,
 	respuesta_reclamo,
 	horario,
 	horario_empleado,
@@ -268,7 +268,7 @@ app.use('/',
 	proveedor,
 	tipo_garantia,
 	razon_incidencia,
-	respuesta_presupuesto,
+	respuesta_incidencia,
 	servicio_parametro,
 	tipo_comentario,
 	tipo_incidencia,

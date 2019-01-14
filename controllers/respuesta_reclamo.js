@@ -18,8 +18,8 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_reclamo:                 req.body.id_reclamo,
-    id_tipo_respuesta_reclamo:  req.body.id_tipo_respuesta_reclamo,
+    reclamo_id:                 req.body.id_reclamo,
+    tipo_respuesta_id:          req.body.tipo_respuesta_id,
     descripcion:                req.body.descripcion,
     fecha_creacion:             req.body.fecha_creacion,
     estatus:                    req.body.estatus,
@@ -60,15 +60,7 @@ exports.updateDocument = (req,res) => {
     .then(function(respuesta_reclamo){
       if(!respuesta_reclamo) return res.status(404).json({ error : true, data : { message : 'respuesta_reclamo no existe' } });
 
-      let updateData = {
-        id_reclamo:                 req.body.id_reclamo,
-        id_tipo_respuesta_reclamo:  req.body.id_tipo_respuesta_reclamo,
-        descripcion:                req.body.descripcion,
-        fecha_creacion:             req.body.fecha_creacion,
-        estatus:                    req.body.estatus,
-      }
-      
-      respuesta_reclamo.save(updateData)
+      respuesta_reclamo.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'respuesta_reclamo actualizado'} });
         })
