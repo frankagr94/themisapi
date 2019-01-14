@@ -17,7 +17,7 @@ exports.findDocuments = (req,res) => {
 
 exports.findOneDocument = (req,res) => {
 
-  let conditions = { id: req.params.id };
+  let conditions = { servicio_id: req.params.id };
 
   Vista_servicio.forge(conditions).fetch()
     .then(function(data){
@@ -36,7 +36,7 @@ exports.findOneDocumentByClient = (req,res) => {
 
   let conditions = { cliente_id: req.params.cliente_id, estatus: req.body.estatus };
 
-  Vista_servicio.forge(conditions).fetch()
+  Vista_servicio.where(conditions).fetchAll()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'vista_servicio no existe' } });
 
