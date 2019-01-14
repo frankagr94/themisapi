@@ -51,8 +51,8 @@ const vista_respuesta_solicitud = require('./vista_respuesta_solicitud');
 const vista_roles = require('./vista_roles');
 const vista_servicio_categoria = require('./vista_servicio_categoria');
 const vista_servicio_con_incidencia = require('./vista_servicio_con_incidencia');
-const vista_servicio_parametro = require('./vista_servicio_parametro');
-const vista_servicio_solicitado = require('./vista_servicio_solicitado');
+const vista_servicio_abogado = require('./vista_servicio_abogado');
+const vista_servicio = require('./vista_servicio');
 const vista_servicio_solicitud =require('./vista_servicio_solicitud');
 const vista_servicios_calificados = require('./vista_servicios_calificados');
 const vista_servicios_con_garantia = require('./vista_servicios_con_garantia');
@@ -308,7 +308,7 @@ app.use('/',
 	vista_actuacion_catalogo,
 	vista_recaudo_servicio,
 	vista_solicitud,
-	vista_servicio_solicitado,
+	vista_servicio,
 	vista_reclamo,
 	vista_respuesta_presupuesto,
 	vista_respuesta_solicitud,
@@ -333,7 +333,7 @@ app.use('/',
 	vista_detalle_consejo,
 	vista_detalle_promocion,
 	vista_sugerencia,
-	vista_servicio_parametro,
+	vista_servicio_abogado,
 	vista_todas_promociones,
 	vista_red_social_empleado,
 	vista_todos_consejos,

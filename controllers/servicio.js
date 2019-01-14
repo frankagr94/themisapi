@@ -103,7 +103,7 @@ exports.asociarRecaudos = (req, res)=>{
     .then(function(servicio){
       servicio.documentos().attach({documento_id:req.body.documento_id,estatus:'P'})
         .then(function(data){
-          res.status(200).json({ error: false, data: { message: 'Actuaciones asociadas al servicio' } });
+          res.status(200).json({ error: false, data: { message: 'Recaudos asociadas al servicio' } });
         })
         .catch(function(err){
           res.status(500).json({ error: true, data: {message: err.message} });
@@ -121,7 +121,7 @@ exports.asociarAbogados = (req, res)=>{
     .then(function(servicio){
       servicio.abogados().attach({abogado_id:req.body.abogado_id})
         .then(function(data){
-          res.status(200).json({ error: false, data: { message: 'Actuaciones asociadas al servicio' } });
+          res.status(200).json({ error: false, data: { message: 'Abogados asociadas al servicio' } });
         })
         .catch(function(err){
           res.status(500).json({ error: true, data: {message: err.message} });
