@@ -60,16 +60,8 @@ exports.updateDocument = (req,res) => {
   Notificacion.forge(conditions).fetch()
     .then(function(notificacion){
       if(!notificacion) return res.status(404).json({ error : true, data : { message : 'notificacion no existe' } });
-
-      let updateData = {
-        id_tipo_notificacion: req.body.id_tipo_notificacion,
-        nombre:               req.body.nombre,
-        descripcion:          req.body.descripcion,
-        fecha_creacion:       req.body.fecha_creacion,
-        estatus:              req.body.estatus,
-      }
       
-      notificacion.save(updateData)
+      notificacion.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'notificacion actualizado'} });
         })
