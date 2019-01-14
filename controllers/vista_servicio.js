@@ -17,7 +17,7 @@ exports.findDocuments = (req,res) => {
 
 exports.findOneDocument = (req,res) => {
 
-  let conditions = { id: req.params.id };
+  let conditions = { servicio_id: req.params.id };
 
   Vista_servicio.forge(conditions).fetch()
     .then(function(data){
