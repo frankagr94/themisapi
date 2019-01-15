@@ -34,7 +34,7 @@ exports.findOneDocument = (req,res) => {
 
 exports.findOneDocumentByClient = (req,res) => {
 
-  let conditions = { cliente_id: req.params.cliente_id, estatus: req.body.estatus };
+  let conditions = { cliente_id: req.params.cliente_id, estatus: req.params.estatus };
 
   Vista_servicio.where(conditions).fetchAll()
     .then(function(data){
