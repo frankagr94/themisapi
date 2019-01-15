@@ -63,7 +63,7 @@ exports.findInicidneciaByEstatus = (req,res) => {
     });
 }
 
-exports.findSolicitudsByCliente = (req,res) => {
+exports.findIncidenciasByCliente = (req,res) => {
   
     Incidencia.where({cliente_id: req.params.cliente_id}).fetchAll()
     .then(function(data){

@@ -96,3 +96,26 @@ exports.deleteAcceso_rol = (req,res) => {
     })
 
 }
+
+exports.deleteAcceso_rolByParameters = (req,res) => {
+
+  let conditions = { rol_id: req.body.rol_id, funcion_id: req.body.funcion_id };
+
+  Acceso_rol.forge(conditions).fetch()
+    .then(function(acceso_rol){
+      if(!acceso_rol) return res.status(404).json({ error : true, data : { message : 'acceso_rol no existe' } });
+
+      acceso_rol.destroy()
+        .then(function(data){
+          res.status(200).json({ error : false, data : {message : 'acceso_rol eliminado'} })
+        })
+        .catch(function(err){
+          res.status(500).json({error : true, data : {message : err.message}});
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
