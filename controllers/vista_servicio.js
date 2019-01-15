@@ -48,3 +48,20 @@ exports.findOneDocumentByClient = (req,res) => {
     })
 
 }
+
+exports.findOneDocumentByEstatus = (req,res) => {
+
+  let conditions = { estatus: req.params.estatus };
+
+  Vista_servicio.where(conditions).fetchAll()
+    .then(function(data){
+      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_servicio no existe' } });
+
+      res.status(200).json({ error : false, data : data.toJSON() })
+
+    })
+    .catch(function(err){
+      res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
