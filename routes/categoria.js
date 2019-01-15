@@ -12,6 +12,7 @@ const id = ':id'
 
 //----Rutas------ 
 router.get(`${path}`, controller.findCategorias)
+router.get(`${path}/visibles`, controller.mostrarVisibles)
 router.post(`${path}`,controller.createCategoria)
 router.get(`${path}/${id}`,controller.findOneCategoria)
 router.put(`${path}/${id}`,controller.updateCategoria)

@@ -99,7 +99,7 @@ exports.deleteAcceso_rol = (req,res) => {
 
 exports.deleteAcceso_rolByParameters = (req,res) => {
 
-  let conditions = { rol_id: req.body.rol_id, funcion_id: req.body.funcion_id };
+  let conditions = { rol_id: req.params.rol_id, funcion_id: req.params.funcion_id };
 
   Acceso_rol.forge(conditions).fetch()
     .then(function(acceso_rol){
