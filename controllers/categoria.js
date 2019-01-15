@@ -71,6 +71,16 @@ exports.findOneCategoria = (req,res) => {
 
 }
 
+exports.mostrarVisibles = (req, res)=> {
+  Categoria.where({visible: true}).fetchAll()
+  .then(function(data){
+    res.status(200).json({ error : false, data : data.toJSON() });
+  })
+  .catch(function (err) {
+    res.status(500).json({ error: true, data: {message: err.message} });
+  });
+}
+
 exports.cambiarEstatus = (req,res) => {
 
   let conditions = { id: req.params.id };
