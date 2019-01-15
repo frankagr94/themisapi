@@ -34,7 +34,7 @@ exports.findOneDocument = (req,res) => {
 
 exports.findOneDocumentAbogadoId = (req,res) => {
 
-  let conditions = { abogado_id: req.params.abogado_id, estatus: req.body.estatus };
+  let conditions = { abogado_id: req.params.abogado_id, estatus: req.params.estatus };
 
   Vista_servicio_abogado.forge(conditions).fetch()
     .then(function(data){
