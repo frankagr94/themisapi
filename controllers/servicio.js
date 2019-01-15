@@ -78,14 +78,50 @@ exports.findOneServicio = (req,res) => {
 
 }
 
-exports.asociar = (req, res)=>{
+exports.asociarActuaciones = (req, res)=>{
   let conditions = { id: req.body.id_servicio};
 
   Servicio.forge(conditions).fetch()
     .then(function(servicio){
-      servicio.actuaciones().attach({actuacion_id:req.body.actuacion_id,estatus:'P', fecha: req.body.fecha, horario_id:req.body.horario_id})
+      servicio.actuaciones().attach({actuacion_id:req.body.actuacion_id,estatus:'P', fecha_plan: req.body.fecha_plan, horario_id:req.body.horario_id, abogado_id: req.body.abogado_id})
         .then(function(data){
           res.status(200).json({ error: false, data: { message: 'Actuaciones asociadas al servicio' } });
+        })
+        .catch(function(err){
+          res.status(500).json({ error: true, data: {message: err.message} });
+        });
+    })
+    .catch(function(err){
+      res.status(500).json({ error: true, data: {message: err.message} });
+    })
+}
+
+exports.asociarRecaudos = (req, res)=>{
+  let conditions = { id: req.body.id_servicio};
+
+  Servicio.forge(conditions).fetch()
+    .then(function(servicio){
+      servicio.documentos().attach({documento_id:req.body.documento_id,estatus:'P'})
+        .then(function(data){
+          res.status(200).json({ error: false, data: { message: 'Recaudos asociadas al servicio' } });
+        })
+        .catch(function(err){
+          res.status(500).json({ error: true, data: {message: err.message} });
+        });
+    })
+    .catch(function(err){
+      res.status(500).json({ error: true, data: {message: err.message} });
+    })
+}
+
+exports.asociarAbogados = (req, res)=>{
+  let conditions = { id: req.body.id_servicio};
+
+  Servicio.forge(conditions).fetch()
+    .then(function(servicio){
+      servicio.abogados().attach({abogado_id:req.body.abogado_id})
+        .then(function(data){
+          res.status(200).json({ error: false, data: { message: 'Abogados asociadas al servicio' } });
         })
         .catch(function(err){
           res.status(500).json({ error: true, data: {message: err.message} });
@@ -105,14 +141,14 @@ exports.updateServicio = (req,res) => {
       if(!servicio) return res.status(404).json({ error : true, data : { message : 'servicio no existe' } });
 
       // ----- Extension Imagen -----
-      if(req.files.archivo) {
+      /*if(req.files.archivo) {
         var extension = req.files.archivo.name.split(".").pop();
-      }
+      }*/
 
       servicio.save(req.body)
         .then(function(data){
           // ----- Guardar Imagen -----
-          if(req.files.archivo) fs.rename(req.files.archivo.path, "files/servicio/"+data.id+"."+extension);
+          //if(req.files.archivo) fs.rename(req.files.archivo.path, "files/servicio/"+data.id+"."+extension);
 
           res.status(200).json({ error : false, data : { message : 'servicio actualizado'} });
         })

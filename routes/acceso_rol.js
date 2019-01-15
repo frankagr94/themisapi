@@ -16,5 +16,6 @@ router.post(`${path}`,controller.createAcceso_rol)
 router.get(`${path}/${id}`,controller.findOneAcceso_rol)
 router.put(`${path}/${id}`,controller.updateAcceso_rol)
 router.delete(`${path}/${id}`,controller.deleteAcceso_rol)
+router.get(`${path}/delete`, controller.deleteAcceso_rolByParameters)
 
 module.exports = router;

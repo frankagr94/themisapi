@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Vista_cita = require('../models/vista_cita');
+const Vista_servicio = require('../models/vista_servicio');
 
 exports.findDocuments = (req,res) => {
   
-  Vista_cita.forge().fetchAll()
+  Vista_servicio.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -17,11 +17,11 @@ exports.findDocuments = (req,res) => {
 
 exports.findOneDocument = (req,res) => {
 
-  let conditions = { actuacion_servicio_id: req.params.id };
+  let conditions = { servicio_id: req.params.id };
 
-  Vista_cita.forge(conditions).fetch()
+  Vista_servicio.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_cita no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_servicio no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -32,13 +32,13 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.findOneDocumentByCliente = (req,res) => {
+exports.findOneDocumentByClient = (req,res) => {
 
-  let conditions = { cliente_id: req.params.cliente_id };
+  let conditions = { cliente_id: req.params.cliente_id, estatus: req.params.estatus };
 
-  Vista_cita.forge(conditions).fetch()
+  Vista_servicio.where(conditions).fetchAll()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_cita no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_servicio no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -49,13 +49,13 @@ exports.findOneDocumentByCliente = (req,res) => {
 
 }
 
-exports.findOneDocumentByAbogado = (req,res) => {
+exports.findOneDocumentByEstatus = (req,res) => {
 
-  let conditions = { abogado_id: req.params.abogado_id };
+  let conditions = { estatus: req.params.estatus };
 
-  Vista_cita.forge(conditions).fetch()
+  Vista_servicio.where(conditions).fetchAll()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_cita no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_servicio no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 

@@ -12,6 +12,8 @@ const gestion_solicitud = require('./gestion_solicitud');
 const gestion_tipo_parametro = require('./gestion_tipo_parametro');
 
 //---- Vistas ------
+const vista_abogado = require('./vista_abogado');
+const vista_actuacion_catalogo = require('./vista_actuacion_catalogo');
 const vista_agendas = require('./vista_agendas');
 const vista_agenda = require('./vista_agenda');
 const vista_calificacion_orden = require('./vista_calificacion_orden');
@@ -33,6 +35,7 @@ const vista_empleados_categoria = require('./vista_empleados_categoria');
 const vista_empleado = require('./vista_empleado');
 const vista_especialidad = require('./vista_especialidad');
 const vista_horario = require('./vista_horario');
+const vista_incidencia = require('./vista_incidencia');
 const vista_incidencia_de_orden = require('./vista_incidencia_de_orden');
 const vista_insumo_asociados = require('./vista_insumo_asociados');
 const vista_insumos = require('./vista_insumos');
@@ -40,6 +43,7 @@ const vista_orden = require('./vista_orden');
 const vista_orden_cita = require('./vista_orden_cita');
 const vista_perfil = require('./vista_perfil');
 const vista_presupuesto = require('./vista_presupuesto');
+const vista_recaudo_servicio = require('./vista_recaudo_catalogo');
 const vista_reclamo = require('./vista_reclamo');
 const vista_red_social_empleado = require('./vista_red_social_empleado');
 const vista_respuesta_presupuesto = require('./vista_respuesta_presupuesto');
@@ -47,8 +51,8 @@ const vista_respuesta_solicitud = require('./vista_respuesta_solicitud');
 const vista_roles = require('./vista_roles');
 const vista_servicio_categoria = require('./vista_servicio_categoria');
 const vista_servicio_con_incidencia = require('./vista_servicio_con_incidencia');
-const vista_servicio_parametro = require('./vista_servicio_parametro');
-const vista_servicio_solicitado = require('./vista_servicio_solicitado');
+const vista_servicio_abogado = require('./vista_servicio_abogado');
+const vista_servicio = require('./vista_servicio');
 const vista_servicio_solicitud =require('./vista_servicio_solicitud');
 const vista_servicios_calificados = require('./vista_servicios_calificados');
 const vista_servicios_con_garantia = require('./vista_servicios_con_garantia');
@@ -67,6 +71,7 @@ const acceso_rol = require('./acceso_rol');
 const actuacion = require('./actuacion');
 const actuacion_catalogo = require('./actuacion_catalogo');
 const actuacion_servicio = require('./actuacion_servicio');
+const abogado_servicio = require('./abogado_servicio');
 const agenda = require('./agenda');
 const auditoria = require('./auditoria');
 const bloque = require('./bloque');
@@ -95,7 +100,7 @@ const detalle_servicio = require('./detalle_servicio');
 const dia_semana = require('./dia_semana');
 const dia_laborable = require('./dia_laborable');
 const dispositivo = require('./dispositivo');
-const documento_actuacion_servicio = require('./documento_actuacion_servicio');
+const recaudo_catalogo = require('./recaudo_catalogo');
 const documento = require('./documento');
 const empleado = require('./empleado');
 const empleado_asignado = require('./empleado_asignado');
@@ -109,6 +114,7 @@ const horario = require('./horario');
 const horario_empleado = require('./horario_empleado');
 const imagen = require('./imagen');
 const imagen_carrusel=require('./imagen_carrusel');
+const incidencia = require('./incidencia');
 const incidencia_orden = require('./incidencia_orden');
 const incidencia_servicio = require('./incidencia_servicio');
 const insumo = require('./insumo');
@@ -127,10 +133,11 @@ const promocion = require('./promocion');
 const proveedor = require('./proveedor');
 const razon_incidencia = require('./razon_incidencia');
 const reclamo = require('./reclamo');
+const recaudo_servicio = require('./recaudo_servicio');
 const red_social = require('./red_social');
 const rango_valoracion = require('./rango_valoracion');
-const respuesta_comentario = require('./respuesta_comentario');
-const respuesta_presupuesto = require('./respuesta_presupuesto');
+const respuesta_sugerencia = require('./respuesta_sugerencia');
+const respuesta_incidencia = require('./respuesta_incidencia');
 const respuesta_reclamo = require('./respuesta_reclamo');
 const respuesta_solicitud = require('./respuesta_solicitud');
 const rol = require('./rol');
@@ -183,6 +190,7 @@ app.use('/',
 	empresa,
 	parametro,
 	perfil,
+	abogado_servicio,
 	actuacion,
 	tipo_parametro,
 	categoria_servicio,
@@ -194,6 +202,7 @@ app.use('/',
 	red_social,
 	imagen,
 	filosofia,
+	incidencia,
 	caracteristica,
 	caracteristica_base,
 	imagen_carrusel,
@@ -244,7 +253,7 @@ app.use('/',
 	respuesta_solicitud,
 	reclamo,
 	tipo_reclamo,
-	respuesta_comentario,
+	respuesta_sugerencia,
 	respuesta_reclamo,
 	horario,
 	horario_empleado,
@@ -255,10 +264,11 @@ app.use('/',
 	insumo_usado,
 	notificacion,
 	presupuesto,
+	recaudo_servicio,
 	proveedor,
 	tipo_garantia,
 	razon_incidencia,
-	respuesta_presupuesto,
+	respuesta_incidencia,
 	servicio_parametro,
 	tipo_comentario,
 	tipo_incidencia,
@@ -276,7 +286,7 @@ app.use('/',
 	catalogo_servicio,
 	categoria_servicio,
 	categoria,
-	documento_actuacion_servicio,
+	recaudo_catalogo,
 	promocion,
 	rango_valoracion,
     tipo_actuacion,
@@ -294,8 +304,11 @@ app.use('/',
 	gestion_calificacion,
 	//---- Vistas ----
 	vista_comentario,
+	vista_abogado,
+	vista_actuacion_catalogo,
+	vista_recaudo_servicio,
 	vista_solicitud,
-	vista_servicio_solicitado,
+	vista_servicio,
 	vista_reclamo,
 	vista_respuesta_presupuesto,
 	vista_respuesta_solicitud,
@@ -320,7 +333,7 @@ app.use('/',
 	vista_detalle_consejo,
 	vista_detalle_promocion,
 	vista_sugerencia,
-	vista_servicio_parametro,
+	vista_servicio_abogado,
 	vista_todas_promociones,
 	vista_red_social_empleado,
 	vista_todos_consejos,
@@ -330,6 +343,7 @@ app.use('/',
 	vista_incidencia_de_orden,
 	vista_insumo_asociados,
 	vista_insumos,
+	vista_incidencia,
 	vista_horario,
 	vista_roles,
 	vista_empleado,

@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Vista_sugerencia = require('../models/vista_sugerencia');
+const Vista_incidencia = require('../models/vista_incidencia');
 
 exports.findDocuments = (req,res) => {
   
-  Vista_sugerencia.forge().fetchAll()
+  Vista_incidencia.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -17,11 +17,11 @@ exports.findDocuments = (req,res) => {
 
 exports.findOneDocument = (req,res) => {
 
-  let conditions = { sugerencia_id: req.params.id };
+  let conditions = { incidencia_id: req.params.id };
 
-  Vista_sugerencia.forge(conditions).fetch()
+  Vista_incidencia.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_sugerencia no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_incidencia no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -32,13 +32,13 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.findOneDocumentByClienteId = (req,res) => {
+exports.findiIncidenciaByCliente = (req,res) => {
 
   let conditions = { cliente_id: req.params.cliente_id };
 
-  Vista_sugerencia.where(conditions).fetchAll()
+  Vista_incidencia.where(conditions).fetchAll()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_sugerencia no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_incidencia no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 

@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Respuesta_reclamo = require('../models/respuesta_reclamo');
+const Recaudo_catalogo = require('../models/recaudo_catalogo');
 
 exports.findDocuments = (req,res) => {
   
-  Respuesta_reclamo.forge().fetchAll()
+  Recaudo_catalogo.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -18,16 +18,13 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    reclamo_id:                 req.body.id_reclamo,
-    tipo_respuesta_id:          req.body.tipo_respuesta_id,
-    descripcion:                req.body.descripcion,
-    fecha_creacion:             req.body.fecha_creacion,
-    estatus:                    req.body.estatus,
+    catalogo_servicio_id: req.body.catalogo_servicio_id,
+    documento_id:        req.body.documento_id
   }
 
-  Respuesta_reclamo.forge(newData).save()
+  Recaudo_catalogo.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'respuesta_reclamo creado' } });
+    res.status(200).json({ error: false, data: { message: 'recaudo_catalogo creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -39,9 +36,9 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Respuesta_reclamo.forge(conditions).fetch()
+  Recaudo_catalogo.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'respuesta_reclamo no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'recaudo_catalogo no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -56,13 +53,13 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Respuesta_reclamo.forge(conditions).fetch()
-    .then(function(respuesta_reclamo){
-      if(!respuesta_reclamo) return res.status(404).json({ error : true, data : { message : 'respuesta_reclamo no existe' } });
+  Recaudo_catalogo.forge(conditions).fetch()
+    .then(function(recaudo_catalogo){
+      if(!recaudo_catalogo) return res.status(404).json({ error : true, data : { message : 'recaudo_catalogo no existe' } });
 
-      respuesta_reclamo.save(req.body)
+      recaudo_catalogo.save(req.body)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'respuesta_reclamo actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'recaudo_catalogo actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -79,13 +76,13 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Respuesta_reclamo.forge(conditions).fetch()
-    .then(function(respuesta_reclamo){
-      if(!respuesta_reclamo) return res.status(404).json({ error : true, data : { message : 'respuesta_reclamo no existe' } });
+  Recaudo_catalogo.forge(conditions).fetch()
+    .then(function(recaudo_catalogo){
+      if(!recaudo_catalogo) return res.status(404).json({ error : true, data : { message : 'recaudo_catalogo no existe' } });
 
-      respuesta_reclamo.destroy()
+      recaudo_catalogo.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'respuesta_reclamo eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'recaudo_catalogo eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});

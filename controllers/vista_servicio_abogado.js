@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Vista_sugerencia = require('../models/vista_sugerencia');
+const Vista_servicio_abogado = require('../models/vista_servicio_abogado');
 
 exports.findDocuments = (req,res) => {
   
-  Vista_sugerencia.forge().fetchAll()
+  Vista_servicio_abogado.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -17,11 +17,11 @@ exports.findDocuments = (req,res) => {
 
 exports.findOneDocument = (req,res) => {
 
-  let conditions = { sugerencia_id: req.params.id };
+  let conditions = { servicio_id: req.params.id };
 
-  Vista_sugerencia.forge(conditions).fetch()
+  Vista_servicio_abogado.where(conditions).fetchAll()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_sugerencia no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_servicio_abogado no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -32,13 +32,13 @@ exports.findOneDocument = (req,res) => {
 
 }
 
-exports.findOneDocumentByClienteId = (req,res) => {
+exports.findOneDocumentAbogadoId = (req,res) => {
 
-  let conditions = { cliente_id: req.params.cliente_id };
+  let conditions = { abogado_id: req.params.abogado_id, estatus: req.params.estatus };
 
-  Vista_sugerencia.where(conditions).fetchAll()
+  Vista_servicio_abogado.where(conditions).fetchAll()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_sugerencia no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_servicio_abogado no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 

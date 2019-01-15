@@ -1,18 +1,20 @@
+//----dependencias------ 
 'use strict'
 const express = require('express')
 
 //----dependencias------ 
 const router = express.Router()
-const controller = require('../controllers/vista_cita')
+const controller = require('../controllers/respuesta_sugerencia')
 
 //----Parametros------
-const path = '/vista_cita'
+const path = '/respuesta_sugerencia'
 const id = ':id'
 
 //----Rutas------ 
 router.get(`${path}`, controller.findDocuments)
+router.post(`${path}`,controller.createDocument)
 router.get(`${path}/${id}`,controller.findOneDocument)
-router.get(`${path}/cliente/:cliente_id`,controller.findOneDocumentByCliente)
-router.get(`${path}/abogado/:abogado_id`,controller.findOneDocumentByAbogado)
+router.put(`${path}/${id}`,controller.updateDocument)
+router.delete(`${path}/${id}`,controller.deleteDocument)
 
 module.exports = router;

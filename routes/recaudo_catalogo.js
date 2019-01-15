@@ -4,10 +4,10 @@ const express = require('express')
 
 //----dependencias------ 
 const router = express.Router()
-const controller = require('../controllers/documento_actuacion_servicio')
+const controller = require('../controllers/recaudo_catalogo')
 
 //----Parametros------
-const path = '/documento_actuacion_servicio'
+const path = '/recaudo_catalogo'
 const id = ':id'
 
 //----Rutas------ 

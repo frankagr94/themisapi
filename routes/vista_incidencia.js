@@ -3,16 +3,16 @@ const express = require('express')
 
 //----dependencias------ 
 const router = express.Router()
-const controller = require('../controllers/vista_cita')
+const controller = require('../controllers/vista_incidencia')
 
 //----Parametros------
-const path = '/vista_cita'
+const path = '/vista_incidencia'
 const id = ':id'
 
 //----Rutas------ 
 router.get(`${path}`, controller.findDocuments)
+router.get(`${path}/cliente/:cliente_id`,controller.findiIncidenciaByCliente)
 router.get(`${path}/${id}`,controller.findOneDocument)
-router.get(`${path}/cliente/:cliente_id`,controller.findOneDocumentByCliente)
-router.get(`${path}/abogado/:abogado_id`,controller.findOneDocumentByAbogado)
+
 
 module.exports = router;

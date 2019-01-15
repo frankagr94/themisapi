@@ -146,7 +146,7 @@ exports.asociarActuaciones = (req, res)=>{
 }
 
 exports.asociarDocumentos = (req, res)=>{
-  let conditions = { id: req.body.id_catalogo_servicio};
+  let conditions = { id: req.body.catalogo_servicio_id};
 
   Catalogo_servicio.forge(conditions).fetch()
     .then(function(catalogo_servicio){

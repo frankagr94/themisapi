@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Respuesta_comentario = require('../models/respuesta_comentario');
+const Respuesta_sugerencia = require('../models/respuesta_sugerencia');
 
 exports.findDocuments = (req,res) => {
   
-  Respuesta_comentario.forge().fetchAll()
+  Respuesta_sugerencia.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -18,16 +18,16 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_tipo_respuesta_comentario:   req.body.id_tipo_respuesta_comentario,
-    id_comentario:                  req.body.id_comentario,
+    tipo_respuesta_id:   req.body.tipo_respuesta_id,
+    sugerencia_id:                  req.body.sugerencia_id,
     descripcion:                    req.body.descripcion,
     estatus:                        req.body.estatus,
     fecha_creacion:                 req.body.fecha_creacion,
   }
 
-  Respuesta_comentario.forge(newData).save()
+  Respuesta_sugerencia.forge(newData).save()
   .then(function(data){
-    res.status(200).json({ error: false, data: { message: 'respuesta_comentario creado' } });
+    res.status(200).json({ error: false, data: { message: 'respuesta_sugerencia creado' } });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -39,9 +39,9 @@ exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Respuesta_comentario.forge(conditions).fetch()
+  Respuesta_sugerencia.forge(conditions).fetch()
     .then(function(data){
-      if(!data) return res.status(404).json({ error : true, data : { message : 'respuesta_comentario no existe' } });
+      if(!data) return res.status(404).json({ error : true, data : { message : 'respuesta_sugerencia no existe' } });
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
@@ -56,21 +56,13 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Respuesta_comentario.forge(conditions).fetch()
-    .then(function(respuesta_comentario){
-      if(!respuesta_comentario) return res.status(404).json({ error : true, data : { message : 'respuesta_comentario no existe' } });
+  Respuesta_sugerencia.forge(conditions).fetch()
+    .then(function(respuesta_sugerencia){
+      if(!respuesta_sugerencia) return res.status(404).json({ error : true, data : { message : 'respuesta_sugerencia no existe' } });
 
-      let updateData = {
-        id_tipo_respuesta_comentario:   req.body.id_tipo_respuesta_comentario,
-        id_comentario:                  req.body.id_comentario,
-        descripcion:                    req.body.descripcion,
-        estatus:                        req.body.estatus,
-        fecha_creacion:                 req.body.fecha_creacion,
-      }
-      
-      respuesta_comentario.save(updateData)
+      respuesta_sugerencia.save(req.body)
         .then(function(data){
-          res.status(200).json({ error : false, data : { message : 'respuesta_comentario actualizado'} });
+          res.status(200).json({ error : false, data : { message : 'respuesta_sugerencia actualizado'} });
         })
         .catch(function(err){
           res.status(500).json({ error : false, data : {message : err.message} });
@@ -87,13 +79,13 @@ exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Respuesta_comentario.forge(conditions).fetch()
-    .then(function(respuesta_comentario){
-      if(!respuesta_comentario) return res.status(404).json({ error : true, data : { message : 'respuesta_comentario no existe' } });
+  Respuesta_sugerencia.forge(conditions).fetch()
+    .then(function(respuesta_sugerencia){
+      if(!respuesta_sugerencia) return res.status(404).json({ error : true, data : { message : 'respuesta_sugerencia no existe' } });
 
-      respuesta_comentario.destroy()
+      respuesta_sugerencia.destroy()
         .then(function(data){
-          res.status(200).json({ error : false, data : {message : 'respuesta_comentario eliminado'} })
+          res.status(200).json({ error : false, data : {message : 'respuesta_sugerencia eliminado'} })
         })
         .catch(function(err){
           res.status(500).json({error : true, data : {message : err.message}});
