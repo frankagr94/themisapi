@@ -36,7 +36,7 @@ exports.findOneDocumentAbogadoId = (req,res) => {
 
   let conditions = { abogado_id: req.params.abogado_id, estatus: req.params.estatus };
 
-  Vista_servicio_abogado.forge(conditions).fetch()
+  Vista_servicio_abogado.where(conditions).fetch()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'vista_servicio_abogado no existe' } });
 
