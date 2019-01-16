@@ -24,7 +24,7 @@ exports.createSolicitud_rechazo = (req,res) => {
     solicitud_id:       req.body.solicitud_id,
     descripcion:        req.body.descripcion,
   }
-  solicitud_rechazo.forge(newData).save()
+  Solicitud_rechazo.forge(newData).save()
   .then(function(data){
     res.status(200).json({ error: false, data: { message: 'solicitud_rechazo Enviada' } });
   })
