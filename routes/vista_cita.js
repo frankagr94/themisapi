@@ -14,5 +14,6 @@ router.get(`${path}`, controller.findDocuments)
 router.get(`${path}/${id}`,controller.findOneDocument)
 router.get(`${path}/cliente/:cliente_id`,controller.findOneDocumentByCliente)
 router.get(`${path}/abogado/:abogado_id`,controller.findOneDocumentByAbogado)
+router.get(`${path}/estatus/:estatus`,controller.findOneDocumentByEstatus)
 
 module.exports = router;

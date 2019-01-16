@@ -65,3 +65,20 @@ exports.findOneDocumentByAbogado = (req,res) => {
     })
 
 }
+
+exports.findOneDocumentByEstatus = (req,res) => {
+
+  let conditions = { estatus: req.params.estatus };
+
+  Vista_cita.forge(conditions).fetch()
+    .then(function(data){
+      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_cita no existe' } });
+
+      res.status(200).json({ error : false, data : data.toJSON() })
+
+    })
+    .catch(function(err){
+      res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}

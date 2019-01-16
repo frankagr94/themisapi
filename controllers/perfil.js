@@ -5,7 +5,7 @@ const Perfil = require('../models/perfil');
 
 exports.findDocuments = (req,res) => {
   
-  Perfil.forge().fetchAll()
+  Perfil.where({estatus:'A'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -18,9 +18,9 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    id_valor_parametro: req.body.id_valor_parametro,
-    id_cliente:    		  req.body.id_cliente,
-    estatus: 	          req.body.estatus,
+    caracteristica_id:  req.body.caracteristica_id,
+    cliente_id:    		  req.body.cliente_id,
+    estatus: 	          'A'
   }
 
   Perfil.forge(newData).save()
@@ -50,6 +50,23 @@ exports.findOneDocument = (req,res) => {
 
 }
 
+exports.findOneDocumentByClienteId = (req,res) => {
+
+  let conditions = { cliente_id: req.params.cliente_id };
+
+  Perfil.forge(conditions).fetch()
+    .then(function(data){
+      if(!data) return res.status(404).json({ error : true, data : { message : 'perfil no existe' } });
+
+      res.status(200).json({ error : false, data : data.toJSON() })
+
+    })
+    .catch(function(err){
+      res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
 exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
@@ -58,13 +75,7 @@ exports.updateDocument = (req,res) => {
     .then(function(perfil){
       if(!perfil) return res.status(404).json({ error : true, data : { message : 'perfil no existe' } });
 
-      let updateData = {
-        id_valor_parametro: req.body.id_valor_parametro,
-        id_cliente:         req.body.id_cliente,
-        estatus:            req.body.estatus,
-      }
-      
-      perfil.save(updateData)
+      perfil.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'perfil actualizado'} });
         })
