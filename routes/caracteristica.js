@@ -12,6 +12,7 @@ const id = ':id'
 
 //----Rutas------ 
 router.get(`${path}`, controller.findCaracteristicas)
+router.get(`${path}/base/:caracteristica_base_id`, controller.findOneCaracteristicaByBase)
 router.post(`${path}`,controller.createCaracteristica)
 router.get(`${path}/${id}`,controller.findOneCaracteristica)
 router.put(`${path}/${id}`,controller.updateCaracteristica)

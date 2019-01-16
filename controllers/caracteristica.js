@@ -51,6 +51,23 @@ exports.findOneCaracteristica = (req,res) => {
 
 }
 
+exports.findOneCaracteristicaByBase = (req,res) => {
+
+  let conditions = { caracteristica_base_id: req.params.caracteristica_base_id };
+
+  Caracteristica.forge(conditions).fetch()
+    .then(function(data){
+      if(!data) return res.status(404).json({ error : true, data : { message : 'caracteristica no existe' } });
+
+      res.status(200).json({ error : false, data : data.toJSON() })
+
+    })
+    .catch(function(err){
+      res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
 exports.updateCaracteristica = (req,res) => {
 
   let conditions = { id: req.params.id };

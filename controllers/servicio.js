@@ -3,6 +3,7 @@
 const bcrypt = require("bcryptjs");
 const Servicio = require('../models/servicio');
 const fs = require("fs");
+const Actuacion_servicio = require('../models/actuacion_servicio');
 
 exports.findServicios = (req,res) => {
   
@@ -43,11 +44,11 @@ exports.createServicio = (req,res) => {
   }
 
   Servicio.forge(newData).save()
-  .then(function(data){
+  .then(function(servicio){
     // ----- Guardar Imagen -----
     //if(req.files.archivo) fs.rename(req.files.archivo.path, "files/servicio/"+data.id+"."+extension);
 
-    res.status(200).json({ error: false, data: { message: 'servicio creado' } });
+    res.status(200).json({ error: false, data: { message: 'servicio creado' , servicio_id:servicio.id} });
   })
   .catch(function (err) {
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -85,7 +86,13 @@ exports.asociarActuaciones = (req, res)=>{
     .then(function(servicio){
       servicio.actuaciones().attach({actuacion_id:req.body.actuacion_id,estatus:'P', fecha_plan: req.body.fecha_plan, horario_id:req.body.horario_id, abogado_id: req.body.abogado_id})
         .then(function(data){
-          res.status(200).json({ error: false, data: { message: 'Actuaciones asociadas al servicio' } });
+          Actuacion_servicio.forge({servicio_id:req.body.id_servicio, actuacion_id:req.body.actuacion_id}).fetch()
+          .then(function(actuacion){
+            res.status(200).json({ error: false, data: { message: 'Actuaciones asociadas al servicio' ,actuacion_id: actuacion.id} });  
+          })
+          .catch(function(err){
+            res.status(500).json({ error: true, data: {message: err.message} });
+          });
         })
         .catch(function(err){
           res.status(500).json({ error: true, data: {message: err.message} });
