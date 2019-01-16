@@ -55,7 +55,7 @@ exports.findOneCaracteristicaByBase = (req,res) => {
 
   let conditions = { caracteristica_base_id: req.params.caracteristica_base_id };
 
-  Caracteristica.forge(conditions).fetch()
+  Caracteristica.where(conditions).fetchAll()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'caracteristica no existe' } });
 
