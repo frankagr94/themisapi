@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 const plantillaCorreo = new EmailTemplate({
 	message: {
 		from: correoSalida,
-	}
+	}, transport
 });
 
 function enviarCorreo(correoDestino, cuerpoMensaje,asunto) {
