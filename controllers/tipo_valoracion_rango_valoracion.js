@@ -66,6 +66,40 @@ exports.findOneValoracion_rangoByCatalogo = (req,res) => {
 
 }
 
+exports.findOneValoracion_rangoByTipo = (req,res) => {
+
+  let conditions = { tipo_valoracion_id: req.params.tipo_valoracion_id };
+
+  Tipo_valoracion_rango_valoracion.where(conditions).fetchAll()
+    .then(function(data){
+      if(!data) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
+
+      res.status(200).json({ error : false, data : data.toJSON() })
+
+    })
+    .catch(function(err){
+      res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
+exports.findOneValoracion_rangoByRango = (req,res) => {
+
+  let conditions = { rango_valoracion_id: req.params.rango_valoracion_id };
+
+  Tipo_valoracion_rango_valoracion.where(conditions).fetchAll()
+    .then(function(data){
+      if(!data) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
+
+      res.status(200).json({ error : false, data : data.toJSON() })
+
+    })
+    .catch(function(err){
+      res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
 exports.updateValoracion_rango = (req,res) => {
 
   let conditions = { id: req.params.id };
