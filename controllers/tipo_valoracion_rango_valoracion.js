@@ -20,8 +20,7 @@ exports.createValoracion_rango = (req,res) => {
   let newData = {
     tipo_valoracion_id:        req.body.tipo_valoracion_id,
     rango_valoracion_id:       req.body.rango_valoracion_id,
-    catalogo_servicio_id:      req.body.catalogo_servicio_id,
-    valor:                     req.body.valor
+    catalogo_servicio_id:      req.body.catalogo_servicio_id
 
   }
 
