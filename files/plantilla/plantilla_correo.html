@@ -1069,7 +1069,7 @@
                                                                                 <tr>
                                                                                     <td>
 
-                                                                                        <p><img src="<%= img %>" alt="Imagen abogados" title="ILLUECA"></p>
+                                                                                        <p><img src="{{ img }}" alt="Imagen abogados" title="ILLUECA"></p>
 
                                                                                     </td>
                                                                                     <td class="expander"></td>
@@ -1102,11 +1102,9 @@
                                                         <h4>Los datos de acceso del usuario Administrador son:</h4>
 
                                                         <p>
-                                                            <strong>Usuario:</strong>
-                                                            <%= usuario %> <br>
-                                                                <strong>Clave:</strong>
-                                                                <%= clave %> <br>
-                                                                    <br><br> Le recomendamos cambiar su clave desde su perfil de usuario de <a href="#">Themis.com</a></p>
+                                                            <strong>Usuario:</strong> {{ usuario }} <br>
+                                                            <strong>Clave:</strong> {{ clave }} <br>
+                                                            <br><br> Le recomendamos cambiar su clave desde su perfil de usuario de <a href="#">Themis.com</a></p>
 
                                                         <p><br><br></p>
 
@@ -1130,7 +1128,7 @@
                                                                                             <tbody>
                                                                                                 <tr>
                                                                                                     <td>
-                                                                                                        <a href="<%= token %>" title="THEMIS">Ingresar</a>
+                                                                                                        <a href="{{ token }}" title="THEMIS">Ingresar</a>
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             </tbody>
@@ -1155,7 +1153,7 @@
                                                                                             <tbody>
                                                                                                 <tr>
                                                                                                     <td>
-                                                                                                        <a href="<%= tokenApp %>" title="THEMIS">Descarga nuestra APP</a>
+                                                                                                        <a href="{{ tokenApp }}" title="THEMIS">Descarga nuestra APP</a>
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             </tbody>
