@@ -58,7 +58,7 @@ function enviarCorreo(correoDestino, cuerpoMensaje,asunto) {
 
 }
 
-function enviarCorreoSuscripcion(correoDestino, clave) {
+function enviarCorreoSuscripcion(correoDestino, contrasenia) {
 	//---- Configurar Msj ------  
 	/*let mensaje = cuerpoMensaje;
 
@@ -85,7 +85,7 @@ function enviarCorreoSuscripcion(correoDestino, clave) {
 		var template = handlebars.compile(html);
 		var replacements = {
 			usuario: JSON.stringify(correoDestino),
-			clave: JSON.stringify(clave) 
+			clave: JSON.stringify(contrasenia) 
 		};
 		var htmlToSend = template(replacements);
 		let mailOptions = {
