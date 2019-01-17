@@ -13,6 +13,7 @@ const id = ':id'
 router.get(`${path}`, controller.findDocuments)
 router.get(`${path}/${id}`,controller.findOneDocument)
 router.get(`${path}/estatus/:estatus`,controller.findOneDocumentByEstatus)
-router.get(`${path}/cliente/:cliente_id/estatus/:estatus`,controller.findOneDocumentByCliente)
+router.get(`${path}/cliente/:cliente_id/`,controller.findOneDocumentByCliente)
+router.get(`${path}/cliente/:cliente_id/estatus/:estatus`,controller.findOneDocumentByClienteEstatus)
 
 module.exports = router;

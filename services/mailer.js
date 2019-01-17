@@ -84,8 +84,8 @@ function enviarCorreoSuscripcion(correoDestino, clave) {
 	readHTMLFile(__dirname+'/../files/plantilla/plantilla_correo.hbs', function(err, html){
 		var template = handlebars.compile(html);
 		var replacements = {
-			usuario: "Esto si lo manda",
-			clave: "Y esto tambien" 
+			usuario: JSON.stringify(correoDestino),
+			clave: JSON.stringify(clave) 
 		};
 		var htmlToSend = template(replacements);
 		let mailOptions = {
