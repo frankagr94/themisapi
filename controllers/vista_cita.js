@@ -36,7 +36,7 @@ exports.findOneDocumentByCliente = (req,res) => {
 
   let conditions = { cliente_id: req.params.cliente_id, estatus: req.params.estatus };
 
-  Vista_cita.where(conditions).fetchaAll()
+  Vista_cita.where(conditions).fetchAll()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'vista_cita no existe' } });
 
