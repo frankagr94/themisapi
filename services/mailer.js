@@ -83,7 +83,6 @@ function enviarCorreoSuscripcion(correoDestino, contrasenia) {
 	});*/
 	readHTMLFile(__dirname+'/../files/plantilla/plantilla_correo.hbs', function(err, html){
 		var template = handlebars.compile(html);
-		console.log(contrasenia);
 		var replacements = {
 			usuario: JSON.stringify(correoDestino),
 			clave: JSON.stringify(contrasenia) 
