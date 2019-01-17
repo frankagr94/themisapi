@@ -64,6 +64,7 @@ const vista_todas_promociones = require('./vista_todas_promociones');
 const vista_todos_consejos = require('./vista_todos_consejos');
 const vista_todos_servicio_garantia = require('./vista_todos_servicio_garantia');
 const vista_todos_servicios = require('./vista_todos_servicios');
+const vista_tr_valoracion = require('./vista_tr_valoracion');
 const vista_usuario = require('./vista_usuario');
 
 //----TABLAS BASICAS------
@@ -355,6 +356,7 @@ app.use('/',
 	vista_solicitud_insumo,
 	vista_solicitud_rechazada,
 	vista_orden_cita,
+	vista_tr_valoracion,
 	usuario_cliente,
 	vista_usuario
 );
