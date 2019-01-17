@@ -176,6 +176,7 @@ const unidad = require('./unidad');
 const usuario = require('./usuario');
 const valor_parametro = require('./valor_parametro');
 const valoracion = require('./valoracion');
+const valoracion_catalogo = require('./valoracion_catalogo');
 //----- Busqueda Foranea -------
 const usuario_cliente = require('./usuario_cliente');
 
@@ -295,7 +296,7 @@ app.use('/',
 	tipo_valoracion,
 	tipo_valoracion_rango_valoracion,
 	valoracion,
-
+	valoracion_catalogo,
 	//---- Gestiones ----
 	gestion_solicitud,
 	gestion_tipo_parametro,

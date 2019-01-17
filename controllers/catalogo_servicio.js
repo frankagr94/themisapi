@@ -7,7 +7,9 @@ const upload = require('../middlewares/uploader');
 
 exports.findCatalogos = (req,res) => {
   
-  Catalogo_servicio.where({estatus:'A'||'a'}).fetchAll()
+  Catalogo_servicio.where({estatus:'A'||'a'}).fetchAll({
+    withRelated:[ 'valoraciones', 'valoraciones.rangos']
+  })
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -20,6 +22,18 @@ exports.findCatalogos = (req,res) => {
 exports.catalogoPorCategoria = (req,res) => {
   
   Catalogo_servicio.where({categoria_id:req.params.id}).fetchAll()
+  .then(function(data){
+    res.status(200).json({ error : false, data : data.toJSON() });
+  })
+  .catch(function (err) {
+    res.status(500).json({ error: true, data: {message: err.message} });
+  });
+
+}
+
+exports.catalogoVisiblesPorCategoria = (req,res) => {
+  
+  Catalogo_servicio.where({categoria_id:req.params.id, visible:true}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -92,7 +106,9 @@ exports.findOneCatalogo = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Catalogo_servicio.forge(conditions).fetch()
+  Catalogo_servicio.forge(conditions).fetch({
+    withRelated:[ 'valoraciones', 'valoraciones.rangos']
+  })
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'servicio no existe' } });
 
