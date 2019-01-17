@@ -49,3 +49,36 @@ exports.findOneDocumentByCatalogo = (req,res) => {
 
 }
 
+exports.findOneDocumentByTipoV = (req,res) => {
+
+  let conditions = { tipo_valoracion_id: req.params.tipo_valoracion_id };
+
+  Vista_tr_valoracion.where(conditions).fetchAll()
+    .then(function(data){
+      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_tr_valoracion no existe' } });
+
+      res.status(200).json({ error : false, data : data.toJSON() })
+
+    })
+    .catch(function(err){
+      res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
+exports.findOneDocumentByTipoVCatalogo = (req,res) => {
+
+  let conditions = { tipo_valoracion_id: req.params.tipo_valoracion_id ,catalogo_servicio_id: req.params.catalogo_servicio_id };
+
+  Vista_tr_valoracion.where(conditions).fetchAll()
+    .then(function(data){
+      if(!data) return res.status(404).json({ error : true, data : { message : 'vista_tr_valoracion no existe' } });
+
+      res.status(200).json({ error : false, data : data.toJSON() })
+
+    })
+    .catch(function(err){
+      res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
