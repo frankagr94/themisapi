@@ -25,6 +25,7 @@
     "password-generator": "^2.2.0",
     "pg": "^7.4.1",
     "uuid": "^3.3.2",
-    "xoauth2": "^1.2.0"
+    "xoauth2": "^1.2.0",
+    "email-templates": "latest"
   }
 }

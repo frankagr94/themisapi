@@ -55,7 +55,7 @@ function signUp(req,res) {
 					let asunto = 'Bienvenido a AC Abogados Corporativos - Datos de Acceso'
 					let mensaje = 'Gracias por unirte '+newClient.nombre+', tenemos un gran numero de abogados y servicios para ti, para acceder a ellos solo debes usar tu correo y la siguiente contraseña: '+pass;
 
-					mailer.enviarCorreo(newUser.correo,mensaje, asunto);
+					mailer.enviarCorreoSuscripcion(newUser.correo,newUser.pass);
 					//--- Respuesta exitosa ---
 					res.status(200).json({ error: false, data: { message : 'Registro exitoso, revise su correo '+newUser.correo }, password:pass });
 
