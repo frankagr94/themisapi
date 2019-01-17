@@ -34,7 +34,7 @@ exports.findOneDocument = (req,res) => {
 
 exports.findOneDocumentByCliente = (req,res) => {
 
-  let conditions = { cliente_id: req.params.cliente_id };
+  let conditions = { cliente_id: req.params.cliente_id, estatus: req.params.estatus };
 
   Vista_cita.forge(conditions).fetch()
     .then(function(data){
@@ -51,7 +51,7 @@ exports.findOneDocumentByCliente = (req,res) => {
 
 exports.findOneDocumentByAbogado = (req,res) => {
 
-  let conditions = { abogado_id: req.params.abogado_id };
+  let conditions = { abogado_id: req.params.abogado_id, estatus: req.params.estatus };
 
   Vista_cita.forge(conditions).fetch()
     .then(function(data){

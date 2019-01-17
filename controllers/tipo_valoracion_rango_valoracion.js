@@ -18,8 +18,11 @@ exports.findValoracion_rangos = (req,res) => {
 exports.createValoracion_rango = (req,res) => {
 
   let newData = {
-    id_tipo:        req.body.id_tipo,
-    id_rango:       req.body.id_rango
+    tipo_valoracion_id:        req.body.tipo_valoracion_id,
+    rango_valoracion_id:       req.body.rango_valoracion_id,
+    catalogo_servicio_id:      req.body.catalogo_servicio_id,
+    valor:                     req.body.valor
+
   }
 
   Tipo_valoracion_rango_valoracion.forge(newData).save()
