@@ -1,6 +1,7 @@
 //----dependencias------  
 'use strict'
 const nodemailer = require('nodemailer');
+var EmailTemplate = require('email-templates');
 const xoauth2 = require('xoauth2');
 //---- Configurar Cuenta ------  
 const correoSalida = 'info.themis.eos@gmail.com';
@@ -11,6 +12,12 @@ const transporter = nodemailer.createTransport({
 	auth: {
 		user: correoSalida, // correo emisor
 		pass: contraseñaCorreo                  // contraseña del correo
+	}
+});
+
+const plantillaCorreo = new EmailTemplate({
+	message: {
+		from: correoSalida,
 	}
 });
 
@@ -39,7 +46,7 @@ function enviarCorreo(correoDestino, cuerpoMensaje,asunto) {
 
 function enviarCorreoSuscripcion(correoDestino, clave) {
 	//---- Configurar Msj ------  
-	let mensaje = cuerpoMensaje;
+	/*let mensaje = cuerpoMensaje;
 
 	//---- Configurar Correo ------  
 	let mailOptions = {
@@ -59,8 +66,18 @@ function enviarCorreoSuscripcion(correoDestino, clave) {
 	  } else {
 	    console.log('Email enviado: ' + info.response);
 	  }
-	});
-
+	});*/
+	plantillaCorreo.send({
+		template:'../files/plantilla/plantilla_correo.html',
+		message:{
+			to: correoDestino,
+		},
+		locals:{
+			clave:clave
+		}
+	})
+	.then(console.log('Correo enviado satisfacoriamente'))
+	.catch(console.error);
 }
 
 module.exports = { enviarCorreo, enviarCorreoSuscripcion };
