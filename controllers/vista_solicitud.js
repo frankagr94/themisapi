@@ -17,7 +17,7 @@ exports.findDocuments = (req,res) => {
 
 exports.findOneDocument = (req,res) => {
 
-  let conditions = { solicitud_id: req.params.solicitud_id };
+  let conditions = { solicitud_id: req.params.id };
 
   Vista_solicitud.where(conditions).fetchAll()
     .then(function(data){

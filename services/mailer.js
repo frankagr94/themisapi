@@ -81,7 +81,7 @@ function enviarCorreoSuscripcion(correoDestino, clave) {
 	    console.log('Email enviado: ' + info.response);
 	  }
 	});*/
-	readHTMLFile(__dirname+'/../files/plantilla/plantilla_correo.html', function(err, html){
+	readHTMLFile(__dirname+'/../files/plantilla/plantilla_correo.hbs', function(err, html){
 		var template = handlebars.compile(html);
 		var replacements = {
 			clave: clave 

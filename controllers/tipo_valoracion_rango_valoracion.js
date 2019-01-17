@@ -76,12 +76,7 @@ exports.updateValoracion_rango = (req,res) => {
     .then(function(tipo_valoracion_rango_valoracion){
       if(!tipo_valoracion_rango_valoracion) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
 
-      let updateData = {
-        id_tipo:        req.body.id_tipo,
-        id_rango:       req.body.id_rango
-      }
-      
-      tipo_valoracion_rango_valoracion.save(updateData)
+      tipo_valoracion_rango_valoracion.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'valoracion actualizado'} });
         })
