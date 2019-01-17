@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Tipo_valoracion_rango_valoracion = require('../models/tipo_valoracion_rango_valoracion');
+const Valoracion_catalogo = require('../models/valoracion_catalogo');
 
-exports.findValoracion_rangos = (req,res) => {
+exports.findDocuments = (req,res) => {
   
-  Tipo_valoracion_rango_valoracion.forge().fetchAll()
+  Valoracion_catalogo.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -15,14 +15,14 @@ exports.findValoracion_rangos = (req,res) => {
 
 }
 
-exports.createValoracion_rango = (req,res) => {
+exports.createDocument = (req,res) => {
 
   let newData = {
     tipo_valoracion_id:        req.body.tipo_valoracion_id,
-    rango_valoracion_id:       req.body.rango_valoracion_id
+    catalogo_servicio_id:      req.body.catalogo_servicio_id
   }
 
-  Tipo_valoracion_rango_valoracion.forge(newData).save()
+  Valoracion_catalogo.forge(newData).save()
   .then(function(data){
     res.status(200).json({ error: false, data: { message: 'valoracion creado' } });
   })
@@ -32,11 +32,11 @@ exports.createValoracion_rango = (req,res) => {
 
 }
 
-exports.findOneValoracion_rango = (req,res) => {
+exports.findOneDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Tipo_valoracion_rango_valoracion.forge(conditions).fetch()
+  Valoracion_catalogo.forge(conditions).fetch()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
 
@@ -49,11 +49,11 @@ exports.findOneValoracion_rango = (req,res) => {
 
 }
 
-exports.findOneValoracion_rangoByCatalogo = (req,res) => {
+exports.findOneDocumentByCatalogo = (req,res) => {
 
   let conditions = { catalogo_servicio_id: req.params.catalogo_servicio_id };
 
-  Tipo_valoracion_rango_valoracion.where(conditions).fetchAll()
+  Valoracion_catalogo.where(conditions).fetchAll()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
 
@@ -66,15 +66,15 @@ exports.findOneValoracion_rangoByCatalogo = (req,res) => {
 
 }
 
-exports.updateValoracion_rango = (req,res) => {
+exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Tipo_valoracion_rango_valoracion.forge(conditions).fetch()
-    .then(function(tipo_valoracion_rango_valoracion){
-      if(!tipo_valoracion_rango_valoracion) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
+  Valoracion_catalogo.forge(conditions).fetch()
+    .then(function(valoracion_catalogo){
+      if(!valoracion_catalogo) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
 
-      tipo_valoracion_rango_valoracion.save(req.body)
+      valoracion_catalogo.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'valoracion actualizado'} });
         })
@@ -89,15 +89,15 @@ exports.updateValoracion_rango = (req,res) => {
 
 }
 
-exports.deleteValoracion_rango = (req,res) => {
+exports.deleteDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Tipo_valoracion_rango_valoracion.forge(conditions).fetch()
-    .then(function(tipo_valoracion_rango_valoracion){
-      if(!tipo_valoracion_rango_valoracion) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
+  Valoracion_catalogo.forge(conditions).fetch()
+    .then(function(valoracion_catalogo){
+      if(!valoracion_catalogo) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
 
-      tipo_valoracion_rango_valoracion.destroy()
+      valoracion_catalogo.destroy()
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'valoracion eliminado'} })
         })
