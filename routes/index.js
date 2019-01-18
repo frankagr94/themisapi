@@ -81,6 +81,7 @@ const calificacion_orden = require('./calificacion_orden');
 const catalogo_servicio = require('./catalogo_servicio');
 const categoria = require('./categoria');
 const calificacion_servicio = require('./calificacion_servicio');
+const canal_escucha = require('./canal_escucha');
 const categoria_parametro = require('./categoria_parametro');
 const categoria_servicio = require('./categoria_servicio');
 const caracteristica = require('./caracteristica');
@@ -201,6 +202,7 @@ app.use('/',
 	consejo,
 	bloque_hora,
 	empleado,
+	canal_escucha,
 	red_social,
 	imagen,
 	filosofia,
