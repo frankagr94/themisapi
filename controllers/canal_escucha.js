@@ -18,9 +18,11 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    servicio_id:             req.body.servicio_id,
-    tipo_canal_escucha_id:      req.body.tipo_Document_id,
-    fecha:                   req.body.fecha
+    tipo_respuesta_id:       req.body.servicio_id,
+    correo_emiso:            req.body.correo_emiso,
+    descripcion:             req.body.descripcion,
+    fecha:                   req.body.fecha,
+    estatus:                 'P'
   }
 
   Canal_escucha.forge(newData).save()
