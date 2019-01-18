@@ -20,9 +20,7 @@ exports.createDocument = (req,res) => {
   let newData = {
     reclamo_id:                 req.body.id_reclamo,
     tipo_respuesta_id:          req.body.tipo_respuesta_id,
-    descripcion:                req.body.descripcion,
     fecha_creacion:             req.body.fecha_creacion,
-    estatus:                    req.body.estatus,
   }
 
   Respuesta_reclamo.forge(newData).save()

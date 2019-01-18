@@ -20,8 +20,6 @@ exports.createDocument = (req,res) => {
   let newData = {
     incidencia_id:                  req.body.incidencia_id,
     tipo_respuesta_id:              req.body.tipo_respuesta_id,
-    descripcion:                    req.body.descripcion,
-    estatus:                        req.body.estatus,
     fecha_creacion:                 req.body.fecha_creacion,
   }
 
