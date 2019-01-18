@@ -101,6 +101,7 @@ const detalle_proveedor = require('./detalle_proveedor');
 const detalle_servicio = require('./detalle_servicio');
 const dia_semana = require('./dia_semana');
 const dia_laborable = require('./dia_laborable');
+const difusion = require('./difusion');
 const dispositivo = require('./dispositivo');
 const recaudo_catalogo = require('./recaudo_catalogo');
 const documento = require('./documento');
@@ -202,6 +203,7 @@ app.use('/',
 	consejo,
 	bloque_hora,
 	empleado,
+	difusion,
 	canal_escucha,
 	red_social,
 	imagen,
