@@ -11,6 +11,7 @@ const id = ':id'
 
 //----Rutas------ 
 router.get(`${path}`, controller.findDocuments)
+router.get(`${path}/difundir`, controller.difundir)
 router.get(`${path}/${id}`,controller.findOneDocument)
 router.post(`${path}`,controller.createDocument)
 router.put(`${path}/${id}`,controller.updateDocument)

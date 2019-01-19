@@ -2,6 +2,9 @@
 'use strict'
 const bcrypt = require("bcryptjs");
 const Difusion = require('../models/difusion');
+const Bookshelf = require('../db/index')
+const knex = Bookshelf.knex;
+const Usuario = require('../models/usuario');
 
 exports.findDocuments = (req,res) => {
   
@@ -13,6 +16,22 @@ exports.findDocuments = (req,res) => {
     res.status(500).json({ error: true, data: {message: err.message} });
   });
 
+}
+
+exports.difundir = (req, res) => {
+  
+  /*let sql ='select distinct usuario.correo,\
+  usuario.id\
+  from public.usuario, public.cliente, public.perfil_caracteristica\
+  where perfil_caracteristica.caracteristica_id in(6,10,9) and perfil_caracteristica.cliente_id = cliente.id and cliente.usuario_id = usuario.id;'
+
+  Bookshelf.knex.raw(sql)
+    .then(function(response){
+      res.status(200).json({error: false, data:{response}})
+    })
+    .catch(function(err){
+      res.status(500).json({ error: true, data: {message: err.message} });
+    })*/
 }
 
 exports.createDocument = (req,res) => {
