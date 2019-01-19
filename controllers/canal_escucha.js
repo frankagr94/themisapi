@@ -18,7 +18,7 @@ exports.findDocuments = (req,res) => {
 exports.createDocument = (req,res) => {
 
   let newData = {
-    tipo_respuesta_id:       req.body.servicio_id,
+    tipo_respuesta_id:       req.body.tipo_respuesta_id,
     correo_emisor:           req.body.correo_emisor,
     descripcion:             req.body.descripcion,
     fecha:                   req.body.fecha,
