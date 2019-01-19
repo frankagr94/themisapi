@@ -13,6 +13,7 @@ const id = ':id'
 router.get(`${path}`, controller.findValoracions)
 router.post(`${path}`,controller.createValoracion)
 router.get(`${path}/${id}`,controller.findOneValoracion)
+router.get(`${path}/servicio/${id}`,controller.findOneValoracionByServicio)
 router.put(`${path}/${id}`,controller.updateValoracion)
 router.delete(`${path}/${id}`,controller.deleteValoracion)
 
