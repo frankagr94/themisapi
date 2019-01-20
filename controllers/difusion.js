@@ -19,7 +19,18 @@ exports.findDocuments = (req,res) => {
 }
 
 exports.difundir = (req, res) => {
-  
+  Bookshelf.knex({u: 'usuario',c:'caracteristica',p:'perfil_caracteristica',cl:'cliente'})
+  .distinct('u.correo', 'u.id')
+  .select()
+  .whereIn('p.caracteristica_id',[6,9,10])
+  .andWhereRaw('cl.id = p.cliente_id')
+  .andWhereRaw('u.id = cl.usuario_id')
+  .then(function(response){
+    res.status(200).json({error: false, data:{response}})
+  })
+  .catch(function(err){
+    res.status(500).json({ error: true, data: {message: err.message} });
+  })
   /*let sql ='select distinct usuario.correo,\
   usuario.id\
   from public.usuario, public.cliente, public.perfil_caracteristica\
