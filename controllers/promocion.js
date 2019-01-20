@@ -6,7 +6,7 @@ const mw = require('../middlewares/uploader');
 
 exports.findDocuments = (req,res) => {
   
-  Promocion.forge().fetchAll()
+  Promocion.forge().fetchAll({estatus:'A'})
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -26,6 +26,7 @@ exports.createDocument = (req,res) => {
     fecha_inicio:         req.body.fecha_inicio,
     fecha_fin:            req.body.fecha_fin,
     estatus:              'A',
+    visible:              true
   }
 
   if(!req.files){
@@ -55,6 +56,23 @@ exports.findOneDocument = (req,res) => {
   let conditions = { id: req.params.id };
 
   Promocion.forge(conditions).fetch()
+    .then(function(data){
+      if(!data) return res.status(404).json({ error : true, data : { message : 'promocion no existe' } });
+
+      res.status(200).json({ error : false, data : data.toJSON() })
+
+    })
+    .catch(function(err){
+      res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
+exports.findDocumentsVisible = (req,res) => {
+
+  let conditions = { estatus: 'A', visible: true };
+
+  Promocion.where(conditions).fetchAll()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'promocion no existe' } });
 
@@ -118,7 +136,7 @@ exports.deleteDocument = (req,res) => {
     .then(function(promocion){
       if(!promocion) return res.status(404).json({ error : true, data : { message : 'promocion no existe' } });
 
-      promocion.destroy()
+      promocion.save({estatus:'I'})
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'promocion eliminado'} })
         })

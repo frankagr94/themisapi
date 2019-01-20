@@ -14,6 +14,7 @@ const correo = ':correo'
 router.get(`${path}`, controller.findUsuarios)
 router.post(`${path}`,controller.createUsuario)
 router.get(`${path}/${correo}`,controller.findOneUsuario)
+router.get(`${path}/findById/${id}`,controller.findOneUsuarioByID)
 router.put(`${path}/${id}`,controller.updateUsuario)
 router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)
 router.delete(`${path}/${id}`,controller.deleteUsuario)
