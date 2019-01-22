@@ -68,9 +68,12 @@ const vista_tr_valoracion = require('./vista_tr_valoracion');
 const vista_usuario = require('./vista_usuario');
 const vista_valoracion = require('./vista_valoracion');
 //----REPORTES
+const reporte_incidencia = require('./reporte_incidecia');
+const reporte_promocion = require('./reporte_promocion');
 const reporte_reclamo = require('./reporte_reclamo');
 const reporte_servicio = require('./reporte_servicio');
 const reporte_solicitud = require('./reporte_solicitud');
+const reporte_sugerencia = require('./reporte_sugerencia');
 
 //----TABLAS BASICAS------
 const acceso_rol = require('./acceso_rol');
@@ -371,9 +374,12 @@ app.use('/',
 	vista_usuario,
 	vista_valoracion,
 	//-------REPORTES
+	reporte_incidencia,
+	reporte_promocion,
 	reporte_reclamo,
 	reporte_servicio,
-	reporte_solicitud
+	reporte_solicitud,
+	reporte_sugerencia
 );
 
 //---- Rutas Privadas ------
