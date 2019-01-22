@@ -26,7 +26,10 @@ exports.difundir = (req, res) => {
   .andWhereRaw('cl.id = p.cliente_id')
   .andWhereRaw('u.id = cl.usuario_id')
   .then(function(response){
-    res.status(200).json({error: false, data:{response}})
+    let respuesta = response;
+    for(var i =0; i < respuesta.data.lenght; i++){
+      res.status(200).json(respuesta.data[i].correo);
+    };
   })
   .catch(function(err){
     res.status(500).json({ error: true, data: {message: err.message} });
