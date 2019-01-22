@@ -25,11 +25,8 @@ exports.difundir = (req, res) => {
   .whereIn('p.caracteristica_id',[6,9,10])
   .andWhereRaw('cl.id = p.cliente_id')
   .andWhereRaw('u.id = cl.usuario_id')
-  .then(function(response){
-    let respuesta = response;
-    for(var i =0; i < respuesta.data.lenght; i++){
-      res.status(200).json(respuesta.data[i].correo);
-    };
+  .then(function(data){
+    res.status(200).json({responde:data});
   })
   .catch(function(err){
     res.status(500).json({ error: true, data: {message: err.message} });

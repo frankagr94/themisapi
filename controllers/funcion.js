@@ -26,7 +26,8 @@ exports.createFuncion = (req,res) => {
     estatus:            req.body.estatus,
     funcion_id:         req.body.funcion_id, 
     ruta_id:            req.body.ruta_id,
-    posicion:           req.body.posicion
+    posicion:           req.body.posicion,
+    nombre_logo:        req.body.nombre_logo
   }
 
   Funcion.forge(newData).save()
