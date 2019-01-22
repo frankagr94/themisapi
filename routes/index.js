@@ -66,6 +66,11 @@ const vista_todos_servicio_garantia = require('./vista_todos_servicio_garantia')
 const vista_todos_servicios = require('./vista_todos_servicios');
 const vista_tr_valoracion = require('./vista_tr_valoracion');
 const vista_usuario = require('./vista_usuario');
+const vista_valoracion = require('./vista_valoracion');
+//----REPORTES
+const reporte_reclamo = require('./reporte_reclamo');
+const reporte_servicio = require('./reporte_servicio');
+const reporte_solicitud = require('./reporte_solicitud');
 
 //----TABLAS BASICAS------
 const acceso_rol = require('./acceso_rol');
@@ -363,7 +368,12 @@ app.use('/',
 	vista_orden_cita,
 	vista_tr_valoracion,
 	usuario_cliente,
-	vista_usuario
+	vista_usuario,
+	vista_valoracion,
+	//-------REPORTES
+	reporte_reclamo,
+	reporte_servicio,
+	reporte_solicitud
 );
 
 //---- Rutas Privadas ------
