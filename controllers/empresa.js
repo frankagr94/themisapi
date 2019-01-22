@@ -18,28 +18,23 @@ exports.findEmpresas = (req,res) => {
 
 exports.createEmpresa = (req,res) => {
 
-  // ----- Extension Imagen -----
-  if(req.files.archivo) {
-    var extension = req.files.archivo.name.split(".").pop();
-  }else{
-    var extension = null;
-  }
-
   let newData = {
     rif:                  req.body.rif,
     nombre:               req.body.nombre,
-    hora_inicio_trabajo:  req.body.hora_inicio_trabajo,
-    hora_fin_trabajo:     req.body.hora_fin_trabajo,
-    imagen:               extension,
-    estatus:              req.body.estatus,
-    id_sistema:           req.body.id_sistema,
-    fecha_creacion:       req.body.fecha_creacion,
+    hora_inicio:          req.body.hora_inicio,
+    hora_cierre:          req.body.hora_cierre,
+    estatus:              'A',
+    facebook:             req.body.facebook,
+    twitter:              req.body.twitter,
+    instagram:            req.body.instagram,
+    direccion:            req.body.direccion,
+    correo:               req.body.correo,
+    telefono1:            req.body.telefono1,
+    telefono2:            req.body.telefono2
   }
 
   Empresa.forge(newData).save()
   .then(function(data){
-    // ----- Guardar Imagen -----
-    if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empresa/"+data.id+"."+extension);
 
     res.status(200).json({ error: false, data: { message: 'empresa creado' } });
   })
@@ -56,7 +51,7 @@ exports.findOneEmpresa = (req,res) => {
   Empresa.forge(conditions).fetch({
     withRelated: [
       'empleados',
-      'objetivos'
+      'inicio_web'
     ]
   })
     .then(function(data){
@@ -79,16 +74,8 @@ exports.updateEmpresa = (req,res) => {
     .then(function(empresa){
       if(!empresa) return res.status(404).json({ error : true, data : { message : 'empresa no existe' } });
 
-      // ----- Extension Imagen -----
-      if(req.files.archivo) {
-        var extension = req.files.archivo.name.split(".").pop();
-      }
-      
       empresa.save(req.body)
         .then(function(data){
-          // ----- Guardar Imagen -----
-          if(req.files.archivo) fs.rename(req.files.archivo.path, "files/empresa/"+data.id+"."+extension);
-          
           res.status(200).json({ error : false, data : { message : 'empresa actualizado'} });
         })
         .catch(function(err){
