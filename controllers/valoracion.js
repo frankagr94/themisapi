@@ -20,6 +20,7 @@ exports.createValoracion = (req,res) => {
   let newData = {
     servicio_id:             req.body.servicio_id,
     tipo_valoracion_id:      req.body.tipo_valoracion_id,
+    rango_valoracion_id:      req.body.rango_valoracion_id,
     fecha:                   req.body.fecha
   }
 

@@ -20,7 +20,7 @@ const vista_calificacion_orden = require('./vista_calificacion_orden');
 const vista_cita = require('./vista_cita');
 const vista_cliente_comentario = require('./vista_cliente_comentario');
 const vista_cliente_consejo = require('./vista_cliente_consejo');
-const vista_cliente_orden = require('./vista_cliente_orden');
+const vista_cliente_abogado = require('./vista_cliente_abogado');
 const vista_cliente_perfil = require('./vista_cliente_perfil');
 const vista_cliente_promocion = require('./vista_cliente_promocion');
 const vista_cliente_reclamo = require('./vista_cliente_reclamo');
@@ -341,7 +341,7 @@ app.use('/',
 	vista_cliente_perfil,
 	vista_cliente_reclamo,
 	vista_cliente_solicitud,
-	vista_cliente_orden,
+	vista_cliente_abogado,
 	vista_agendas,
 	vista_agenda,
 	vista_detalle_consejo,
