@@ -18,8 +18,6 @@ exports.findDocuments = (req,res) => {
 }
 
 exports.difundir = (req, res) => {
-  //let cond = [];
-  //cond = req.body.filtros;
   let filter = req.body.filtros; 
   Bookshelf.knex({u: 'usuario',c:'caracteristica',p:'perfil_caracteristica',cl:'cliente'})
   .distinct('u.correo', 'u.id')
@@ -28,9 +26,11 @@ exports.difundir = (req, res) => {
   .andWhereRaw('cl.id = p.cliente_id')
   .andWhereRaw('u.id = cl.usuario_id')
   .then(function(data){
+    console.log(req.body.nombre+''+req.body.descripcion)
     data.forEach(element => {
-      res.status(200).json(element.correo);
+      //mailer.enviarCorreoPromocion(element.correo, req.body.promocion_id)
     });
+    res.status(200).json({ error: false, data: {message: err.message} });
   })
   .catch(function(err){
     res.status(500).json({ error: true, data: {message: err.message} });
