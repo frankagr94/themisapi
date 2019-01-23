@@ -75,7 +75,7 @@ const reporte_servicio = require('./reporte_servicio');
 const reporte_solicitud = require('./reporte_solicitud');
 const reporte_sugerencia = require('./reporte_sugerencia');
 //----ESTADISTICOS
-const estadistico_reporte = require('./estadistico_reporte');
+const estadistico_servicio = require('./estadistico_servicio');
 //----TABLAS BASICAS------
 const acceso_rol = require('./acceso_rol');
 const actuacion = require('./actuacion');
@@ -382,7 +382,7 @@ app.use('/',
 	reporte_solicitud,
 	reporte_sugerencia,
 	//-------ESTADISTICOS
-	estadistico_reporte,
+	estadistico_servicio,
 );
 
 //---- Rutas Privadas ------

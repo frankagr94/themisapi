@@ -1,11 +1,11 @@
 //----dependencias------  
 'use strict'
 const bcrypt = require("bcryptjs");
-const Estadistico_reporte = require('../models/estadistico_reporte');
+const Estadistico_servicio = require('../models/estadistico_servicio');
 
 exports.findDocuments = (req,res) => {
   
-  Estadistico_reporte.forge().fetchAll()
+  Estadistico_servicio.forge().fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
