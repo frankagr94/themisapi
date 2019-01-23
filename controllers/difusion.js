@@ -2,9 +2,8 @@
 'use strict'
 const bcrypt = require("bcryptjs");
 const Difusion = require('../models/difusion');
-const Bookshelf = require('../db/index')
-const knex = Bookshelf.knex;
-const Usuario = require('../models/usuario');
+const Bookshelf = require('../db/index');
+const mailer = require('../services/mailer');
 
 exports.findDocuments = (req,res) => {
   
@@ -19,14 +18,19 @@ exports.findDocuments = (req,res) => {
 }
 
 exports.difundir = (req, res) => {
+  //let cond = [];
+  //cond = req.body.filtros;
+  let filter = req.body.filtros; 
   Bookshelf.knex({u: 'usuario',c:'caracteristica',p:'perfil_caracteristica',cl:'cliente'})
   .distinct('u.correo', 'u.id')
   .select()
-  .whereIn('p.caracteristica_id',[6,9,10])
+  .whereIn('p.caracteristica_id', filter)
   .andWhereRaw('cl.id = p.cliente_id')
   .andWhereRaw('u.id = cl.usuario_id')
   .then(function(data){
-    res.status(200).json({responde:data});
+    data.forEach(element => {
+      res.status(200).json(element.correo);
+    });
   })
   .catch(function(err){
     res.status(500).json({ error: true, data: {message: err.message} });
@@ -52,7 +56,7 @@ exports.createDocument = (req,res) => {
     caracteristica_id:       req.body.caracteristica_id
   }
 
-  difusion.forge(newData).save()
+  Difusion.forge(newData).save()
   .then(function(data){
     res.status(200).json({ error: false, data: { message: 'difusion creado' } });
   })

@@ -59,28 +59,6 @@ function enviarCorreo(correoDestino, cuerpoMensaje,asunto) {
 }
 
 function enviarCorreoSuscripcion(correoDestino, contrasenia) {
-	//---- Configurar Msj ------  
-	/*let mensaje = cuerpoMensaje;
-
-	//---- Configurar Correo ------  
-	let mailOptions = {
-	  from: 	correoSalida, //cuenta emisor
-	  to: 		correoDestino,     			//cuenta destino
-	  subject: 	'Bienvenido al mejor bufete!',     	//asunto msj
-		text: 	         'Gracias por unirte\
-											tenemos un gran numero de abogados y servicios para ti,\
-											para acceder a ellos solo debes usar tu correo y la siguiente contraseña:\
-											'+clave           //texto msj
-	};
-
-	//---- Enviar Correo  ------  
-	transporter.sendMail(mailOptions, function(error, info){
-	  if (error) {
-	    console.log(error);
-	  } else {
-	    console.log('Email enviado: ' + info.response);
-	  }
-	});*/
 	readHTMLFile(__dirname+'/../files/plantilla/plantilla_correo.hbs', function(err, html){
 		var template = handlebars.compile(html);
 		var replacements = {
@@ -104,5 +82,30 @@ function enviarCorreoSuscripcion(correoDestino, contrasenia) {
 	})
 }
 
-module.exports = { enviarCorreo, enviarCorreoSuscripcion };
+function enviarCorreoPromocion(correoDestino, promocion) {
+	readHTMLFile(__dirname+'/../files/plantilla/plantilla_correo.hbs', function(err, html){
+		var template = handlebars.compile(html);
+		var replacements = {
+			nombre: JSON.stringify(promocion.nombre),
+			cuerpo: JSON.stringify(promocion.cuerpo),
+			 
+		};
+		var htmlToSend = template(replacements);
+		let mailOptions = {
+			from: 	correoSalida, //cuenta emisor
+			to: 		correoDestino,     			//cuenta destino
+			subject: 	`Excelente oportunidad para ti con la promocion ${promocion.nombre}`,
+			html: htmlToSend
+		};
+		transporter.sendMail(mailOptions, function(error, info){
+			if (error) {
+				console.log(error);
+			} else {
+				console.log('Email enviado: ' + info.response);
+			}
+		});
+	})
+}
+
+module.exports = { enviarCorreo, enviarCorreoSuscripcion, enviarCorreoPromocion };
 
