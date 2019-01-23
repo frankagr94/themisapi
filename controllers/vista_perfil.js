@@ -15,9 +15,9 @@ exports.findDocuments = (req,res) => {
 
 }
 
-exports.findOneDocument = (req,res) => {
+exports.findOneDocumentByCliente = (req,res) => {
 
-  let conditions = { id: req.params.id };
+  let conditions = { cliente_id: req.params.id };
 
   Vista_perfil.forge(conditions).fetch()
     .then(function(data){
