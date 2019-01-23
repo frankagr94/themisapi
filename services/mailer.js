@@ -86,9 +86,9 @@ function enviarCorreoPromocion(correoDestino, promocion) {
 	readHTMLFile(__dirname+'/../files/plantilla/plantilla_correo.hbs', function(err, html){
 		var template = handlebars.compile(html);
 		var replacements = {
+			imagen: JSON.stringify(promocion.imagen),
 			nombre: JSON.stringify(promocion.nombre),
-			cuerpo: JSON.stringify(promocion.cuerpo),
-			 
+			descripcion: JSON.stringify(promocion.descripcion),			 
 		};
 		var htmlToSend = template(replacements);
 		let mailOptions = {
