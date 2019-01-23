@@ -83,7 +83,7 @@ function enviarCorreoSuscripcion(correoDestino, contrasenia) {
 }
 
 function enviarCorreoPromocion(correoDestino, promocion) {
-	readHTMLFile(__dirname+'/../files/plantilla/plantilla_correo.hbs', function(err, html){
+	readHTMLFile(__dirname+'/../files/plantilla/promocion.hbs', function(err, html){
 		var template = handlebars.compile(html);
 		var replacements = {
 			imagen: JSON.stringify(promocion.imagen),

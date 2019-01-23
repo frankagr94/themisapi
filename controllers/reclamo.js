@@ -39,6 +39,8 @@ exports.createReclamo = (req,res) => {
     descripcion:            req.body.descripcion,
     fecha_creacion:         req.body.fecha_creacion,
     estatus:                'P',
+    servicio_id:            req.body.servicio_id,
+    tipo_respuesta:         req.body.tipo_respuesta
   }
 
   Reclamo.forge(newData).save()
