@@ -26,9 +26,13 @@ exports.difundir = (req, res) => {
   .andWhereRaw('cl.id = p.cliente_id')
   .andWhereRaw('u.id = cl.usuario_id')
   .then(function(data){
-    console.log(req.body.nombre+''+req.body.descripcion)
+    let promocion = { 
+      nombre: req.body.nombre,
+      descripcion: req.body.descripcion,
+      imagen: req.body.imagen
+    }
     data.forEach(element => {
-      //mailer.enviarCorreoPromocion(element.correo, req.body.promocion_id)
+      mailer.enviarCorreoPromocion(element.correo, promocion)
     });
     res.status(200).json({ error: false, data: {message: 'Promocion difundida exitosammente' }});
   })
