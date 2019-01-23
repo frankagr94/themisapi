@@ -19,7 +19,7 @@ exports.findOneDocumentByCliente = (req,res) => {
 
   let conditions = { cliente_id: req.params.id };
 
-  Vista_perfil.forge(conditions).fetch()
+  Vista_perfil.where(conditions).fetchAll()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'vista_perfil no existe' } });
 
