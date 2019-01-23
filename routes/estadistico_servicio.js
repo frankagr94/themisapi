@@ -3,10 +3,10 @@ const express = require('express')
 
 //----dependencias------ 
 const router = express.Router()
-const controller = require('../controllers/estadistico_reporte')
+const controller = require('../controllers/estadistico_servicio')
 
 //----Parametros------
-const path = '/estadistico_reporte'
+const path = '/estadistico_servicio'
 const id = ':id'
 
 //----Rutas------ 
