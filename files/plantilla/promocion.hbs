@@ -49,7 +49,15 @@
             clear: both;
             display: block;
         }
-        
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            border-radius: 5px; /* 5px rounded corners */
+        }
+
+        .imgcard {
+            border-radius: 5px 5px 0 0;
+        }
         center {
             width: 100%;
             min-width: 580px;
@@ -1089,17 +1097,20 @@
                                                         <center>
                                                             <p></p>
 
-                                                            <h1><strong>Solicitud Aprobada</strong></h1>
+                                                            <h1><strong>Tenemos una Promocion para ti</strong></h1>
 
                                                             <p></p>
                                                         </center>
                                                         <p></p>
 
-                                                        <p>Estimado usuario,<br><br> Hemos aprobado su solitud de servicio {{servicio}}. Pronto le notificaremos la fecha de su cita para conocer mas detalles de su solicitud.</p>
-
-                                                       
-
-                                                    </td>
+                                                        <div class="card">
+                                                            <img class="imgcard" src="{{imagen}}" alt="Avatar" style="width:100%">
+                                                             <div class="container">
+                                                            <h4><b>{{nombre}}</b></h4> 
+                                                            <p>{{descripcion}}</p> 
+                                                            </div>
+                                                            </div>
+                                                   </td>
                                                 </tr>
                                                 
                                                 <tr>

@@ -30,7 +30,7 @@ exports.difundir = (req, res) => {
     data.forEach(element => {
       //mailer.enviarCorreoPromocion(element.correo, req.body.promocion_id)
     });
-    res.status(200).json({ error: false, data: {message: err.message} });
+    res.status(200).json({ error: false, data: {message: 'Promocion difundida exitosammente' }});
   })
   .catch(function(err){
     res.status(500).json({ error: true, data: {message: err.message} });
