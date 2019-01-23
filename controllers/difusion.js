@@ -22,7 +22,7 @@ exports.difundir = (req, res) => {
   Bookshelf.knex({u: 'usuario',c:'caracteristica',p:'perfil_caracteristica',cl:'cliente'})
   .distinct('u.correo', 'u.id')
   .select()
-  .whereIn('p.caracteristica_id', filter)
+  .whereIn('p.caracteristica_id', [3,9,13,7])
   .andWhereRaw('cl.id = p.cliente_id')
   .andWhereRaw('u.id = cl.usuario_id')
   .then(function(data){

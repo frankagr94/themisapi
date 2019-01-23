@@ -40,7 +40,8 @@ exports.createServicio = (req,res) => {
     pagado:             req.body.pagado,
     estatus:            'A',
     fecha_creado:       req.body.fecha_creado,
-    fecha_cierre:       req.body.fecha_cierre
+    fecha_cierre:       req.body.fecha_cierre,
+    garantia_id:        req.body.garantia_id
   }
 
   Servicio.forge(newData).save()

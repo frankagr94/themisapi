@@ -54,9 +54,14 @@
             transition: 0.3s;
             border-radius: 5px; /* 5px rounded corners */
         }
-
+        .card:hover {
+             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }   
         .imgcard {
             border-radius: 5px 5px 0 0;
+        }
+        .containercard {
+            padding: 2px 16px;
         }
         center {
             width: 100%;
@@ -1104,8 +1109,8 @@
                                                         <p></p>
 
                                                         <div class="card">
-                                                            <img class="imgcard" src="{{imagen}}" alt="Avatar" style="width:100%">
-                                                             <div class="container">
+                                                            <img class="imgcard" src={{imagen}} alt="" style="width:100%">
+                                                             <div class="containercard">
                                                             <h4><b>{{nombre}}</b></h4> 
                                                             <p>{{descripcion}}</p> 
                                                             </div>
