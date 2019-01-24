@@ -54,7 +54,7 @@ exports.findOneDocumentByClienteId = (req,res) => {
 
   let conditions = { cliente_id: req.params.cliente_id };
 
-  Perfil.forge(conditions).fetch()
+  Perfil.where(conditions).fetchAll()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'perfil no existe' } });
 

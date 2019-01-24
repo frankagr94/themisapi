@@ -14,6 +14,7 @@ const id = ':id'
 router.get(`${path}`, controller.findClientes)
 router.post(`${path}`,controller.createCliente)
 router.get(`${path}/${id}`,controller.findOneCliente)
+router.get(`${path}/${id}/user`,controller.findOneClientUser)
 router.get(`${path}/usuario/:id_usuario`,controller.findOneClientByUser)
 router.put(`${path}/${id}`,controller.updateCliente)
 router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)

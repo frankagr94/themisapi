@@ -2,6 +2,7 @@
 'use strict'
 const bcrypt = require("bcryptjs");
 const Cliente = require('../models/cliente');
+const Usuario = require('../models/usuario');
 
 exports.findClientes = (req,res) => {
   
@@ -66,6 +67,27 @@ exports.findOneClientByUser = (req,res) => {
 
       res.status(200).json({ error : false, data : data.toJSON() })
 
+    })
+    .catch(function(err){
+      res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
+exports.findOneClientUser = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Cliente.forge(conditions).fetch()
+    .then(function(cliente){
+      if(!cliente) return res.status(404).json({ error : true, data : { message : 'cliente no existe' } });
+      Usuario.forge({id:cliente.usuario_id}).fetch()
+        .then(function(data){
+          res.status(200).json({ error : false, data : data.toJSON() })
+        })
+        .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+        })
     })
     .catch(function(err){
       res.status(500).json({ error : false, data : {message : err.message} })
