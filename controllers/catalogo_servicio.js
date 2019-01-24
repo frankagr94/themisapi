@@ -7,9 +7,7 @@ const upload = require('../middlewares/uploader');
 
 exports.findCatalogos = (req,res) => {
   
-  Catalogo_servicio.where({estatus:'A'||'a'}).fetchAll({
-    withRelated:[ 'valoraciones', 'valoraciones.rangos']
-  })
+  Catalogo_servicio.where({estatus:'A'||'a'}).fetchAll()
   .then(function(data){
     res.status(200).json({ error : false, data : data.toJSON() });
   })
@@ -106,9 +104,7 @@ exports.findOneCatalogo = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Catalogo_servicio.forge(conditions).fetch({
-    withRelated:[ 'valoraciones', 'valoraciones.rangos']
-  })
+  Catalogo_servicio.forge(conditions).fetch()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'servicio no existe' } });
 
