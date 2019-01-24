@@ -49,20 +49,7 @@
             clear: both;
             display: block;
         }
-        .card {
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-            transition: 0.3s;
-            border-radius: 5px; /* 5px rounded corners */
-        }
-        .card:hover {
-             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-        }   
-        .imgcard {
-            border-radius: 5px 5px 0 0;
-        }
-        .containercard {
-            padding: 2px 16px;
-        }
+        
         center {
             width: 100%;
             min-width: 580px;
@@ -1102,22 +1089,19 @@
                                                         <center>
                                                             <p></p>
 
-                                                            <h1><strong>Tenemos una Promocion para ti</strong></h1>
+                                                            <h1><strong>Solicitud Rechazada</strong></h1>
 
                                                             <p></p>
                                                         </center>
                                                         <p></p>
 
-                                                        <div class="card">
-                                                            <img class="imgcard" src="{{imagen}}" alt="" style="width:100%">
-                                                             <div class="containercard">
-                                                            <h2>Nos complace en anunciar para nuestros cliente, la promocion</h2>     
-                                                            <h4><b><strong>{{nombre}}</strong></b></h4> 
-                                                            <p><h3>{{descripcion}}</h3></p>
-                                                            <h3>No esperas mas y aprovecha esta oportunidad, ingresa con tu usuario y solicitala ya</h3> 
-                                                            </div>
-                                                            </div>
-                                                   </td>
+                                                        <p>Estimado usuario,<br><br> su solicitud de servicio ;<strong>{{servicio}}</strong> ha sido rechazada.</p>
+                                                        <br>
+                                                        <p>Ingrese con su usuario al sistema para ver el detalle del rechazo</p>
+
+                                                       
+
+                                                    </td>
                                                 </tr>
                                                 
                                                 <tr>

@@ -67,6 +67,8 @@ const vista_todos_servicios = require('./vista_todos_servicios');
 const vista_tr_valoracion = require('./vista_tr_valoracion');
 const vista_usuario = require('./vista_usuario');
 const vista_valoracion = require('./vista_valoracion');
+//----CORREOS
+const correos = require('./correo');
 //----REPORTES
 const reporte_incidencia = require('./reporte_incidecia');
 const reporte_promocion = require('./reporte_promocion');
@@ -208,6 +210,7 @@ app.use('/',
 	tipo_parametro,
 	categoria_servicio,
 	conocenos_web,
+	correos,
 	servicio,
 	consejo,
 	bloque_hora,
