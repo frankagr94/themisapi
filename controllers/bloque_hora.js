@@ -117,3 +117,26 @@ exports.deleteBloque_hora = (req,res) => {
     })
 
 }
+
+exports.borrarBloque_hora = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Bloque_hora.forge(conditions).fetch()
+    .then(function(bloque_hora){
+      if(!bloque_hora) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
+
+      bloque_hora.destroy()
+        .then(function(data){
+          res.status(200).json({ error : false, data : {message : 'valoracion eliminado'} })
+        })
+        .catch(function(err){
+          res.status(500).json({error : true, data : {message : err.message}});
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}

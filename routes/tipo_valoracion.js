@@ -17,5 +17,6 @@ router.get(`${path}/${id}`,controller.findOneTipo_valoracion)
 router.put(`${path}/${id}`,controller.updateTipo_valoracion)
 router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)
 router.delete(`${path}/${id}`,controller.deleteTipo_valoracion)
+router.delete(`${path}/borrar/${id}`,controller.borrarTipo_valoracion)
 
 module.exports = router;

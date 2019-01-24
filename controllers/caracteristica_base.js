@@ -118,3 +118,26 @@ exports.deleteCaracteristica_base = (req,res) => {
     })
 
 }
+
+exports.borrarCaracteristica_base = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Caracteristica_base.forge(conditions).fetch()
+    .then(function(caracteristica_base){
+      if(!caracteristica_base) return res.status(404).json({ error : true, data : { message : 'caracteristica base no existe' } });
+
+      caracteristica_base.destroy()
+        .then(function(data){
+          res.status(200).json({ error : false, data : {message : 'caracteristica base eliminado'} })
+        })
+        .catch(function(err){
+          res.status(500).json({error : true, data : {message : err.message}});
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}

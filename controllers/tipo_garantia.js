@@ -118,3 +118,26 @@ exports.deleteTipo_garantia = (req,res) => {
     })
 
 }
+
+exports.borrarTipo_garantia = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Tipo_garantia.forge(conditions).fetch()
+    .then(function(tipo_garantia){
+      if(!tipo_garantia) return res.status(404).json({ error : true, data : { message : 'tipo_garantia no existe' } });
+
+      tipo_garantia.destroy()
+        .then(function(data){
+          res.status(200).json({ error : false, data : {message : 'tipo_garantia eliminado'} })
+        })
+        .catch(function(err){
+          res.status(500).json({error : true, data : {message : err.message}});
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}

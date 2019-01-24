@@ -118,3 +118,26 @@ exports.deleteTipo_reclamo = (req,res) => {
     })
 
 }
+
+exports.borrarTipo_reclamo = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Tipo_reclamo.forge(conditions).fetch()
+    .then(function(tipo_reclamo){
+      if(!tipo_reclamo) return res.status(404).json({ error : true, data : { message : 'tipo_reclamo no existe' } });
+
+      tipo_reclamo.destroy()
+        .then(function(data){
+          res.status(200).json({ error : false, data : {message : 'tipo_reclamo eliminado'} })
+        })
+        .catch(function(err){
+          res.status(500).json({error : true, data : {message : err.message}});
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}

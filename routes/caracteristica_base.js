@@ -17,5 +17,6 @@ router.get(`${path}/${id}`,controller.findOneCaracteristica_base)
 router.put(`${path}/${id}`,controller.updateCaracteristica_base)
 router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)
 router.delete(`${path}/${id}`,controller.deleteCaracteristica_base)
+router.delete(`${path}/borrar/${id}`,controller.borrarCaracteristica_base)
 
 module.exports = router;

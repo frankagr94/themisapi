@@ -119,3 +119,26 @@ exports.deleteTipo_empleado = (req,res) => {
     })
 
 }
+
+exports.borrarTipo_empleado = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Tipo_empleado.forge(conditions).fetch()
+    .then(function(tipo_empleado){
+      if(!tipo_empleado) return res.status(404).json({ error : true, data : { message : 'tipo_empleado no existe' } });
+
+      tipo_empleado.destroy()
+        .then(function(data){
+          res.status(200).json({ error : false, data : {message : 'tipo_empleado eliminado'} })
+        })
+        .catch(function(err){
+          res.status(500).json({error : true, data : {message : err.message}});
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}

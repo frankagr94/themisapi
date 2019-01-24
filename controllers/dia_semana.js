@@ -94,3 +94,26 @@ exports.deleteDia_semana = (req,res) => {
     })
 
 }
+
+exports.borrarDia_semana = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Dia_semana.forge(conditions).fetch()
+    .then(function(dia_semana){
+      if(!dia_semana) return res.status(404).json({ error : true, data : { message : 'dia semana no existe' } });
+
+      dia_semana.destroy()
+        .then(function(data){
+          res.status(200).json({ error : false, data : {message : 'dia semana eliminado'} })
+        })
+        .catch(function(err){
+          res.status(500).json({error : true, data : {message : err.message}});
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}

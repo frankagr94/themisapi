@@ -17,5 +17,6 @@ router.get(`${path}/${id}`,controller.findOneTipo_incidencia)
 router.put(`${path}/${id}`,controller.updateTipo_incidencia)
 router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)
 router.delete(`${path}/${id}`,controller.deleteTipo_incidencia)
+router.delete(`${path}/borrar/${id}`,controller.borrarTipo_incidencia)
 
 module.exports = router;

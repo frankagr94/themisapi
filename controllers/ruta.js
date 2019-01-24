@@ -99,3 +99,26 @@ exports.deleteRuta = (req,res) => {
     })
 
 }
+
+exports.borrarRuta = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  ruta.forge(conditions).fetch()
+    .then(function(ruta){
+      if(!ruta) return res.status(404).json({ error : true, data : { message : 'ruta no existe' } });
+
+      ruta.destroy()
+        .then(function(data){
+          res.status(200).json({ error : false, data : {message : 'ruta eliminado'} })
+        })
+        .catch(function(err){
+          res.status(500).json({error : true, data : {message : err.message}});
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}

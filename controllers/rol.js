@@ -142,3 +142,26 @@ exports.deleteRol = (req,res) => {
     })
 
 }
+
+exports.borrarRol = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Rol.forge(conditions).fetch()
+    .then(function(rol){
+      if(!rol) return res.status(404).json({ error : true, data : { message : 'rol no existe' } });
+
+      rol.destroy()
+        .then(function(data){
+          res.status(200).json({ error : false, data : {message : 'rol eliminado'} })
+        })
+        .catch(function(err){
+          res.status(500).json({error : true, data : {message : err.message}});
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
