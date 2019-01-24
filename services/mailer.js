@@ -82,13 +82,60 @@ function enviarCorreoSuscripcion(correoDestino, contrasenia) {
 	})
 }
 
+function enviarCorreoSolicitudAceptada(correoDestino, service) {
+	readHTMLFile(__dirname+'/../files/plantilla/solicitudAceptada.hbs', function(err, html){
+		var template = handlebars.compile(html);
+		var replacements = {
+			servicio:servicio
+		};
+		var htmlToSend = template(replacements);
+		let mailOptions = {
+			from: 	correoSalida, //cuenta emisor
+			to: 		correoDestino,     			//cuenta destino
+			subject: 	`Sobre su solicitud de servicio`,
+			html: htmlToSend
+		};
+		transporter.sendMail(mailOptions, function(error, info){
+			if (error) {
+				console.log(error);
+			} else {
+				console.log('Email enviado: ' + info.response);
+			}
+		});
+	})
+}
+
+function enviarCorreoCita(correoDestino, fecha, hora) {
+	readHTMLFile(__dirname+'/../files/plantilla/casoCerrado.hbs', function(err, html){
+		var template = handlebars.compile(html);
+		var replacements = {
+			fecha:fecha,
+			hora:hora
+		};
+		var htmlToSend = template(replacements);
+		let mailOptions = {
+			from: 	correoSalida, //cuenta emisor
+			to: 		correoDestino,     			//cuenta destino
+			subject: 	`Tiene una cita programada`,
+			html: htmlToSend
+		};
+		transporter.sendMail(mailOptions, function(error, info){
+			if (error) {
+				console.log(error);
+			} else {
+				console.log('Email enviado: ' + info.response);
+			}
+		});
+	})
+}
+
 function enviarCorreoPromocion(correoDestino, promocion) {
 	readHTMLFile(__dirname+'/../files/plantilla/promocion.hbs', function(err, html){
 		var template = handlebars.compile(html);
 		var replacements = {
-			imagen: JSON.stringify(promocion.imagen),
-			nombre: JSON.stringify(promocion.nombre),
-			descripcion: JSON.stringify(promocion.descripcion),			 
+			imagen: promocion.imagen,
+			nombre: promocion.nombre,
+			descripcion: promocion.descripcion,			 
 		};
 		var htmlToSend = template(replacements);
 		let mailOptions = {
@@ -107,5 +154,125 @@ function enviarCorreoPromocion(correoDestino, promocion) {
 	})
 }
 
-module.exports = { enviarCorreo, enviarCorreoSuscripcion, enviarCorreoPromocion };
+function enviarCorreoApertura(correoDestino, servicio) {
+	readHTMLFile(__dirname+'/../files/plantilla/casoApertura.hbs', function(err, html){
+		var template = handlebars.compile(html);
+		var replacements = {
+			servicio: servicio,
+			descripcion: JSON.stringify(promocion.descripcion),			 
+		};
+		var htmlToSend = template(replacements);
+		let mailOptions = {
+			from: 	correoSalida, //cuenta emisor
+			to: 		correoDestino,     			//cuenta destino
+			subject: 	`Detalle de su solicitud de servicio`,
+			html: htmlToSend
+		};
+		transporter.sendMail(mailOptions, function(error, info){
+			if (error) {
+				console.log(error);
+			} else {
+				console.log('Email enviado: ' + info.response);
+			}
+		});
+	})
+}
+
+function enviarCorreoCierre(correoDestino) {
+	readHTMLFile(__dirname+'/../files/plantilla/casoCerrado.hbs', function(err, html){
+		var template = handlebars.compile(html);
+		var replacements = {};
+		var htmlToSend = template(replacements);
+		let mailOptions = {
+			from: 	correoSalida, //cuenta emisor
+			to: 		correoDestino,     			//cuenta destino
+			subject: 	`Detalle de su caso`,
+			html: htmlToSend
+		};
+		transporter.sendMail(mailOptions, function(error, info){
+			if (error) {
+				console.log(error);
+			} else {
+				console.log('Email enviado: ' + info.response);
+			}
+		});
+	})
+}
+
+function enviarCorreoActuacion(correoDestino, actuaion, servicio) {
+	readHTMLFile(__dirname+'/../files/plantilla/actuacionRealizada.hbs', function(err, html){
+		var template = handlebars.compile(html);
+		var replacements = {
+			actuaion: actuaion,
+			servicio: servicio
+		};
+		var htmlToSend = template(replacements);
+		let mailOptions = {
+			from: 	correoSalida, //cuenta emisor
+			to: 		correoDestino,     			//cuenta destino
+			subject: 	`Detalle de su caso`,
+			html: htmlToSend
+		};
+		transporter.sendMail(mailOptions, function(error, info){
+			if (error) {
+				console.log(error);
+			} else {
+				console.log('Email enviado: ' + info.response);
+			}
+		});
+	})
+}
+function enviarCorreoReclamoAceptado(correoDestino) {
+	readHTMLFile(__dirname+'/../files/plantilla/aceptarReclamo.hbs', function(err, html){
+		var template = handlebars.compile(html);
+		var replacements = {};
+		var htmlToSend = template(replacements);
+		let mailOptions = {
+			from: 	correoSalida, //cuenta emisor
+			to: 		correoDestino,     			//cuenta destino
+			subject: 	`Detalle de su reclamo`,
+			html: htmlToSend
+		};
+		transporter.sendMail(mailOptions, function(error, info){
+			if (error) {
+				console.log(error);
+			} else {
+				console.log('Email enviado: ' + info.response);
+			}
+		});
+	})
+}
+
+function enviarCorreoRechazoReclamo(correoDestino) {
+	readHTMLFile(__dirname+'/../files/plantilla/rechazarReclamo.hbs', function(err, html){
+		var template = handlebars.compile(html);
+		var replacements = {};
+		var htmlToSend = template(replacements);
+		let mailOptions = {
+			from: 	correoSalida, //cuenta emisor
+			to: 		correoDestino,     			//cuenta destino
+			subject: 	`Detalle de su reclamo`,
+			html: htmlToSend
+		};
+		transporter.sendMail(mailOptions, function(error, info){
+			if (error) {
+				console.log(error);
+			} else {
+				console.log('Email enviado: ' + info.response);
+			}
+		});
+	})
+}
+
+module.exports = { 
+	enviarCorreo,
+	enviarCorreoSuscripcion, 
+	enviarCorreoPromocion, 
+	enviarCorreoActuacion, 
+	enviarCorreoApertura,
+	enviarCorreoCierre, 
+	enviarCorreoCita, 
+	enviarCorreoRechazoReclamo, 
+	enviarCorreoReclamoAceptado, 
+	enviarCorreoSolicitudAceptada };
 
