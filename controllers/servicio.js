@@ -85,7 +85,7 @@ exports.asociarActuaciones = (req, res)=>{
 
   Servicio.forge(conditions).fetch()
     .then(function(servicio){
-      servicio.actuaciones().attach({actuacion_id:req.body.actuacion_id,estatus:'P', fecha_plan: req.body.fecha_plan, horario_id:req.body.horario_id, abogado_id: req.body.abogado_id})
+      servicio.actuaciones().attach({actuacion_id:req.body.actuacion_id,estatus:req.body.estatus, fecha_plan: req.body.fecha_plan, horario_id:req.body.horario_id, abogado_id: req.body.abogado_id})
         .then(function(data){
           Actuacion_servicio.forge({servicio_id:req.body.id_servicio, actuacion_id:req.body.actuacion_id}).fetch()
           .then(function(actuacion){
