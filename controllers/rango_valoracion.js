@@ -24,26 +24,17 @@ exports.createRango_valoracion = (req,res) => {
     descripcion:     req.body.descripcion,
     estatus:         'A'
   }
-
-  if(!req.files){
-    res.status(404).json({ error: true, data: { message: 'Debe seleccionar una imagen para la categoria' } });
-  }
-  else{
-    mw.uploader(req.files.imagen).then(function(result) {
-      if(result.error){
-        return res.status(500).send({ message : 'hubo un error subiendo la imagen' })
-      }else{
-        newData.imagen = result.url;
-        Rango_valoracion.forge(newData).save()
-        .then(function(data){
-          res.status(200).json({ error: false, data: { message: 'rango_valoracion creado con exito' } });
-        })
-        .catch(function (err) {
-          res.status(500).json({ error: true, data: {message: err.message} });
-        });
-      }
-    })
-  }
+      
+            Rango_valoracion.forge(newData).save()
+            .then(function(data){
+              res.status(200).json({ error: false, data: { message: 'rango_valoracion creado con exito' } });
+            })
+            .catch(function (err) {
+              res.status(500).json({ error: true, data: {message: err.message} });
+            });
+      
+    
+  
 }
 
 exports.findOneRango_valoracion = (req,res) => {
@@ -115,6 +106,29 @@ exports.deleteRango_valoracion = (req,res) => {
       if(!rango_valoracion) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
 
       rango_valoracion.save({estatus:'I'})
+        .then(function(data){
+          res.status(200).json({ error : false, data : {message : 'valoracion eliminado'} })
+        })
+        .catch(function(err){
+          res.status(500).json({error : true, data : {message : err.message}});
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
+exports.borrarRango_valoracion = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Rango_valoracion.forge(conditions).fetch()
+    .then(function(rango_valoracion){
+      if(!rango_valoracion) return res.status(404).json({ error : true, data : { message : 'valoracion no existe' } });
+
+      rango_valoracion.destroy()
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'valoracion eliminado'} })
         })

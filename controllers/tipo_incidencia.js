@@ -118,3 +118,26 @@ exports.deleteTipo_incidencia = (req,res) => {
     })
 
 }
+
+exports.borrarTipo_incidencia = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Tipo_incidencia.forge(conditions).fetch()
+    .then(function(tipo_incidencia){
+      if(!tipo_incidencia) return res.status(404).json({ error : true, data : { message : 'tipo_incidencia no existe' } });
+
+      tipo_incidencia.destroy()
+        .then(function(data){
+          res.status(200).json({ error : false, data : {message : 'tipo_incidencia eliminado'} })
+        })
+        .catch(function(err){
+          res.status(500).json({error : true, data : {message : err.message}});
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}

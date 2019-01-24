@@ -16,5 +16,6 @@ router.post(`${path}`,controller.createBloque_hora)
 router.get(`${path}/${id}`,controller.findOneBloque_hora)
 router.put(`${path}/${id}`,controller.updateBloque_hora)
 router.delete(`${path}/${id}`,controller.deleteBloque_hora)
+router.delete(`${path}/borrar/${id}`,controller.borrarBloque_hora)
 
 module.exports = router;

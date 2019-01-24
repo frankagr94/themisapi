@@ -17,5 +17,6 @@ router.get(`${path}/${id}`,controller.findOneTipo_empleado)
 router.put(`${path}/${id}`,controller.updateTipo_empleado)
 router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)
 router.delete(`${path}/${id}`,controller.deleteTipo_empleado)
+router.delete(`${path}/borrar/${id}`,controller.deleteTipo_empleado)
 
 module.exports = router;

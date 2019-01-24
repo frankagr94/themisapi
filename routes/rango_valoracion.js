@@ -16,5 +16,6 @@ router.post(`${path}`,controller.createRango_valoracion)
 router.get(`${path}/${id}`,controller.findOneRango_valoracion)
 router.put(`${path}/${id}`,controller.updateRango_valoracion)
 router.delete(`${path}/${id}`,controller.deleteRango_valoracion)
+router.delete(`${path}/borrar/${id}`,controller.borrarRango_valoracion)
 
 module.exports = router;

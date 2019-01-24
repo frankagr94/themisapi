@@ -124,3 +124,26 @@ exports.deleteEspecialidad = (req,res) => {
     })
 
 }
+
+exports.borrarEspecialidad = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Especialidad.forge(conditions).fetch()
+    .then(function(especialidad){
+      if(!especialidad) return res.status(404).json({ error : true, data : { message : 'especialidad no existe' } });
+
+      especialidad.destroy()
+        .then(function(data){
+          res.status(200).json({ error : false, data : {message : 'especialidad eliminado'} })
+        })
+        .catch(function(err){
+          res.status(500).json({error : true, data : {message : err.message}});
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}

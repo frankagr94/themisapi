@@ -18,5 +18,6 @@ router.get(`${path}/${id}`,controller.findOneRol)
 router.put(`${path}/${id}`,controller.updateRol)
 router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)
 router.delete(`${path}/${id}`,controller.deleteRol)
+router.delete(`${path}/borrar/${id}`,controller.borrarRol)
 
 module.exports = router;

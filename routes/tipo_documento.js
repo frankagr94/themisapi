@@ -17,5 +17,6 @@ router.get(`${path}/${id}`,controller.findOneTipo_documento)
 router.put(`${path}/${id}`,controller.updateTipo_documento)
 router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)
 router.delete(`${path}/${id}`,controller.deleteTipo_documento)
+router.delete(`${path}/borrar/${id}`,controller.borrarTipo_documento)
 
 module.exports = router;

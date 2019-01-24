@@ -95,7 +95,6 @@ exports.cambiarEstatus = (req,res) => {
 
 }
 
-
 exports.deleteTipo_documento = (req,res) => {
 
   let conditions = { id: req.params.id };
@@ -105,6 +104,29 @@ exports.deleteTipo_documento = (req,res) => {
       if(!tipo_documento) return res.status(404).json({ error : true, data : { message : 'tipo de documento no existe' } });
 
       tipo_documento.save({estatus:'I'})
+        .then(function(data){
+          res.status(200).json({ error : false, data : {message : 'tipo de documento eliminado'} })
+        })
+        .catch(function(err){
+          res.status(500).json({error : true, data : {message : err.message}});
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
+
+exports.borrarTipo_documento = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Tipo_documento.forge(conditions).fetch()
+    .then(function(tipo_documento){
+      if(!tipo_documento) return res.status(404).json({ error : true, data : { message : 'tipo de documento no existe' } });
+
+      tipo_documento.destroy()
         .then(function(data){
           res.status(200).json({ error : false, data : {message : 'tipo de documento eliminado'} })
         })

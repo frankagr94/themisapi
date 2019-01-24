@@ -118,3 +118,26 @@ exports.deleteTipo_cliente = (req,res) => {
     })
 
 }
+
+exports.borrarTipo_cliente = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Tipo_cliente.forge(conditions).fetch()
+    .then(function(tipo_cliente){
+      if(!tipo_cliente) return res.status(404).json({ error : true, data : { message : 'tipo de cliente no existe' } });
+
+      tipo_cliente.destroy()
+        .then(function(data){
+          res.status(200).json({ error : false, data : {message : 'tipo de cliente eliminado'} })
+        })
+        .catch(function(err){
+          res.status(500).json({error : true, data : {message : err.message}});
+        })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}
