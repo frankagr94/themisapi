@@ -14,6 +14,9 @@ const Catalogo_servicio = Bookshelf.Model.extend({
   },
   recaudos : function(){
     return this.belongsToMany(Documento, 'recaudo_servicio');
+  },
+  valoraciones: function(){
+    return this.belongsToMany(Tipo_valoracion, 'valoracion_catalogo');
   }
 });
 
