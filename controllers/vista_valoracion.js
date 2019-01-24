@@ -16,14 +16,25 @@ Vista_valoracion.forge().fetchAll()
 }
 
 exports.findDocumentsByTipoServicio = (req,res) => {
-    let conditions ={tipo_servicio_id: req.params.tipo_servicio_id};
-    
-    Vista_valoracion.where(conditions).fetchAll()
-      .then(function(data){
-        res.status(200).json({ error : false, data : data.toJSON() });
-      })
-      .catch(function (err) {
-        res.status(500).json({ error: true, data: {message: err.message} });
-      });
-    
-    }
+  let conditions ={tipo_servicio_id: req.params.tipo_servicio_id};
+  
+  Vista_valoracion.where(conditions).fetchAll()
+    .then(function(data){
+      res.status(200).json({ error : false, data : data.toJSON() });
+    })
+    .catch(function (err) {
+      res.status(500).json({ error: true, data: {message: err.message} });
+    });    
+}
+
+exports.findDocumentsByTipoServicioAndValoracion = (req,res) => {
+  let conditions ={tipo_servicio_id: req.params.tipo_servicio_id, tipo_valoracion_id: req.params.tipo_valoracion_id};
+  
+  Vista_valoracion.where(conditions).fetchAll()
+    .then(function(data){
+      res.status(200).json({ error : false, data : data.toJSON() });
+    })
+    .catch(function (err) {
+      res.status(500).json({ error: true, data: {message: err.message} });
+    });    
+}
