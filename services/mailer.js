@@ -82,8 +82,31 @@ function enviarCorreoSuscripcion(correoDestino, contrasenia) {
 	})
 }
 
-function enviarCorreoSolicitudAceptada(correoDestino, service) {
+function enviarCorreoSolicitudAceptada(correoDestino, servicio) {
 	readHTMLFile(__dirname+'/../files/plantilla/solicitudAceptada.hbs', function(err, html){
+		var template = handlebars.compile(html);
+		var replacements = {
+			servicio:servicio
+		};
+		var htmlToSend = template(replacements);
+		let mailOptions = {
+			from: 	correoSalida, //cuenta emisor
+			to: 		correoDestino,     			//cuenta destino
+			subject: 	`Sobre su solicitud de servicio`,
+			html: htmlToSend
+		};
+		transporter.sendMail(mailOptions, function(error, info){
+			if (error) {
+				console.log(error);
+			} else {
+				console.log('Email enviado: ' + info.response);
+			}
+		});
+	})
+}
+
+function enviarCorreoSolicitudRechazada(correoDestino, servicio) {
+	readHTMLFile(__dirname+'/../files/plantilla/solicitudRechazada.hbs', function(err, html){
 		var template = handlebars.compile(html);
 		var replacements = {
 			servicio:servicio
@@ -199,11 +222,11 @@ function enviarCorreoCierre(correoDestino) {
 	})
 }
 
-function enviarCorreoActuacion(correoDestino, actuaion, servicio) {
+function enviarCorreoActuacion(correoDestino, actuacion, servicio) {
 	readHTMLFile(__dirname+'/../files/plantilla/actuacionRealizada.hbs', function(err, html){
 		var template = handlebars.compile(html);
 		var replacements = {
-			actuaion: actuaion,
+			actuacion: actuacion,
 			servicio: servicio
 		};
 		var htmlToSend = template(replacements);
@@ -274,5 +297,7 @@ module.exports = {
 	enviarCorreoCita, 
 	enviarCorreoRechazoReclamo, 
 	enviarCorreoReclamoAceptado, 
-	enviarCorreoSolicitudAceptada };
+	enviarCorreoSolicitudAceptada,
+	enviarCorreoSolicitudRechazada
+ };
 
