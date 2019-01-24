@@ -12,5 +12,5 @@ const id = ':id'
 //----Rutas------ 
 router.get(`${path}`, controller.findDocuments)
 router.get(`${path}/tipo_servicio/:tipo_servicio_id`, controller.findDocumentsByTipoServicio)
-
+router.get(`${path}/:tipo_servicio_id/:tipo_valoracion_id`, controller.findDocumentsByTipoServicioAndValoracion)
 module.exports = router;
