@@ -17,6 +17,7 @@ const vista_actuacion_catalogo = require('./vista_actuacion_catalogo');
 const vista_agendas = require('./vista_agendas');
 const vista_agenda = require('./vista_agenda');
 const vista_calificacion_orden = require('./vista_calificacion_orden');
+const vista_caracteristica = require('./vista_caracteristica');
 const vista_cita = require('./vista_cita');
 const vista_cliente_comentario = require('./vista_cliente_comentario');
 const vista_cliente_consejo = require('./vista_cliente_consejo');
@@ -333,6 +334,7 @@ app.use('/',
 	vista_servicio_categoria,
 	vista_empleados_categoria,
 	vista_especialidad,
+	vista_caracteristica,
 	vista_cliente_consejo,
 	vista_cliente_servicio,
 	vista_cliente_promocion,
