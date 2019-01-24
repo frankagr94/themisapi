@@ -178,3 +178,25 @@ exports.deleteCategoria = (req,res) => {
     })
 
 }
+
+exports.borrarCategoria = (req,res) => {
+
+  let conditions = { id: req.params.id };
+
+  Categoria.forge(conditions).fetch()
+    .then(function(categoria){
+      if(!categoria) return res.status(404).json({ error : true, data : { message : 'categoria no existe' } });
+      categoria.destroy()
+      .then(function(data){
+        res.status(200).json({ error : false, data : { message : 'categoria eliminada logicamente'} });
+      })
+      .catch(function(err){
+        res.status(500).json({ error : false, data : {message : err.message} });
+      })
+
+    })
+    .catch(function(err){
+          res.status(500).json({ error : false, data : {message : err.message} })
+    })
+
+}

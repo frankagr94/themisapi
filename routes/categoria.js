@@ -18,5 +18,6 @@ router.get(`${path}/${id}`,controller.findOneCategoria)
 router.put(`${path}/${id}`,controller.updateCategoria)
 router.put(`${path}/${id}/estatus`, controller.cambiarEstatus)
 router.delete(`${path}/${id}`,controller.deleteCategoria)
+router.delete(`${path}/borrar/${id}`,controller.borrarCategoria)
 
 module.exports = router;
