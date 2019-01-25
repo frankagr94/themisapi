@@ -80,6 +80,9 @@ const reporte_solicitud = require('./reporte_solicitud');
 const reporte_sugerencia = require('./reporte_sugerencia');
 //----ESTADISTICOS
 const estadistico_servicio = require('./estadistico_servicio');
+const estadistico_incidencia = require('./estadistico_incidencia');
+const estadistico_sugerencia = require('./estadistico_sugerencia');
+const estadistico_promocion = require('./estadistico_promocion');
 //----TABLAS BASICAS------
 const acceso_rol = require('./acceso_rol');
 const actuacion = require('./actuacion');
@@ -390,6 +393,9 @@ app.use('/',
 	reporte_sugerencia,
 	//-------ESTADISTICOS
 	estadistico_servicio,
+	estadistico_promocion,
+	estadistico_sugerencia,
+	estadistico_incidencia
 );
 
 //---- Rutas Privadas ------
