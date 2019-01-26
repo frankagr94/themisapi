@@ -58,11 +58,11 @@ exports.updateDocument = (req,res) => {
 
   let conditions = { id: req.params.id };
 
-  Notificacion.forge(conditions).fetchAll()
+  Notificacion.forge(conditions).fetch()
     .then(function(notificacion){
       if(!notificacion) return res.status(404).json({ error : true, data : { message : 'notificacion no existe' } });
       
-      Notificacion.save(req.body)
+      notificacion.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'notificacion actualizado'} });
         })
