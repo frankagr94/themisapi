@@ -18,5 +18,7 @@ router.get(`${path}/findAllByUser/${':usuario_id'}`,controller.findNotifications
 router.put(`${path}/${id}`,controller.updateDocument)
 router.delete(`${path}/${id}`,controller.deleteDocument)
 router.post(`${path}/enviar`,controller.sendNotification)
+router.put(`${path}/${id}/estatus`,controller.cambiarEstatus)
+
 
 module.exports = router;
