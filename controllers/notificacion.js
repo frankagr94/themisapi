@@ -62,7 +62,7 @@ exports.updateDocument = (req,res) => {
     .then(function(notificacion){
       if(!notificacion) return res.status(404).json({ error : true, data : { message : 'notificacion no existe' } });
       
-      notificacion.save(req.body)
+      Notificacion.save(req.body)
         .then(function(data){
           res.status(200).json({ error : false, data : { message : 'notificacion actualizado'} });
         })
