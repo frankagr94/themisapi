@@ -140,26 +140,5 @@ exports.sendNotification = (req,res) => {
     res.status(500).json({ error: true, data: {message: err.message} });
   });
 
-  exports.cambiarEstatus = (req,res) => {
-
-    let conditions = { id: req.params.id };
   
-    Notificacion.forge(conditions).fetch()
-      .then(function(notificacion){
-        if(!notificacion) return res.status(404).json({ error : true, data : { message : 'notificacion no existe' } });
-        notificacion.save({estatus:req.body.estatus})
-          .then(function(data){
-            res.status(200).json({ error : false, data : { message : 'estatus de la notificacion actualizado'} });
-          })
-          .catch(function(err){
-            res.status(500).json({ error : false, data : {message : err.message} });
-          })
-  
-      })
-      .catch(function(err){
-            res.status(500).json({ error : false, data : {message : err.message} })
-      })
-  
-  }
-
 }
