@@ -70,7 +70,7 @@ exports.findOneDocumentByEstatus = (req,res) => {
 
   let conditions = { estatus: req.params.estatus };
 
-  Vista_cita.forge(conditions).fetch()
+  Vista_cita.where(conditions).fetchAll()
     .then(function(data){
       if(!data) return res.status(404).json({ error : true, data : { message : 'vista_cita no existe' } });
 
